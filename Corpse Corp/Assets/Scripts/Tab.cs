@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class Tab : MonoBehaviour
 {
-    //FRAMEWORK INCOMPLETE - JAMES WILL CONTINUE BUILDING OUT -
-    //- PROBABLY DOESNT MAKE SENSE YET
-
     //Background image
     public Image bottomBar;
 
