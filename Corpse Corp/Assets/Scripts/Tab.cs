@@ -8,17 +8,27 @@ public class Tab : MonoBehaviour
     //FRAMEWORK INCOMPLETE - JAMES WILL CONTINUE BUILDING OUT -
     //- PROBABLY DOESNT MAKE SENSE YET
 
+    //Background image
     public Image bottomBar;
+
+    //Logo of Tab
     public Sprite icon;
 
+    //Out of the five tabs, index of this tab
     private int tabIndex;
-    private float leftPoint;
-    private float rightPoint;
-    private float centerPoint;
+
+    //Four points of this tab clicker
+    private Vector2 topleftPoint;
+    private Vector2 toprightPoint;
+    private Vector2 bottomleftPoint;
+    private Vector2 bottomrightPoint;
 
     // Start is called before the first frame update
     void Start()
     {
+        bottomBar = transform.parent.GetComponent<Image>();
+
+        //Sets up tabIndex and the four points
         float backgroundLength = bottomBar.transform.localScale.x * bottomBar.rectTransform.rect.width;
         float backgroundHeight = bottomBar.transform.localScale.y * bottomBar.rectTransform.rect.height;
         float backgroundX = bottomBar.transform.position.x;
@@ -26,11 +36,20 @@ public class Tab : MonoBehaviour
 
         for(int i = 0; i < 5; i++)
         {
-            if(transform.GetChild(i) == transform)
+            if(bottomBar.transform.GetChild(i) == transform)
             {
                 tabIndex = i;
-                leftPoint = i / 5;
-                rightPoint = (i + 1)/ 5;
+                float leftX = backgroundX + (i * backgroundLength)/ 5;
+                float rightX = backgroundX + ((i + 1)* backgroundLength)/ 5;
+                float topY = backgroundY + (.5f * backgroundHeight);
+                float bottomY = backgroundY - (.5f * backgroundHeight);
+
+                topleftPoint = new Vector2(leftX, topY);
+                toprightPoint = new Vector2(rightX, topY);
+                bottomleftPoint = new Vector2(leftX, bottomY);
+                bottomrightPoint = new Vector2(rightX, bottomY);
+
+                Debug.Log("Tab " + (i + 1).ToString() + ": " + leftX + ", " + rightX + ", " + topY + ", " + bottomY);
             }
         }
     }
