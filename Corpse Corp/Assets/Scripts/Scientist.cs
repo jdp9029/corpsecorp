@@ -6,14 +6,16 @@ using UnityEngine;
 public class Scientist : MonoBehaviour
 {
     Dictionary<Scientist, DeathMethod> combinations;
+    DeathMethod mainMethod;
     string name;
     int tier;
     bool purchased;
 
-    public Scientist(string name, int tier)
+    public Scientist(string name, int tier, DeathMethod mainMethod)
     {
         this.tier = tier;
         this.name = name;
+        this.mainMethod = mainMethod;
         
         if(name == "HS Dropout" || name == "HS Graduate")
         {
