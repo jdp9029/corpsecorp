@@ -12,6 +12,9 @@ public class DeathMethod : MonoBehaviour
     public float rateOfSale;
     public float price;
 
+    public Scientist scientist1;
+    public Scientist scientist2;
+
     //==== CONSTRUCTOR ====
     public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price)
     {
