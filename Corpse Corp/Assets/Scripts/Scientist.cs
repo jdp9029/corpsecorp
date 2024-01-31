@@ -25,6 +25,8 @@ public class Scientist : MonoBehaviour
         {
             purchased = false;
         }
+
+        mainMethod.scientist1 = this;
     }
 
     // Start is called before the first frame update
@@ -39,9 +41,11 @@ public class Scientist : MonoBehaviour
         
     }
 
-    void ComboScientist(Scientist scientist, DeathMethod method)
+    public void ComboScientist(Scientist scientist, DeathMethod method)
     {
         combinations.Add(scientist, method);
         scientist.ComboScientist(this, method);
+        method.scientist1 = this;
+        method.scientist2 = scientist;
     }
 }
