@@ -389,12 +389,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 510875459}
-  m_Father: {fileID: 1034356977}
+  m_Father: {fileID: 1121195925}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -568}
+  m_AnchoredPosition: {x: 160, y: 197.64001}
   m_SizeDelta: {x: 277.497, y: 85.6564}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &204974742
@@ -2155,12 +2155,12 @@ RectTransform:
   - {fileID: 338309700}
   - {fileID: 56343367}
   - {fileID: 608724932}
-  m_Father: {fileID: 1034356977}
+  m_Father: {fileID: 1121195925}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 206, y: -37.145}
+  m_AnchoredPosition: {x: 366, y: 728.495}
   m_SizeDelta: {x: 338.9323, y: 74.2902}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &916809927
@@ -2442,9 +2442,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1909401870}
-  - {fileID: 2115253964}
-  - {fileID: 916809926}
-  - {fileID: 204974741}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2535,7 +2532,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2115253964}
+    - targetCorrespondingSourceObject: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 916809926}
+    - targetCorrespondingSourceObject: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 204974741}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
 --- !u!4 &1121195925 stripped
@@ -3524,12 +3530,12 @@ RectTransform:
   - {fileID: 456540056}
   - {fileID: 904268388}
   - {fileID: 1698622540}
-  m_Father: {fileID: 1034356977}
+  m_Father: {fileID: 1121195925}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -204.53387, y: -37.1451}
+  m_AnchoredPosition: {x: -44.533875, y: 728.49493}
   m_SizeDelta: {x: 338.9323, y: 74.2902}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2115253965
