@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DeathMethod : MonoBehaviour
@@ -16,6 +17,8 @@ public class DeathMethod : MonoBehaviour
     public Scientist scientist2;
 
     public bool active;
+
+    public DeathMethodManager manager;
 
     //==== CONSTRUCTOR ====
     public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, Scientist scientist1, Scientist scientist2, bool active)
@@ -52,6 +55,9 @@ public class DeathMethod : MonoBehaviour
     //==== UPDATE ====
     void Update()
     {
-        
+        if(!manager.deathMethods.Contains(this)) //If the DeathMethodManager list doesn't contain this DeathMethod, add this DeathMethod to the DeathMethodManager
+        {
+            manager.deathMethods.Add(this);
+        }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeathMethodManager : MonoBehaviour
 {
     //==== FIELDS ====
-    public DeathMethod[] deathMethods;
+    public List<DeathMethod> deathMethods;
 
     public float money;
     
@@ -13,11 +13,8 @@ public class DeathMethodManager : MonoBehaviour
     void Start()
     {
         money = 0;
-        
-        deathMethods = new DeathMethod[]
-        {
 
-        };
+        deathMethods = new List<DeathMethod>();
     }
 
     // Update is called once per frame
