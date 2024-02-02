@@ -9,7 +9,7 @@ public class Scientist : MonoBehaviour
     DeathMethod mainMethod;
     string name;
     int tier;
-    bool purchased;
+    public bool purchased;
 
     public Scientist(string name, int tier, DeathMethod mainMethod)
     {

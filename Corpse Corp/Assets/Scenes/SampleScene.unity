@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 21672618}
   - component: {fileID: 21672617}
   - component: {fileID: 21672616}
+  - component: {fileID: 21672619}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -281,6 +282,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &21672619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21672615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6505e1ef9607b47a5f959b43951f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sciManager: {fileID: 1240511950}
 --- !u!1 &56343366
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,7 +752,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: High School Dropout
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1036,7 +1050,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: High School Dropout
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2135,7 +2149,7 @@ GameObject:
   - component: {fileID: 916809927}
   m_Layer: 5
   m_Name: Dropdown 2
-  m_TagString: Untagged
+  m_TagString: Dropdown
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2212,11 +2226,7 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: High School Dropout
-      m_Image: {fileID: 0}
-    - m_Text: High School Graduate
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2639,6 +2649,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
   m_PrefabInstance: {fileID: 1155833299}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1240511949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1240511951}
+  - component: {fileID: 1240511950}
+  m_Layer: 0
+  m_Name: ScientistManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1240511950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240511949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e942808377ae7844a9caef14c1676f22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scientists: []
+--- !u!4 &1240511951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240511949}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 524.0757, y: 1121.0599, z: -6.5310106}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1251407042
 GameObject:
   m_ObjectHideFlags: 0
@@ -3510,7 +3565,7 @@ GameObject:
   - component: {fileID: 2115253965}
   m_Layer: 5
   m_Name: Dropdown 1
-  m_TagString: Untagged
+  m_TagString: Dropdown
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3587,11 +3642,7 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: High School Dropout
-      m_Image: {fileID: 0}
-    - m_Text: High School Graduate
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
