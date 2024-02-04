@@ -32,7 +32,8 @@ public class UIManager : MonoBehaviour
         //SciManager still needs a constructor to be initialized. Theoretically, this should fill out the options for the Match Scientists dropdowns
         for (int i = 0; i < sciManager.scientists.Length; i++)
         {
-            if (sciManager.scientists[i].purchased && !purchasedScientists.Contains(sciManager.scientists[i].name))
+            Debug.Log(sciManager.scientists[i].name);
+            if (sciManager.scientists[i].Purchased && !purchasedScientists.Contains(sciManager.scientists[i].name))
             {
                 purchasedScientists.Add(sciManager.scientists[i].name);
             }

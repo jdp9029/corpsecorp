@@ -5,25 +5,27 @@ using UnityEngine;
 
 public class Scientist : MonoBehaviour
 {
-    Dictionary<Scientist, DeathMethod> combinations;
+    Dictionary<string, string> combinations;
     DeathMethod mainMethod;
     string name;
     int tier;
-    public bool purchased;
+    public bool Purchased;
 
     public Scientist(string name, int tier, DeathMethod mainMethod)
     {
+        combinations = new Dictionary<string, string>();
+
         this.tier = tier;
         this.name = name;
         this.mainMethod = mainMethod;
         
         if(name == "HS Dropout" || name == "HS Graduate")
         {
-            purchased = true;
+            Purchased = true;
         }
         else
         {
-            purchased = false;
+            Purchased = false;
         }
 
         mainMethod.scientist1 = this;
@@ -43,8 +45,9 @@ public class Scientist : MonoBehaviour
 
     public void ComboScientist(Scientist scientist, DeathMethod method)
     {
-        combinations.Add(scientist, method);
-        scientist.ComboScientist(this, method);
+        Debug.Log("matching " + name + " to " + scientist.name + " and getting " + method.name);
+        combinations.Add(scientist.name, method.name);
+        scientist.combinations.Add(this.name, method.name);
         method.scientist1 = this;
         method.scientist2 = scientist;
     }

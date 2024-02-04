@@ -44,6 +44,7 @@ public class DeathMethod : MonoBehaviour
     public DeathMethod(string name)
     {
         this.name = name;
+        this.active = false;
     }
 
     //==== START ====
