@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Scientist : MonoBehaviour
 {
-    Dictionary<string, string> combinations;
+    public Dictionary<string, string> combinations;
     DeathMethod mainMethod;
     public string name;
     public int tier;
