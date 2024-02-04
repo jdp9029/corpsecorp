@@ -7,8 +7,8 @@ public class Scientist : MonoBehaviour
 {
     Dictionary<string, string> combinations;
     DeathMethod mainMethod;
-    string name;
-    int tier;
+    public string name;
+    public int tier;
     public bool Purchased;
 
     public Scientist(string name, int tier, DeathMethod mainMethod)
