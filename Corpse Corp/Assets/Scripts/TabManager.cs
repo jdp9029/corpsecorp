@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour
 {
-    [SerializeField] Tab[] buttonTabs;
+    [SerializeField] Tab[] tabs;
 
     // Start is called before the first frame update
     void Start()
     {
-        TabClicked(buttonTabs[2]);
+        Debug.Log("TabManager Start is being called");
+        TabClicked(tabs[2]);
     }
 
     // Update is called once per frame
@@ -21,7 +22,7 @@ public class TabManager : MonoBehaviour
 
     public void TabClicked(Tab tabClicked)
     {
-        foreach (Tab tab in buttonTabs)
+        foreach (Tab tab in tabs)
         {
             tab.gameObject.SetActive(tab == tabClicked);
         }
