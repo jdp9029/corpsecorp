@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     TMP_Dropdown dropdown1;
     TMP_Dropdown dropdown2;
     GameObject matchButton;
+    bool btnActive;
 
     List<string> purchasedScientists; //This contains a list of ALL purchased scientists
     List<string> newScientistToAdd; //This only contains the name of a purchased scientist at any one time, for the purposes of adding to the dropdowns, and is then cleared
@@ -51,6 +52,7 @@ public class UIManager : MonoBehaviour
 
         //Initialize Match Button
         matchButton = GameObject.FindGameObjectWithTag("MatchButton");
+        btnActive = false;
 
         #endregion
 
@@ -111,12 +113,17 @@ public class UIManager : MonoBehaviour
         if (currentScientist1.combinations.ContainsKey(currentScientist2.name)) //If there's a match...
         {
             matchButton.GetComponent<Image>().color = Color.green;
-            matchButton.GetComponent<Button>().onClick.AddListener(ActivateMatch); //Make sure the button can only be used if there's a match
+            if (!btnActive)
+            {
+                matchButton.GetComponent<Button>().onClick.AddListener(ActivateMatch); //Make sure the button can only be used if there's a match
+                btnActive = true;
+            }
         }
         else //If there's not a match...
         {
             matchButton.GetComponent<Image>().color = Color.red;
             matchButton.GetComponent<Button>().onClick.RemoveListener(ActivateMatch); //hopefully this means that it can't be used when red
+            btnActive = false;
         }
 
         #endregion
@@ -152,14 +159,15 @@ public class UIManager : MonoBehaviour
     void ActivateMatch()
     {
         //This has nothing right now but will eventually just be toggling the newly discovered Death Method's active property to true
-        /*for (int i = 0; i < dmManager.deathMethods.Count; i++)
+        Debug.Log(dmManager.deathMethods.Count);
+        for (int i = 0; i < dmManager.deathMethods.Count; i++)
         {
             if (dmManager.deathMethods[i].name == currentScientist1.combinations[currentScientist2.name])
             {
                 dmManager.deathMethods[i].active = true;
-                Debug.Log($"Now Active: {dmManager.deathMethods[i].name}");
+                Debug.Log($"Now Active: {dmManager.deathMethods[i].name}"); //This doesn't work yet but I'm working on it
             }
-        }*/
+        }
         Debug.Log("Button Clicked Successfully");
     }
     //FUTURE NOTE: if an object has a Renderer, you can toggle visibility by using GetComponent<Renderer>.enabled = !GetComponent<Renderer>.enabled;
