@@ -151,7 +151,6 @@ public class UIManager : MonoBehaviour
     {
         //This has nothing right now but will eventually just be toggling the newly discovered Death Method's active property to true
     }
-    
     //FUTURE NOTE: if an object has a Renderer, you can toggle visibility by using GetComponent<Renderer>.enabled = !GetComponent<Renderer>.enabled;
     //I have not tested this but that's what the internet told me
     //Can also (supposedly) use Component.GetComponentsInChildren to toggle components of all children at once
