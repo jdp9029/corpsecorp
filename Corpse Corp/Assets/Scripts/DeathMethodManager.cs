@@ -5,9 +5,9 @@ using UnityEngine;
 public class DeathMethodManager : MonoBehaviour
 {
     //==== FIELDS ====
-    public List<DeathMethod> deathMethods;
+    [HideInInspector] public List<DeathMethod> deathMethods;
 
-    public float money;
+    [HideInInspector] public float money;
     
     // Start is called before the first frame update
     void Start()

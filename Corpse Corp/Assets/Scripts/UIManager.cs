@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 {
     //==== FIELDS ====
     public ScientistManager sciManager;
+    public DeathMethodManager dmManager;
 
     #region Match Scientists (Fields)
     TMP_Dropdown dropdown1;
@@ -100,6 +101,7 @@ public class UIManager : MonoBehaviour
                     //Get a reference to the option's ColorBlock, change it, and set it as the reference
                     ColorBlock colors = dropdown2.transform.Find("Dropdown List").transform.Find("Viewport").transform.Find("Content").transform.Find($"Item {i}: {dropdown2.options[i].text}").GetComponent<Toggle>().colors;
                     colors.normalColor = new Color(0, 0, 255);
+                    colors.selectedColor = new Color(0, 0, 255);
                     dropdown2.transform.Find("Dropdown List").transform.Find("Viewport").transform.Find("Content").transform.Find($"Item {i}: {dropdown2.options[i].text}").GetComponent<Toggle>().colors = colors;
                 }
             }
@@ -150,6 +152,15 @@ public class UIManager : MonoBehaviour
     void ActivateMatch()
     {
         //This has nothing right now but will eventually just be toggling the newly discovered Death Method's active property to true
+        /*for (int i = 0; i < dmManager.deathMethods.Count; i++)
+        {
+            if (dmManager.deathMethods[i].name == currentScientist1.combinations[currentScientist2.name])
+            {
+                dmManager.deathMethods[i].active = true;
+                Debug.Log($"Now Active: {dmManager.deathMethods[i].name}");
+            }
+        }*/
+        Debug.Log("Button Clicked Successfully");
     }
     //FUTURE NOTE: if an object has a Renderer, you can toggle visibility by using GetComponent<Renderer>.enabled = !GetComponent<Renderer>.enabled;
     //I have not tested this but that's what the internet told me
