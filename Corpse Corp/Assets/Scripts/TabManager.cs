@@ -5,21 +5,25 @@ using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour
 {
-    GameObject[] buttonTabs;
+    [SerializeField] Tab[] buttonTabs;
 
     // Start is called before the first frame update
     void Start()
     {
-        //buttonTabs = GetComponentsInChildren<GameObject>();
-
-        //look through bloodshed skilltree node code and find out the code for hovering, selecting
-        //apply it here so that the height of the selected tab is a bit bigger and the color is a bit different
-
+        TabClicked(buttonTabs[2]);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void TabClicked(Tab tabClicked)
+    {
+        foreach (Tab tab in buttonTabs)
+        {
+            tab.gameObject.SetActive(tab == tabClicked);
+        }
     }
 }

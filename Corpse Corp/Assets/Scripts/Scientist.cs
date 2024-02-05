@@ -45,7 +45,6 @@ public class Scientist : MonoBehaviour
 
     public void ComboScientist(Scientist scientist, DeathMethod method)
     {
-        Debug.Log("matching " + name + " to " + scientist.name + " and getting " + method.name);
         combinations.Add(scientist.name, method.name);
         scientist.combinations.Add(this.name, method.name);
         method.scientist1 = this;

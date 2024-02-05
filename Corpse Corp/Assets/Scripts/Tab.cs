@@ -45,8 +45,6 @@ public class Tab : MonoBehaviour
                 toprightPoint = new Vector2(rightX, topY);
                 bottomleftPoint = new Vector2(leftX, bottomY);
                 bottomrightPoint = new Vector2(rightX, bottomY);
-
-                Debug.Log("Tab " + (i + 1).ToString() + ": " + leftX + ", " + rightX + ", " + topY + ", " + bottomY);
             }
         }
     }
@@ -55,5 +53,18 @@ public class Tab : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnHoverStart()
+    {
+
+    }
+    public void OnHoverEnd()
+    {
+
+    }
+    public void OnMouseClick()
+    {
+        GameObject.FindObjectOfType<TabManager>().TabClicked(this);
     }
 }
