@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScientistManager : MonoBehaviour
 {
-    [HideInInspector] public Scientist[] scientists;
+    public Scientist[] scientists;
 
     // Start is called before the first frame update
     void Start()

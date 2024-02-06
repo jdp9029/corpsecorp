@@ -18,7 +18,7 @@ public class DeathMethod : MonoBehaviour
 
     public bool active;
 
-    public DeathMethodManager manager;
+    DeathMethodManager manager;
 
     //==== CONSTRUCTOR ====
     public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, Scientist scientist1, Scientist scientist2, bool active)
@@ -32,7 +32,7 @@ public class DeathMethod : MonoBehaviour
         this.scientist2 = scientist2;
         this.active = active;
     }
-    //==== SIMPLE CONSTRUCTOR
+    //==== SIMPLE CONSTRUCTOR ====
     public DeathMethod(string name, Scientist scientist1, Scientist scientist2, bool active)
     {
         this.name = name;
@@ -47,8 +47,8 @@ public class DeathMethod : MonoBehaviour
         this.active = false;
 
         manager = GameObject.FindObjectOfType<DeathMethodManager>();
-        Debug.Log(this.name);
-        manager.deathMethods.Add(this);
+        Debug.Log(manager.name);
+        manager.AddToList(this);
     }
 
     //==== START ====

@@ -5,10 +5,10 @@ using UnityEngine;
 public class DeathMethodManager : MonoBehaviour
 {
     //==== FIELDS ====
-    [HideInInspector] public List<DeathMethod> deathMethods;
+    public List<DeathMethod> deathMethods;
 
     [HideInInspector] public float money;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +21,22 @@ public class DeathMethodManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AddToList(DeathMethod method)
+    {
+        deathMethods.Add(method);
+        Debug.Log(deathMethods.Count);
+        Debug.Log($"{method.name} added.");
+    }
+
+    public void PrintList()
+    {
+        Debug.Log(deathMethods.Count);
+        for (int i = 0; i < deathMethods.Count; i++)
+        {
+            Debug.Log(deathMethods[i].name);
+        }
+        Debug.Log("List Printed");
     }
 }

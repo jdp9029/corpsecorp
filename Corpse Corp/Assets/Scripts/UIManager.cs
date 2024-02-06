@@ -8,9 +8,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     //==== FIELDS ====
-    public ScientistManager sciManager;
-    public DeathMethodManager dmManager;
-    DeathMethod test;
+    [SerializeField] public ScientistManager sciManager;
+    [SerializeField] DeathMethodManager dmManager;
 
     #region Match Scientists (Fields)
     TMP_Dropdown dropdown1;
@@ -37,12 +36,11 @@ public class UIManager : MonoBehaviour
     //==== START ====
     void Start()
     {
-        dmManager = GameObject.FindObjectOfType<DeathMethodManager>();
-        //Debug.Log(dmManager.gameObject.name);
-        Debug.Log(dmManager.deathMethods.Count); //This happens BEFORE the DeathMethods get loaded in.
-        
+        //dmManager = GameObject.FindObjectOfType<DeathMethodManager>();
+        Debug.Log(dmManager.name);
+
         #region Match Scientists (Start)
-        
+
         //Initialize Dropdown Components
         if (dropdowns == null)
         {
@@ -163,8 +161,8 @@ public class UIManager : MonoBehaviour
     //Helper Function (maybe temporary) to Activate Matches
     void ActivateMatch()
     {
-        //This has nothing right now but will eventually just be toggling the newly discovered Death Method's active property to true
-        Debug.Log(dmManager.deathMethods.Count);
+        dmManager.PrintList();
+        Debug.Log(dmManager.name);
         for (int i = 0; i < dmManager.deathMethods.Count; i++)
         {
             if (dmManager.deathMethods[i].name == currentScientist1.combinations[currentScientist2.name])
