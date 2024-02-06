@@ -56,7 +56,7 @@ public class Tab : MonoBehaviour
     }
 
     //three functions that get referenced in EventTrigger
-    public void OnHoverStart()
+    /*public void OnHoverStart()
     {
         Debug.Log("Hover start");
         transform.GetChild(0).localScale = new Vector3(1, 1.2f, 1);
@@ -65,7 +65,7 @@ public class Tab : MonoBehaviour
     {
         Debug.Log("Hover end");
         transform.GetChild(0).localScale = Vector3.one;
-    }
+    }*/
     public void OnMouseClick()
     {
         GameObject.FindObjectOfType<TabManager>().TabClicked(this);
