@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Tab : MonoBehaviour
 {
-    //Background image
+    /*//Background image
     public Image bottomBar;
 
     //Logo of Tab
@@ -47,7 +47,7 @@ public class Tab : MonoBehaviour
                 bottomrightPoint = new Vector2(rightX, bottomY);
             }
         }
-    }
+    }*/
 
     // Update is called once per frame
     void Update()
@@ -58,10 +58,12 @@ public class Tab : MonoBehaviour
     //three functions that get referenced in EventTrigger
     public void OnHoverStart()
     {
+        Debug.Log("Hover start");
         transform.GetChild(0).localScale = new Vector3(1, 1.2f, 1);
     }
     public void OnHoverEnd()
     {
+        Debug.Log("Hover end");
         transform.GetChild(0).localScale = Vector3.one;
     }
     public void OnMouseClick()
