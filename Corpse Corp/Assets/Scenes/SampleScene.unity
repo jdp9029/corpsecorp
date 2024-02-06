@@ -2749,8 +2749,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1240511951}
-  - component: {fileID: 1240511950}
   - component: {fileID: 1240511952}
+  - component: {fileID: 1240511950}
   m_Layer: 0
   m_Name: ScientistManager
   m_TagString: Untagged

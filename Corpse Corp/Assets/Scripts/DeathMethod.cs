@@ -31,8 +31,6 @@ public class DeathMethod : MonoBehaviour
         this.scientist1 = scientist1;
         this.scientist2 = scientist2;
         this.active = active;
-        manager = GameObject.FindObjectOfType<DeathMethodManager>();
-        manager.deathMethods.Add(this);
     }
     //==== SIMPLE CONSTRUCTOR
     public DeathMethod(string name, Scientist scientist1, Scientist scientist2, bool active)
@@ -41,30 +39,27 @@ public class DeathMethod : MonoBehaviour
         this.scientist1 = scientist1;
         this.scientist2 = scientist2;
         this.active = active;
-        manager = GameObject.FindObjectOfType<DeathMethodManager>();
-        manager.deathMethods.Add(this);
     }
     //==== SUPER SIMPLE CONSTRUCTOR ====
     public DeathMethod(string name)
     {
         this.name = name;
         this.active = false;
-        manager = GameObject.FindObjectOfType<DeathMethodManager>();
-        manager.deathMethods.Add(this);
     }
 
     //==== START ====
     void Start()
     {
-        
+        manager = GameObject.FindObjectOfType<ScientistManager>().GetComponent<DeathMethodManager>();
+        manager.deathMethods.Add(this);
     }
 
     //==== UPDATE ====
     void Update()
     {
-        if(!manager.deathMethods.Contains(this)) //If the DeathMethodManager list doesn't contain this DeathMethod, add this DeathMethod to the DeathMethodManager
+        /*if(!manager.deathMethods.Contains(this)) //If the DeathMethodManager list doesn't contain this DeathMethod, add this DeathMethod to the DeathMethodManager
         {
             manager.deathMethods.Add(this);
-        }
+        }*/
     }
 }

@@ -36,6 +36,11 @@ public class UIManager : MonoBehaviour
     //==== START ====
     void Start()
     {
+        dmManager = GameObject.FindObjectOfType<ScientistManager>().GetComponent<DeathMethodManager>();
+        //Debug.Log(dmManager.gameObject.name);
+        dmManager.deathMethods.Add(new DeathMethod("Test DM Add"));
+        Debug.Log(dmManager.deathMethods.Count);
+        
         #region Match Scientists (Start)
         
         //Initialize Dropdown Components
