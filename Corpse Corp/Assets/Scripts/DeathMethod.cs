@@ -45,20 +45,24 @@ public class DeathMethod : MonoBehaviour
     {
         this.name = name;
         this.active = false;
+
+        manager = GameObject.FindObjectOfType<DeathMethodManager>();
+        Debug.Log(this.name);
+        manager.deathMethods.Add(this);
     }
 
     //==== START ====
     void Start()
     {
-        manager = GameObject.FindObjectOfType<DeathMethodManager>();
+        //Start does not get called
     }
 
     //==== UPDATE ====
     void Update()
     {
-        if(!manager.deathMethods.Contains(this)) //If the DeathMethodManager list doesn't contain this DeathMethod, add this DeathMethod to the DeathMethodManager
+        /*if(!manager.deathMethods.Contains(this)) //If the DeathMethodManager list doesn't contain this DeathMethod, add this DeathMethod to the DeathMethodManager
         {
             manager.deathMethods.Add(new DeathMethod(this.name));
-        }
+        }*/
     }
 }

@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
     {
         dmManager = GameObject.FindObjectOfType<DeathMethodManager>();
         //Debug.Log(dmManager.gameObject.name);
-        Debug.Log(dmManager.deathMethods.Count);
+        Debug.Log(dmManager.deathMethods.Count); //This happens BEFORE the DeathMethods get loaded in.
         
         #region Match Scientists (Start)
         
