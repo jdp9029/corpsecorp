@@ -44,7 +44,14 @@ public class DeathMethod : MonoBehaviour
     public DeathMethod(string name)
     {
         this.name = name;
-        this.active = false;
+        if (name == "Soft Pillow" || name == "Pencil")
+        {
+            this.active = true;
+        }
+        else
+        {
+            this.active = false;
+        }
 
         manager = GameObject.FindObjectOfType<DeathMethodManager>();
         manager.deathMethods.Add(this);

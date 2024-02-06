@@ -30,14 +30,13 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region See Death Methods (Fields)
-
+    TMP_Text dmList;
+    string listText;
     #endregion
 
     //==== START ====
     void Start()
     {
-        //dmManager = GameObject.FindObjectOfType<DeathMethodManager>();
-
         #region Match Scientists (Start)
 
         //Initialize Dropdown Components
@@ -63,7 +62,8 @@ public class UIManager : MonoBehaviour
         #endregion
 
         #region See Death Methods (Start)
-
+        dmList = GameObject.FindObjectsOfType<TMP_Text>()[0]; //0 is List, 1 is Title
+        listText = "";
         #endregion
     }
 
@@ -135,7 +135,15 @@ public class UIManager : MonoBehaviour
         #endregion
 
         #region See Death Methods (Update)
-
+        listText = "";
+        for (int i = 0; i < dmManager.deathMethods.Count; i++)
+        {
+            if (dmManager.deathMethods[i].active)
+            {
+                listText += $"{dmManager.deathMethods[i].name} \n";
+            }
+        }
+        dmList.text = listText;
         #endregion
     }
 
