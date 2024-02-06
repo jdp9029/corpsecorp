@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     //==== FIELDS ====
     public ScientistManager sciManager;
     public DeathMethodManager dmManager;
+    DeathMethod test;
 
     #region Match Scientists (Fields)
     TMP_Dropdown dropdown1;
@@ -36,9 +37,8 @@ public class UIManager : MonoBehaviour
     //==== START ====
     void Start()
     {
-        dmManager = GameObject.FindObjectOfType<ScientistManager>().GetComponent<DeathMethodManager>();
+        dmManager = GameObject.FindObjectOfType<DeathMethodManager>();
         //Debug.Log(dmManager.gameObject.name);
-        dmManager.deathMethods.Add(new DeathMethod("Test DM Add"));
         Debug.Log(dmManager.deathMethods.Count);
         
         #region Match Scientists (Start)
@@ -174,6 +174,7 @@ public class UIManager : MonoBehaviour
             }
         }
         Debug.Log("Button Clicked Successfully");
+        //Debug.Log(dmManager.deathMethods[0].name);
     }
     //FUTURE NOTE: if an object has a Renderer, you can toggle visibility by using GetComponent<Renderer>.enabled = !GetComponent<Renderer>.enabled;
     //I have not tested this but that's what the internet told me

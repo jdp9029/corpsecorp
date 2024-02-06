@@ -6,10 +6,9 @@ public class ScientistManager : MonoBehaviour
 {
     [HideInInspector] public Scientist[] scientists;
 
-
     // Start is called before the first frame update
     void Start()
-    {
+    {       
         #region scientists initialized and combo'd
         scientists = new Scientist[]
         {

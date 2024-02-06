@@ -50,16 +50,15 @@ public class DeathMethod : MonoBehaviour
     //==== START ====
     void Start()
     {
-        manager = GameObject.FindObjectOfType<ScientistManager>().GetComponent<DeathMethodManager>();
-        manager.deathMethods.Add(this);
+        manager = GameObject.FindObjectOfType<DeathMethodManager>();
     }
 
     //==== UPDATE ====
     void Update()
     {
-        /*if(!manager.deathMethods.Contains(this)) //If the DeathMethodManager list doesn't contain this DeathMethod, add this DeathMethod to the DeathMethodManager
+        if(!manager.deathMethods.Contains(this)) //If the DeathMethodManager list doesn't contain this DeathMethod, add this DeathMethod to the DeathMethodManager
         {
-            manager.deathMethods.Add(this);
-        }*/
+            manager.deathMethods.Add(new DeathMethod(this.name));
+        }
     }
 }
