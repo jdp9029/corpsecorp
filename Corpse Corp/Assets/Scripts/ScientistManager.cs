@@ -6,35 +6,37 @@ public class ScientistManager : MonoBehaviour
 {
     public Scientist[] scientists;
 
+    [SerializeField] GameObject scientistForHirePrefab;
+
     // Start is called before the first frame update
     void Start()
     {       
         #region scientists initialized and combo'd
         scientists = new Scientist[]
         {
-            new Scientist("HS Dropout", 1, new DeathMethod("Soft Pillow")),
-            new Scientist("HS Graduate", 1, new DeathMethod("Pencil")),
-            new Scientist("College Student", 1, new DeathMethod("Stress")),
-            new Scientist("Veterinarian", 2, new DeathMethod("Rabies")),
-            new Scientist("Chef", 2, new DeathMethod("Knife")),
-            new Scientist("Barber", 2, new DeathMethod("Razor")),
-            new Scientist("Construction Worker", 2, new DeathMethod("Hammer")),
-            new Scientist("Mechanic", 2, new DeathMethod("Wrench")),
-            new Scientist("Historian", 2, new DeathMethod("War")),
-            new Scientist("Government Agent", 2, new DeathMethod("Assassination")),
-            new Scientist("Biologist", 3, new DeathMethod("Infection")),
-            new Scientist("Marine Biologist", 3, new DeathMethod("Piranhas")),
-            new Scientist("Engineer", 3, new DeathMethod("Building Collapse")),
-            new Scientist("Botanist", 3, new DeathMethod("Venus Flytrap")),
-            new Scientist("Astronomer", 3, new DeathMethod("Black Hole")),
-            new Scientist("Meteorologist", 3, new DeathMethod("Storm")),
-            new Scientist("Geologist", 3, new DeathMethod("Earthquake")),
-            new Scientist("Epidemiologist", 4, new DeathMethod("Influenza")),
-            new Scientist("Nuclear Scientist", 4, new DeathMethod("Fusion Reaction")),
-            new Scientist("Rocket Scientist", 4, new DeathMethod("Missile")),
-            new Scientist("Physicist", 4, new DeathMethod("Fall Damage")),
-            new Scientist("Radiologist", 4, new DeathMethod("Radiation")),
-            new Scientist("Chemist", 4, new DeathMethod("Acid"))
+            new Scientist("HS Dropout", 1, new DeathMethod("Soft Pillow"), scientistForHirePrefab, 0),
+            new Scientist("HS Graduate", 1, new DeathMethod("Pencil"), scientistForHirePrefab, 1),
+            new Scientist("College Student", 1, new DeathMethod("Stress"), scientistForHirePrefab, 2),
+            new Scientist("Veterinarian", 2, new DeathMethod("Rabies"), scientistForHirePrefab, 3),
+            new Scientist("Chef", 2, new DeathMethod("Knife"), scientistForHirePrefab, 4),
+            new Scientist("Barber", 2, new DeathMethod("Razor"), scientistForHirePrefab, 5),
+            new Scientist("Construction Worker", 2, new DeathMethod("Hammer"), scientistForHirePrefab, 6),
+            new Scientist("Mechanic", 2, new DeathMethod("Wrench"), scientistForHirePrefab, 7),
+            new Scientist("Historian", 2, new DeathMethod("War"), scientistForHirePrefab, 8),
+            new Scientist("Government Agent", 2, new DeathMethod("Assassination"), scientistForHirePrefab, 9),
+            new Scientist("Biologist", 3, new DeathMethod("Infection"), scientistForHirePrefab, 10),
+            new Scientist("Marine Biologist", 3, new DeathMethod("Piranhas"), scientistForHirePrefab, 11),
+            new Scientist("Engineer", 3, new DeathMethod("Building Collapse"), scientistForHirePrefab, 12),
+            new Scientist("Botanist", 3, new DeathMethod("Venus Flytrap"), scientistForHirePrefab, 13),
+            new Scientist("Astronomer", 3, new DeathMethod("Black Hole"), scientistForHirePrefab, 14),
+            new Scientist("Meteorologist", 3, new DeathMethod("Storm"), scientistForHirePrefab, 15),
+            new Scientist("Geologist", 3, new DeathMethod("Earthquake"), scientistForHirePrefab, 16),
+            new Scientist("Epidemiologist", 4, new DeathMethod("Influenza"), scientistForHirePrefab, 17),
+            new Scientist("Nuclear Scientist", 4, new DeathMethod("Fusion Reaction"), scientistForHirePrefab, 18),
+            new Scientist("Rocket Scientist", 4, new DeathMethod("Missile"), scientistForHirePrefab, 19),
+            new Scientist("Physicist", 4, new DeathMethod("Fall Damage"), scientistForHirePrefab, 20),
+            new Scientist("Radiologist", 4, new DeathMethod("Radiation"), scientistForHirePrefab, 21),
+            new Scientist("Chemist", 4, new DeathMethod("Acid"), scientistForHirePrefab, 22)
         };
 
         //Debug.Log(scientists.Length);
@@ -148,7 +150,6 @@ public class ScientistManager : MonoBehaviour
         //chemist
 
         #endregion
-
     }
 
     // Update is called once per frame

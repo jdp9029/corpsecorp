@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour
 {
-    [SerializeField] Tab[] buttonTabs;
+    [SerializeField] public Tab[] buttonTabs;
 
     // Start is called before the first frame update
     void Start()

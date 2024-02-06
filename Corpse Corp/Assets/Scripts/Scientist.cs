@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class Scientist : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class Scientist : MonoBehaviour
     public int tier;
     public bool Purchased;
 
-    public Scientist(string name, int tier, DeathMethod mainMethod)
+    [HideInInspector] public GameObject scientistHiringInstance;
+
+    public Scientist(string name, int tier, DeathMethod mainMethod, GameObject scientistHiringPrefab, int scientistNo)
     {
         combinations = new Dictionary<string, string>();
 
@@ -29,6 +32,10 @@ public class Scientist : MonoBehaviour
         }
 
         mainMethod.scientist1 = this;
+
+        scientistHiringInstance = Instantiate(scientistHiringPrefab, FindObjectOfType<TabManager>().buttonTabs[3].transform.GetChild(1));
+        scientistHiringInstance.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = name;
+        scientistHiringInstance.transform.position = new Vector3(600, 2300 - (90 * scientistNo), 0);
     }
 
     // Start is called before the first frame update
