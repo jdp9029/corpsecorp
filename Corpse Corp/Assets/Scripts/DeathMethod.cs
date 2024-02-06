@@ -47,8 +47,7 @@ public class DeathMethod : MonoBehaviour
         this.active = false;
 
         manager = GameObject.FindObjectOfType<DeathMethodManager>();
-        Debug.Log(manager.name);
-        manager.AddToList(this);
+        manager.deathMethods.Add(this);
     }
 
     //==== START ====

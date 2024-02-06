@@ -37,7 +37,6 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         //dmManager = GameObject.FindObjectOfType<DeathMethodManager>();
-        Debug.Log(dmManager.name);
 
         #region Match Scientists (Start)
 
@@ -161,14 +160,12 @@ public class UIManager : MonoBehaviour
     //Helper Function (maybe temporary) to Activate Matches
     void ActivateMatch()
     {
-        dmManager.PrintList();
-        Debug.Log(dmManager.name);
         for (int i = 0; i < dmManager.deathMethods.Count; i++)
         {
             if (dmManager.deathMethods[i].name == currentScientist1.combinations[currentScientist2.name])
             {
                 dmManager.deathMethods[i].active = true;
-                Debug.Log($"Now Active: {dmManager.deathMethods[i].name}"); //This doesn't work yet but I'm working on it
+                //Debug.Log($"Now Active: {dmManager.deathMethods[i].name}"); //This doesn't work yet but I'm working on it
             }
         }
         Debug.Log("Button Clicked Successfully");

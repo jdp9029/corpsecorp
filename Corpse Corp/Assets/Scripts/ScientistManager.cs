@@ -37,7 +37,7 @@ public class ScientistManager : MonoBehaviour
             new Scientist("Chemist", 4, new DeathMethod("Acid"))
         };
 
-        Debug.Log(scientists.Length);
+        //Debug.Log(scientists.Length);
 
         //combos should have the index of the scientist on the left always LESS than the index of the scientist on the right
         //ie. when we get to scientists[1] that does not need to match with scientists[0], that's already taken care of
