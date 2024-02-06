@@ -55,13 +55,14 @@ public class Tab : MonoBehaviour
         
     }
 
+    //three functions that get referenced in EventTrigger
     public void OnHoverStart()
     {
-
+        transform.GetChild(0).localScale = new Vector3(1, 1.2f, 1);
     }
     public void OnHoverEnd()
     {
-
+        transform.GetChild(0).localScale = Vector3.one;
     }
     public void OnMouseClick()
     {
