@@ -149,7 +149,6 @@ public class UIManager : MonoBehaviour
         {
             if (manager.scientists[i].name == name)
             {
-                //Debug.Log(manager.scientists[i].name);
                 scientist = manager.scientists[i];
                 return scientist;
             }
@@ -165,13 +164,9 @@ public class UIManager : MonoBehaviour
             if (dmManager.deathMethods[i].name == currentScientist1.combinations[currentScientist2.name])
             {
                 dmManager.deathMethods[i].active = true;
-                //Debug.Log($"Now Active: {dmManager.deathMethods[i].name}"); //This doesn't work yet but I'm working on it
+                Debug.Log($"Now Active: {dmManager.deathMethods[i].name}"); //This doesn't work yet but I'm working on it
             }
         }
         Debug.Log("Button Clicked Successfully");
-        //Debug.Log(dmManager.deathMethods[0].name);
     }
-    //FUTURE NOTE: if an object has a Renderer, you can toggle visibility by using GetComponent<Renderer>.enabled = !GetComponent<Renderer>.enabled;
-    //I have not tested this but that's what the internet told me
-    //Can also (supposedly) use Component.GetComponentsInChildren to toggle components of all children at once
 }
