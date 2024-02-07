@@ -33,7 +33,7 @@ public class Scientist : MonoBehaviour
 
         mainMethod.scientist1 = this;
 
-        scientistHiringInstance = Instantiate(scientistHiringPrefab, FindObjectOfType<TabManager>().buttonTabs[3].transform.GetChild(1));
+        scientistHiringInstance = Instantiate(scientistHiringPrefab, FindObjectOfType<TabManager>().buttonTabs[3].transform.GetChild(1).GetChild(0));
         scientistHiringInstance.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = name;
         scientistHiringInstance.transform.position = new Vector3(600, 2300 - (90 * scientistNo), 0);
     }
