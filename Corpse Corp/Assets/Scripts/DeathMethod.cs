@@ -13,23 +13,23 @@ public class DeathMethod : MonoBehaviour
     public float rateOfSale;
     public float price;
 
-    public Scientist scientist1;
-    public Scientist scientist2;
+    public string scientist1name;
+    public string scientist2name;
 
     public bool active;
 
     DeathMethodManager manager;
 
     //==== CONSTRUCTOR ====
-    public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, Scientist scientist1, Scientist scientist2)
+    public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, string scientist1, string scientist2)
     {
         this.name = name;
         this.description = description;
         this.icon = icon;
         this.rateOfSale = rateOfSale;
         this.price = price;
-        this.scientist1 = scientist1;
-        this.scientist2 = scientist2;
+        this.scientist1name = scientist1;
+        this.scientist2name = scientist2;
 
         if (name == "Soft Pillow" || name == "Pencil")
         {
@@ -41,11 +41,11 @@ public class DeathMethod : MonoBehaviour
         }
     }
     //==== SIMPLE CONSTRUCTOR ====
-    public DeathMethod(string name, Scientist scientist1, Scientist scientist2)
+    public DeathMethod(string name, string scientist1, string scientist2)
     {
         this.name = name;
-        this.scientist1 = scientist1;
-        this.scientist2 = scientist2;
+        this.scientist1name = scientist1;
+        this.scientist2name = scientist2;
 
         if (name == "Soft Pillow" || name == "Pencil")
         {
@@ -55,6 +55,9 @@ public class DeathMethod : MonoBehaviour
         {
             this.active = false;
         }
+
+        manager = GameObject.FindObjectOfType<DeathMethodManager>();
+        manager.deathMethods.Add(this);
     }
     //==== SUPER SIMPLE CONSTRUCTOR ====
     public DeathMethod(string name)

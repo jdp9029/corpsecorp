@@ -31,7 +31,7 @@ public class Scientist : MonoBehaviour
             Purchased = false;
         }
 
-        mainMethod.scientist1 = this;
+        mainMethod.scientist1name = this.name;
 
         scientistHiringInstance = Instantiate(scientistHiringPrefab, FindObjectOfType<TabManager>().buttonTabs[3].transform.GetChild(1).GetChild(0));
         scientistHiringInstance.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = name;
@@ -54,7 +54,7 @@ public class Scientist : MonoBehaviour
     {
         combinations.Add(scientist.name, method.name);
         scientist.combinations.Add(this.name, method.name);
-        method.scientist1 = this;
-        method.scientist2 = scientist;
+        method.scientist1name = this.name;
+        method.scientist2name = scientist.name;
     }
 }

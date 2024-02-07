@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
         #endregion
 
         #region See Death Methods (Start)
-        dmList = GameObject.FindObjectsOfType<TMP_Text>()[0]; //0 is List, 1 is Title
+        dmList = GameObject.FindObjectsOfType<TMP_Text>()[1]; //0 is Combo Title, 1 is DM List, 2 is DM Title
         listText = "";
         #endregion
     }
@@ -140,7 +140,12 @@ public class UIManager : MonoBehaviour
         {
             if (dmManager.deathMethods[i].active)
             {
-                listText += $"{dmManager.deathMethods[i].name} \n";
+                listText += $"{dmManager.deathMethods[i].name} - {dmManager.deathMethods[i].scientist1name}"; //Need to figure out a way to construct initial DMs
+                if (dmManager.deathMethods[i].scientist2name != null)
+                {
+                    listText += $" x {dmManager.deathMethods[i].scientist2name}";
+                }
+                listText += "\n";
             }
         }
         dmList.text = listText;
@@ -172,7 +177,7 @@ public class UIManager : MonoBehaviour
             if (dmManager.deathMethods[i].name == currentScientist1.combinations[currentScientist2.name])
             {
                 dmManager.deathMethods[i].active = true;
-                Debug.Log($"Now Active: {dmManager.deathMethods[i].name}"); //This doesn't work yet but I'm working on it
+                Debug.Log($"Now Active: {dmManager.deathMethods[i].name}");
             }
         }
         Debug.Log("Button Clicked Successfully");
