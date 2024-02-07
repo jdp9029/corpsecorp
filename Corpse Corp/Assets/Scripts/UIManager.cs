@@ -197,6 +197,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //Coroutine that prints a congrats message for waitTime seconds
     private IEnumerator PrintDiscoveryMessage(float waitTime, DeathMethod dm)
     {
         discoveryBanner.text = $"Congratulations! You've Discovered {dm.name}!";
