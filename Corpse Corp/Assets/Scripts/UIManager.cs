@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
 
     Scientist currentScientist1;
     Scientist currentScientist2;
+
+    TMP_Text discoveryBanner;
     #endregion
 
     #region See Death Methods (Fields)
@@ -51,6 +53,8 @@ public class UIManager : MonoBehaviour
         //Initialize Match Button
         matchButton = GameObject.FindGameObjectWithTag("MatchButton");
         btnActive = false;
+
+        discoveryBanner = GameObject.Find("Discovery Banner").GetComponent<TMP_Text>();
 
         #endregion
 
@@ -95,10 +99,10 @@ public class UIManager : MonoBehaviour
         currentScientist1 = FindScientist(sciManager, dropdown1.options[dropdown1.value].text);
         currentScientist2 = FindScientist(sciManager, dropdown2.options[dropdown2.value].text);
 
-        //Set Highlights in Dropdown2 to show possible match options
-        if (dropdown1.transform.Find("Dropdown List")) //If the dropdown 2 list exists...
+        //Set Highlights in Dropdowns to show possible match options
+        if (dropdown1.transform.Find("Dropdown List")) //If the dropdown 1 list exists...
         {
-            for (int i = 0; i < dropdown1.options.Count; i++) //Loop through all dropdown 2 options
+            for (int i = 0; i < dropdown1.options.Count; i++) //Loop through all dropdown 1 options
             {
                 if (currentScientist2.combinations.ContainsKey(dropdown1.options[i].text)) //If there's a match...
                 {
@@ -146,20 +150,20 @@ public class UIManager : MonoBehaviour
         #endregion
 
         #region See Death Methods (Update)
-        listText = "";
-        for (int i = 0; i < dmManager.deathMethods.Count; i++)
+        listText = ""; //Clear Text Placeholder
+        for (int i = 0; i < dmManager.deathMethods.Count; i++) //Loop through Death Methods
         {
-            if (dmManager.deathMethods[i].active)
+            if (dmManager.deathMethods[i].active) //If a Death Method is active (discovered / default from a purchased scientist)...
             {
-                listText += $"{dmManager.deathMethods[i].name} - {dmManager.deathMethods[i].scientist1name}"; //Need to figure out a way to construct initial DMs
-                if (dmManager.deathMethods[i].scientist2name != null)
+                listText += $"{dmManager.deathMethods[i].name} - {dmManager.deathMethods[i].scientist1name}"; //Add the name & scientist name to the text placeholder
+                if (dmManager.deathMethods[i].scientist2name != null) //If it's not a default from a purchased scientist...
                 {
-                    listText += $" x {dmManager.deathMethods[i].scientist2name}";
+                    listText += $" x {dmManager.deathMethods[i].scientist2name}"; //Add in second scientist name
                 }
                 listText += "\n";
             }
         }
-        dmList.text = listText;
+        dmList.text = listText; //Set the death method list text to the text placeholder string
         #endregion
     }
 
@@ -180,7 +184,7 @@ public class UIManager : MonoBehaviour
         return scientist;
     }
 
-    //Helper Function (maybe temporary) to Activate Matches
+    //Helper Function to Activate Matches
     void ActivateMatch()
     {
         for (int i = 0; i < dmManager.deathMethods.Count; i++)
@@ -188,7 +192,17 @@ public class UIManager : MonoBehaviour
             if (dmManager.deathMethods[i].name == currentScientist1.combinations[currentScientist2.name])
             {
                 dmManager.deathMethods[i].active = true;
+                StartCoroutine(PrintDiscoveryMessage(5.0f, dmManager.deathMethods[i]));
             }
         }
     }
+
+    private IEnumerator PrintDiscoveryMessage(float waitTime, DeathMethod dm)
+    {
+        discoveryBanner.text = $"Congratulations! You've Discovered {dm.name}!";
+        yield return new WaitForSeconds(waitTime);
+        discoveryBanner.text = "";
+    }
+
+
 }
