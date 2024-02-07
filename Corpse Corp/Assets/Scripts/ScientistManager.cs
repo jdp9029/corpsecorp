@@ -45,34 +45,34 @@ public class ScientistManager : MonoBehaviour
         //ie. when we get to scientists[1] that does not need to match with scientists[0], that's already taken care of
 
         //all combos for HS dropout
-        scientists[0].ComboScientist(scientists[1], new DeathMethod("Book"));
-        scientists[0].ComboScientist(scientists[2], new DeathMethod("Herpes"));
-        scientists[0].ComboScientist(scientists[4], new DeathMethod("Food Poisoning"));
-        scientists[0].ComboScientist(scientists[6], new DeathMethod("Dropped Steel Beam"));
-        scientists[0].ComboScientist(scientists[8], new DeathMethod("Gang Activity"));
-        scientists[0].ComboScientist(scientists[11], new DeathMethod("Drowning"));
-        scientists[0].ComboScientist(scientists[22], new DeathMethod("Broken Glass"));
+        scientists[0].ComboScientist(scientists[1], new DeathMethod("Book", scientists[0], scientists[1]));
+        scientists[0].ComboScientist(scientists[2], new DeathMethod("Herpes", scientists[0], scientists[2]));
+        scientists[0].ComboScientist(scientists[4], new DeathMethod("Food Poisoning", scientists[0], scientists[4]));
+        scientists[0].ComboScientist(scientists[6], new DeathMethod("Dropped Steel Beam", scientists[0], scientists[6]));
+        scientists[0].ComboScientist(scientists[8], new DeathMethod("Gang Activity", scientists[0], scientists[8]));
+        scientists[0].ComboScientist(scientists[11], new DeathMethod("Drowning", scientists[0], scientists[11]));
+        scientists[0].ComboScientist(scientists[22], new DeathMethod("Broken Glass", scientists[0], scientists[22]));
 
         //hs graduate
-        scientists[1].ComboScientist(scientists[2], new DeathMethod("Hit By Bus"));
-        scientists[1].ComboScientist(scientists[5], new DeathMethod("Scissors"));
-        scientists[1].ComboScientist(scientists[6], new DeathMethod("Scaffolding Collapse"));
-        scientists[1].ComboScientist(scientists[22], new DeathMethod("Chemical Burn"));
+        scientists[1].ComboScientist(scientists[2], new DeathMethod("Hit By Bus", scientists[1], scientists[2]));
+        scientists[1].ComboScientist(scientists[5], new DeathMethod("Scissors", scientists[1], scientists[5]));
+        scientists[1].ComboScientist(scientists[6], new DeathMethod("Scaffolding Collapse", scientists[1], scientists[6]));
+        scientists[1].ComboScientist(scientists[22], new DeathMethod("Chemical Burn", scientists[1], scientists[22]));
 
         //college student
-        scientists[2].ComboScientist(scientists[8], new DeathMethod("Extremism"));
-        scientists[2].ComboScientist(scientists[13], new DeathMethod("Cocaine"));
+        scientists[2].ComboScientist(scientists[8], new DeathMethod("Extremism", scientists[2], scientists[8]));
+        scientists[2].ComboScientist(scientists[13], new DeathMethod("Cocaine", scientists[2], scientists[13]));
 
         //vet
-        scientists[3].ComboScientist(scientists[4], new DeathMethod("E. Coli"));
-        scientists[3].ComboScientist(scientists[10], new DeathMethod("Anthrax"));
-        scientists[3].ComboScientist(scientists[11], new DeathMethod("Shark Attack"));
-        scientists[3].ComboScientist(scientists[17], new DeathMethod("Smallpox"));
+        scientists[3].ComboScientist(scientists[4], new DeathMethod("E. Coli", scientists[3], scientists[4]));
+        scientists[3].ComboScientist(scientists[10], new DeathMethod("Anthrax", scientists[3], scientists[10]));
+        scientists[3].ComboScientist(scientists[11], new DeathMethod("Shark Attack", scientists[3], scientists[11]));
+        scientists[3].ComboScientist(scientists[17], new DeathMethod("Smallpox", scientists[3], scientists[17]));
 
         //chef
-        scientists[4].ComboScientist(scientists[7], new DeathMethod("Kitchen Fire"));
-        scientists[4].ComboScientist(scientists[8], new DeathMethod("Famine"));
-        scientists[4].ComboScientist(scientists[10], new DeathMethod("Salmonella"));
+        scientists[4].ComboScientist(scientists[7], new DeathMethod("Kitchen Fire", scientists[4], scientists[7]));
+        scientists[4].ComboScientist(scientists[8], new DeathMethod("Famine", scientists[4], scientists[8]));
+        scientists[4].ComboScientist(scientists[10], new DeathMethod("Salmonella", scientists[4], scientists[10]));
         scientists[4].ComboScientist(scientists[13], new DeathMethod("Hemlock"));
         scientists[4].ComboScientist(scientists[17], new DeathMethod("Obesity"));
         scientists[4].ComboScientist(scientists[22], new DeathMethod("Poison"));

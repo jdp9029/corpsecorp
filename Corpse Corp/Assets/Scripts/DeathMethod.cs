@@ -21,7 +21,7 @@ public class DeathMethod : MonoBehaviour
     DeathMethodManager manager;
 
     //==== CONSTRUCTOR ====
-    public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, Scientist scientist1, Scientist scientist2, bool active)
+    public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, Scientist scientist1, Scientist scientist2)
     {
         this.name = name;
         this.description = description;
@@ -30,15 +30,31 @@ public class DeathMethod : MonoBehaviour
         this.price = price;
         this.scientist1 = scientist1;
         this.scientist2 = scientist2;
-        this.active = active;
+
+        if (name == "Soft Pillow" || name == "Pencil")
+        {
+            this.active = true;
+        }
+        else
+        {
+            this.active = false;
+        }
     }
     //==== SIMPLE CONSTRUCTOR ====
-    public DeathMethod(string name, Scientist scientist1, Scientist scientist2, bool active)
+    public DeathMethod(string name, Scientist scientist1, Scientist scientist2)
     {
         this.name = name;
         this.scientist1 = scientist1;
         this.scientist2 = scientist2;
-        this.active = active;
+
+        if (name == "Soft Pillow" || name == "Pencil")
+        {
+            this.active = true;
+        }
+        else
+        {
+            this.active = false;
+        }
     }
     //==== SUPER SIMPLE CONSTRUCTOR ====
     public DeathMethod(string name)
