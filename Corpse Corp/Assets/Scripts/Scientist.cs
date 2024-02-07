@@ -33,9 +33,9 @@ public class Scientist : MonoBehaviour
 
         mainMethod.scientist1name = this.name;
 
-        scientistHiringInstance = Instantiate(scientistHiringPrefab, FindObjectOfType<TabManager>().buttonTabs[3].transform.GetChild(1).GetChild(0));
+        scientistHiringInstance = Instantiate(scientistHiringPrefab, FindObjectOfType<TabManager>().buttonTabs[3].transform.GetChild(1).GetChild(0).GetChild(0));
         scientistHiringInstance.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = name;
-        scientistHiringInstance.transform.position = new Vector3(600, 2300 - (90 * scientistNo), 0);
+        scientistHiringInstance.transform.position = new Vector3(transform.parent.parent.position.x, transform.parent.parent.position.y + (90 * (11 - scientistNo)), 0);
     }
 
     // Start is called before the first frame update

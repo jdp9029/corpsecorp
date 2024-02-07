@@ -11,7 +11,7 @@ public class TabManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TabClicked(buttonTabs[1]);
+        TabClicked(buttonTabs[3]);
     }
 
     // Update is called once per frame
