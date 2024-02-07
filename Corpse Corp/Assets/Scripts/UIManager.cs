@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region See Death Methods (Fields)
+    TMP_Text[] textObjects;
     TMP_Text dmList;
     string listText;
     #endregion
@@ -62,7 +63,15 @@ public class UIManager : MonoBehaviour
         #endregion
 
         #region See Death Methods (Start)
-        dmList = GameObject.FindObjectsOfType<TMP_Text>()[1]; //0 is Combo Title, 1 is DM List, 2 is DM Title
+        textObjects = GameObject.FindObjectsOfType<TMP_Text>();
+        for (int i = 0; i < textObjects.Length; i++)
+        {
+            if (textObjects[i].name == "DM List")
+            {
+                dmList = textObjects[i];
+            }
+        }
+        Debug.Log(dmList.name);
         listText = "";
         #endregion
     }
