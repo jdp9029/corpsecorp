@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ScientistManager : MonoBehaviour
@@ -8,13 +9,45 @@ public class ScientistManager : MonoBehaviour
 
     [SerializeField] GameObject scientistForHirePrefab;
 
+    [SerializeField] Transform tab4content;
+
     // Start is called before the first frame update
     void Start()
-    {       
+    {
         #region scientists initialized and combo'd
         scientists = new Scientist[]
         {
-            new Scientist("HS Dropout", 1, new DeathMethod("Soft Pillow", "HS Dropout", null), scientistForHirePrefab, 0),
+            CreateScientist("HS Dropout", 1, "Soft Pillow", 0),
+            CreateScientist("HS Graduate", 1, "Pencil", 1),
+            CreateScientist("College Student", 1, "Stress", 2),
+            CreateScientist("Veterinarian", 2, "Rabies", 3),
+            CreateScientist("Chef", 2, "Knife", 4),
+            CreateScientist("Barber", 2, "Razor", 5),
+            CreateScientist("Construction Worker", 2, "Hammer", 6),
+            CreateScientist("Mechanic", 2, "Wrench", 7),
+            CreateScientist("Historian", 2, "War", 8),
+            CreateScientist("Government Agent", 2, "Assassination", 9),
+            CreateScientist("Biologist", 3, "Infection", 10),
+            CreateScientist("Marine Biologist", 3, "Piranhas", 11),
+            CreateScientist("Engineer", 3, "Building Collapse", 12),
+            CreateScientist("Botanist", 3, "Venus Flytrap", 13),
+            CreateScientist("Astronomer", 3, "Black Hole", 14),
+            CreateScientist("Meteorologist", 3, "Storm", 15),
+            CreateScientist("Geologist", 3, "Earthquake", 16),
+            CreateScientist("Epidemiologist", 4, "Influenza", 17),
+            CreateScientist("Nuclear Scientist", 4, "Fusion Reaction", 18),
+            CreateScientist("Rocket Scientist", 4, "Missile", 19),
+            CreateScientist("Physicist", 4, "Fall Damage", 20),
+            CreateScientist("Radiologist", 4, "Radiation", 21),
+            CreateScientist("Chemist", 4, "Acid", 22),
+
+
+
+
+
+
+
+            /*new Scientist("HS Dropout", 1, new DeathMethod("Soft Pillow", "HS Dropout", null), scientistForHirePrefab, 0),
             new Scientist("HS Graduate", 1, new DeathMethod("Pencil", "HS Graduate", null), scientistForHirePrefab, 1),
             new Scientist("College Student", 1, new DeathMethod("Stress", "College Student", null), scientistForHirePrefab, 2),
             new Scientist("Veterinarian", 2, new DeathMethod("Rabies", "Veterinarian", null), scientistForHirePrefab, 3),
@@ -36,7 +69,7 @@ public class ScientistManager : MonoBehaviour
             new Scientist("Rocket Scientist", 4, new DeathMethod("Missile", "Rocket Scientist", null), scientistForHirePrefab, 19),
             new Scientist("Physicist", 4, new DeathMethod("Fall Damage", "Physicist", null), scientistForHirePrefab, 20),
             new Scientist("Radiologist", 4, new DeathMethod("Radiation", "Radiologist", null), scientistForHirePrefab, 21),
-            new Scientist("Chemist", 4, new DeathMethod("Acid", "Chemist", null), scientistForHirePrefab, 22)
+            new Scientist("Chemist", 4, new DeathMethod("Acid", "Chemist", null), scientistForHirePrefab, 22)*/
         };
 
         //Debug.Log(scientists.Length);
@@ -156,5 +189,50 @@ public class ScientistManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    //Essentially acts as the new scientist constructor
+    private Scientist CreateScientist(string name, int tier, string deathMethodName, int numInOrder)
+    {
+        GameObject instantiation = Instantiate(scientistForHirePrefab, Vector3.zero, Quaternion.identity, tab4content);
+        Scientist scientist = instantiation.GetComponent<Scientist>();
+
+        //essentially make up the scientist constructor here
+        scientist.name = name;
+        scientist.tier = tier;
+        scientist.mainMethod = new DeathMethod(deathMethodName, name, null);
+
+        //set up whether they are purchased
+        if (name == "HS Dropout" || name == "HS Graduate")
+        {
+            scientist.Purchased = true;
+        }
+        else
+        {
+            scientist.Purchased = false;
+        }
+
+        //because two scientists are purchased, move the other ones up the list
+        numInOrder -= 2;
+
+        //set up the appropriate text name
+        instantiation.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = name;
+
+        //set up the position of the object on tab number 4
+        if (!scientist.Purchased)
+        {
+            //position the text
+            instantiation.transform.position = new Vector3(instantiation.transform.parent.parent.position.x + 240f, 
+                instantiation.transform.parent.parent.position.y + (130 * (11 - numInOrder)), 0);
+
+            //increase the size of the content box for scrolling purposes
+            tab4content.GetComponent<RectTransform>().sizeDelta = new Vector2(
+                tab4content.GetComponent<RectTransform>().rect.width,
+                tab4content.GetComponent<RectTransform>().rect.height + 150f);
+        }
+        
+
+
+        return scientist;
     }
 }
