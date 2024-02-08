@@ -222,8 +222,10 @@ public class ScientistManager : MonoBehaviour
         if (!scientist.Purchased)
         {
             //position the text
-            instantiation.transform.position = new Vector3(instantiation.transform.parent.parent.position.x + 240f, 
-                instantiation.transform.parent.parent.position.y + (130 * (11 - numInOrder)), 0);
+            instantiation.transform.GetChild(0).GetComponent<RectTransform>().position = new Vector3(120, instantiation.transform.parent.parent.GetComponent<RectTransform>().rect.y - (numInOrder * 150), 0);
+
+            /*instantiation.transform.position = new Vector3(instantiation.transform.parent.parent.position.x + 100f, 
+                instantiation.transform.parent.parent.position.y + (130 * (11 - numInOrder)), 0);*/
 
             //increase the size of the content box for scrolling purposes
             tab4content.GetComponent<RectTransform>().sizeDelta = new Vector2(
@@ -231,8 +233,6 @@ public class ScientistManager : MonoBehaviour
                 tab4content.GetComponent<RectTransform>().rect.height + 150f);
         }
         
-
-
         return scientist;
     }
 }

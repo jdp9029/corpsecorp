@@ -1980,6 +1980,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &525680325 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+  m_PrefabInstance: {fileID: 17777365}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &558821012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3770,6 +3775,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scientists: []
   scientistForHirePrefab: {fileID: 5770852086238665778, guid: 3966aa1c7c9f39a4caf83938aa752a4d, type: 3}
+  tab4content: {fileID: 525680325}
 --- !u!4 &1240511951
 Transform:
   m_ObjectHideFlags: 0
