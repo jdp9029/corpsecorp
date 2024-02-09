@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
-using UnityEditor.UI;
+//using UnityEditor.UI;
 using UnityEngine.UI;
 
 public class Scientist : MonoBehaviour
@@ -48,6 +48,13 @@ public class Scientist : MonoBehaviour
 
     private void ButtonClick()
     {
+        foreach(Scientist s in GameObject.FindObjectOfType<ScientistManager>().scientists)
+        {
+            if(s.numInOrder > numInOrder)
+            {
+                s.numInOrder--;
+            }
+        }
         this.Purchased = true;
     }
 }
