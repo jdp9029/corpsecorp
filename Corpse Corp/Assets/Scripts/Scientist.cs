@@ -18,7 +18,7 @@ public class Scientist : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(ButtonClick);
     }
 
     // Update is called once per frame
@@ -44,5 +44,10 @@ public class Scientist : MonoBehaviour
         scientist.combinations.Add(this.name, method.name);
         method.scientist1name = this.name;
         method.scientist2name = scientist.name;
+    }
+
+    private void ButtonClick()
+    {
+        this.Purchased = true;
     }
 }

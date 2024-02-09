@@ -194,7 +194,7 @@ public class ScientistManager : MonoBehaviour
     //Essentially acts as the new scientist constructor
     private Scientist CreateScientist(string name, int tier, string deathMethodName, int numInOrder)
     {
-        GameObject instantiation = Instantiate(scientistForHirePrefab, Vector3.zero, Quaternion.identity, tab4content);
+        GameObject instantiation = Instantiate(scientistForHirePrefab, Vector3.zero, Quaternion.identity, tab4content.GetChild(0));
         Scientist scientist = instantiation.GetComponent<Scientist>();
 
         //essentially make up the scientist constructor here
@@ -222,15 +222,15 @@ public class ScientistManager : MonoBehaviour
         if (!scientist.Purchased)
         {
             //position the text
-            instantiation.transform.GetChild(0).GetComponent<RectTransform>().position = new Vector3(120, instantiation.transform.parent.parent.GetComponent<RectTransform>().rect.y - (numInOrder * 150), 0);
+            instantiation.transform.GetChild(0).GetComponent<RectTransform>().position = new Vector3(120, /*instantiation.transform.parent.parent.GetComponent<RectTransform>().rect.y*/ - (numInOrder * 150), 0);
 
             /*instantiation.transform.position = new Vector3(instantiation.transform.parent.parent.position.x + 100f, 
-                instantiation.transform.parent.parent.position.y + (130 * (11 - numInOrder)), 0);*/
+                instantiation.transform.parent.parent.position.y + 500 + (130 * (11 - numInOrder)), 0);*/
 
             //increase the size of the content box for scrolling purposes
             tab4content.GetComponent<RectTransform>().sizeDelta = new Vector2(
                 tab4content.GetComponent<RectTransform>().rect.width,
-                tab4content.GetComponent<RectTransform>().rect.height + 150f);
+                tab4content.GetComponent<RectTransform>().rect.height + 160f);
         }
         
         return scientist;
