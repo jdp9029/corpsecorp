@@ -18,6 +18,12 @@ public class DeathMethodManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        for (int i = 0; i < deathMethods.Count; i++)
+        {
+            if (deathMethods[i].active && !deathMethods[i].passivePurchased)
+            {
+                StartCoroutine(deathMethods[i].UpdateMoney());
+            }
+        }
     }
 }

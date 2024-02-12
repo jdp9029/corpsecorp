@@ -12,6 +12,7 @@ public class Scientist : MonoBehaviour
     public DeathMethod mainMethod;
     public string name;
     public int tier;
+    public int price;
     public bool Purchased;
     public int numInOrder;
 
@@ -48,7 +49,7 @@ public class Scientist : MonoBehaviour
 
     private void ButtonClick()
     {
-        foreach(Scientist s in GameObject.FindObjectOfType<ScientistManager>().scientists)
+        foreach(Scientist s in GameObject.FindObjectOfType<ScientistManager>().scientists) //This foreach loop doesn't shift everything up
         {
             if(s.numInOrder > numInOrder)
             {
@@ -56,5 +57,6 @@ public class Scientist : MonoBehaviour
             }
         }
         this.Purchased = true;
+        this.mainMethod.active = true;
     }
 }

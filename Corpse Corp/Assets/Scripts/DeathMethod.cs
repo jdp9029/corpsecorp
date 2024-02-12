@@ -16,7 +16,8 @@ public class DeathMethod : MonoBehaviour
     public string scientist1name;
     public string scientist2name;
 
-    public bool active;
+    public bool active; //Shows if this DeathMethod has been discovered
+    public bool passivePurchased; //Shows if this DeathMethod has been passively purchased (this will constantly get updated between true and false)
 
     DeathMethodManager manager;
 
@@ -39,6 +40,11 @@ public class DeathMethod : MonoBehaviour
         {
             this.active = false;
         }
+
+        manager = GameObject.FindObjectOfType<DeathMethodManager>();
+        manager.deathMethods.Add(this);
+
+        passivePurchased = false;
     }
     //==== SIMPLE CONSTRUCTOR ====
     public DeathMethod(string name, string scientist1, string scientist2)
@@ -50,17 +56,27 @@ public class DeathMethod : MonoBehaviour
         if (name == "Soft Pillow" || name == "Pencil")
         {
             this.active = true;
+
+            //Temporary Hardcoded Values
+            this.price = 10;
+            this.rateOfSale = 5;
         }
         else
         {
             this.active = false;
+
+            //Temporary Hardcoded Values
+            this.price = 20;
+            this.rateOfSale = 10;
         }
 
         manager = GameObject.FindObjectOfType<DeathMethodManager>();
         manager.deathMethods.Add(this);
+
+        passivePurchased = false;
     }
     //==== SUPER SIMPLE CONSTRUCTOR ====
-    public DeathMethod(string name)
+    /*public DeathMethod(string name)
     {
         this.name = name;
         if (name == "Soft Pillow" || name == "Pencil")
@@ -74,7 +90,9 @@ public class DeathMethod : MonoBehaviour
 
         manager = GameObject.FindObjectOfType<DeathMethodManager>();
         manager.deathMethods.Add(this);
-    }
+
+        passivePurchased = false;
+    }*/
 
     //==== START ====
     void Start()
@@ -85,9 +103,17 @@ public class DeathMethod : MonoBehaviour
     //==== UPDATE ====
     void Update()
     {
-        /*if(!manager.deathMethods.Contains(this)) //If the DeathMethodManager list doesn't contain this DeathMethod, add this DeathMethod to the DeathMethodManager
-        {
-            manager.deathMethods.Add(new DeathMethod(this.name));
-        }*/
+        
+    }
+
+    public IEnumerator UpdateMoney()
+    {
+        manager.money += price;
+        passivePurchased = true;
+        Debug.Log($"Added {price} money from {this.name}. Current Total: {manager.money}");
+
+        yield return new WaitForSeconds(rateOfSale);
+
+        passivePurchased = false;
     }
 }
