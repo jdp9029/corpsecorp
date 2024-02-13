@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ public class UIManager : MonoBehaviour
     TMP_Dropdown dropdown1;
     TMP_Dropdown dropdown2;
     GameObject matchButton;
-    bool btnActive;
+    bool matchBtnActive;
 
     List<string> purchasedScientists; //This contains a list of ALL purchased scientists
     List<string> newScientistToAdd; //This only contains the name of a purchased scientist at any one time, for the purposes of adding to the dropdowns, and is then cleared
@@ -31,6 +32,19 @@ public class UIManager : MonoBehaviour
     TMP_Text[] textObjects;
     TMP_Text dmList;
     string listText;
+    #endregion
+
+    #region Clicker (Fields)
+    [SerializeField] Button clickerButton;
+    [SerializeField] Button leftButton;
+    [SerializeField] Button rightButton;
+    [SerializeField] TMP_Text clickerText;
+
+    int dmIndex;
+    bool leftButtonActive;
+    bool rightButtonActive;
+
+    List<DeathMethod> activeDeathMethods;
     #endregion
 
     //==== START ====
@@ -52,7 +66,7 @@ public class UIManager : MonoBehaviour
 
         //Initialize Match Button
         matchButton = GameObject.FindGameObjectWithTag("MatchButton");
-        btnActive = false;
+        matchBtnActive = false;
 
         discoveryBanner = GameObject.Find("Discovery Banner").GetComponent<TMP_Text>();
 
@@ -68,6 +82,14 @@ public class UIManager : MonoBehaviour
             }
         }
         listText = "";
+        #endregion
+
+        #region Clicker (Start)
+        dmIndex = 0;
+        leftButtonActive = false;
+        rightButtonActive = false;
+
+        activeDeathMethods = new List<DeathMethod>();
         #endregion
     }
 
@@ -134,17 +156,17 @@ public class UIManager : MonoBehaviour
         if (currentScientist1.combinations.ContainsKey(currentScientist2.name)) //If there's a match...
         {
             matchButton.GetComponent<Image>().color = Color.green;
-            if (!btnActive)
+            if (!matchBtnActive)
             {
                 matchButton.GetComponent<Button>().onClick.AddListener(ActivateMatch); //Make sure the button can only be used if there's a match
-                btnActive = true;
+                matchBtnActive = true;
             }
         }
         else //If there's not a match...
         {
             matchButton.GetComponent<Image>().color = Color.red;
             matchButton.GetComponent<Button>().onClick.RemoveListener(ActivateMatch); //hopefully this means that it can't be used when red
-            btnActive = false;
+            matchBtnActive = false;
         }
 
         #endregion
@@ -164,6 +186,55 @@ public class UIManager : MonoBehaviour
             }
         }
         dmList.text = listText; //Set the death method list text to the text placeholder string
+        #endregion
+
+        #region Clicker (Update)
+        //Populate Active DM Array
+        activeDeathMethods.Clear();
+        for (int i = 0; i < dmManager.deathMethods.Count; i++)
+        {
+            if (dmManager.deathMethods[i].active)
+            {
+                activeDeathMethods.Add(dmManager.deathMethods[i]);
+            }
+        }
+        
+        //Fill In Clicker Button (DM Name for now, will be DM Icon)
+        clickerButton.transform.GetChild(0).GetComponent<TMP_Text>().text = activeDeathMethods[dmIndex].name;
+        
+        //Left Button Functionality
+        if (dmIndex - 1 >= 0)
+        {
+            leftButton.GetComponent<Image>().color = Color.white;
+            if (!leftButtonActive)
+            {
+                leftButton.onClick.AddListener(SubtractIndex);
+                leftButtonActive = true;
+            }
+        }
+        else
+        {
+            leftButton.GetComponent<Image>().color = Color.gray;
+            leftButton.onClick.RemoveListener(SubtractIndex);
+            leftButtonActive = false;
+        }
+
+        //Right Button Functionality
+        if (dmIndex + 1 < activeDeathMethods.Count)
+        {
+            rightButton.GetComponent<Image>().color = Color.white;
+            if (!rightButtonActive)
+            {
+                rightButton.onClick.AddListener(AddIndex);
+                rightButtonActive = true;
+            }
+        }
+        else
+        {
+            rightButton.GetComponent<Image>().color = Color.gray;
+            rightButton.onClick.RemoveListener(AddIndex);
+            rightButtonActive = false;
+        }
         #endregion
     }
 
@@ -204,6 +275,6 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         discoveryBanner.text = "";
     }
-
-
+    private void AddIndex() { dmIndex++; }
+    private void SubtractIndex() { dmIndex--; }
 }
