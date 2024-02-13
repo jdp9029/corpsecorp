@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] public ScientistManager sciManager;
     [SerializeField] DeathMethodManager dmManager;
 
+    [SerializeField] TMP_Text statBar;
+
     #region Match Scientists (Fields)
     TMP_Dropdown dropdown1;
     TMP_Dropdown dropdown2;
@@ -251,6 +253,8 @@ public class UIManager : MonoBehaviour
             $"SELLS FOR: {activeDeathMethods[dmIndex].price} M/u\n" +
             $"Sells 1u Every {activeDeathMethods[dmIndex].rateOfSale} Seconds";
         #endregion
+
+        statBar.text = $"MONEY: {dmManager.money}M";
     }
 
     //==== FUNCTIONS ====
