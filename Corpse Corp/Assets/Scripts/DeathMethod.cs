@@ -110,10 +110,16 @@ public class DeathMethod : MonoBehaviour
     {
         manager.money += price;
         passivePurchased = true;
-        Debug.Log($"Added {price} money from {this.name}. Current Total: {manager.money}");
+        //Debug.Log($"Added {price} money from {this.name}. Current Total: {manager.money}");
 
         yield return new WaitForSeconds(rateOfSale);
 
+        passivePurchased = false;
+    }
+    private IEnumerator PassiveOnAndOff(float waitTime)
+    {
+        passivePurchased = true;
+        yield return new WaitForSeconds(rateOfSale);
         passivePurchased = false;
     }
 }

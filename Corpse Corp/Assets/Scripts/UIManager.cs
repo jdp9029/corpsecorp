@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using TMPro;
@@ -198,6 +200,10 @@ public class UIManager : MonoBehaviour
                 activeDeathMethods.Add(dmManager.deathMethods[i]);
             }
         }
+
+        //Activate Clicker Button
+        clickerButton.onClick.RemoveAllListeners();
+        clickerButton.onClick.AddListener(AddMoney);
         
         //Fill In Clicker Button (DM Name for now, will be DM Icon)
         clickerButton.transform.GetChild(0).GetComponent<TMP_Text>().text = activeDeathMethods[dmIndex].name;
@@ -205,6 +211,7 @@ public class UIManager : MonoBehaviour
         //Left Button Functionality
         if (dmIndex - 1 >= 0)
         {
+            leftButton.transform.GetChild(0).GetComponent<TMP_Text>().text = activeDeathMethods[dmIndex - 1].name;
             leftButton.GetComponent<Image>().color = Color.white;
             if (!leftButtonActive)
             {
@@ -216,12 +223,14 @@ public class UIManager : MonoBehaviour
         {
             leftButton.GetComponent<Image>().color = Color.gray;
             leftButton.onClick.RemoveListener(SubtractIndex);
+            leftButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "N/A";
             leftButtonActive = false;
         }
 
         //Right Button Functionality
         if (dmIndex + 1 < activeDeathMethods.Count)
         {
+            rightButton.transform.GetChild(0).GetComponent<TMP_Text>().text = activeDeathMethods[dmIndex + 1].name;
             rightButton.GetComponent<Image>().color = Color.white;
             if (!rightButtonActive)
             {
@@ -233,8 +242,14 @@ public class UIManager : MonoBehaviour
         {
             rightButton.GetComponent<Image>().color = Color.gray;
             rightButton.onClick.RemoveListener(AddIndex);
+            rightButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "N/A";
             rightButtonActive = false;
         }
+
+        //Fill Out Text (M/u = Money per Unit, u = Unit)
+        clickerText.text = $"NAME: {activeDeathMethods[dmIndex].name}\n" +
+            $"SELLS FOR: {activeDeathMethods[dmIndex].price} M/u\n" +
+            $"Sells 1u Every {activeDeathMethods[dmIndex].rateOfSale} Seconds";
         #endregion
     }
 
@@ -275,6 +290,11 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         discoveryBanner.text = "";
     }
+    //Helper Functions for Clicker Page Buttons
     private void AddIndex() { dmIndex++; }
     private void SubtractIndex() { dmIndex--; }
+    private void AddMoney() { 
+        dmManager.money += activeDeathMethods[dmIndex].price;
+        //UnityEngine.Debug.Log($"Added {activeDeathMethods[dmIndex].price} money from {activeDeathMethods[dmIndex].name}. Current Total: {dmManager.money}");
+    }
 }
