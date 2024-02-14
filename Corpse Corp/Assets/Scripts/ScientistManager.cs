@@ -40,6 +40,7 @@ public class ScientistManager : MonoBehaviour
             CreateScientist("Physicist", 4, "Fall Damage", 20),
             CreateScientist("Radiologist", 4, "Radiation", 21),
             CreateScientist("Chemist", 4, "Acid", 22),
+            CreateScientist("Doctor", 4, "Defibrillator", 23)
 
 
 
@@ -84,7 +85,9 @@ public class ScientistManager : MonoBehaviour
         scientists[0].ComboScientist(scientists[6], new DeathMethod("Dropped Steel Beam", scientists[0].name, scientists[6].name));
         scientists[0].ComboScientist(scientists[8], new DeathMethod("Gang Activity", scientists[0].name, scientists[8].name));
         scientists[0].ComboScientist(scientists[11], new DeathMethod("Drowning", scientists[0].name, scientists[11].name));
+        scientists[0].ComboScientist(scientists[14], new DeathMethod("Helmet Removal", scientists[0].name, scientists[14].name));
         scientists[0].ComboScientist(scientists[22], new DeathMethod("Broken Glass", scientists[0].name, scientists[22].name));
+        scientists[0].ComboScientist(scientists[23], new DeathMethod("Botched Surgery", scientists[0].name, scientists[23].name));
 
         //hs graduate
         scientists[1].ComboScientist(scientists[2], new DeathMethod("Hit By Bus", scientists[1].name, scientists[2].name));
@@ -97,6 +100,7 @@ public class ScientistManager : MonoBehaviour
         scientists[2].ComboScientist(scientists[8], new DeathMethod("Extremism", scientists[2].name, scientists[8].name));
         scientists[2].ComboScientist(scientists[9], new DeathMethod("Debt", scientists[2].name, scientists[9].name));
         scientists[2].ComboScientist(scientists[13], new DeathMethod("Cocaine", scientists[2].name, scientists[13].name));
+        scientists[2].ComboScientist(scientists[23], new DeathMethod("Misdiagnosis", scientists[2].name, scientists[23].name));
 
         //vet
         scientists[3].ComboScientist(scientists[4], new DeathMethod("E. Coli", scientists[3].name, scientists[4].name));
@@ -107,6 +111,7 @@ public class ScientistManager : MonoBehaviour
         scientists[3].ComboScientist(scientists[17], new DeathMethod("Chicken pox", scientists[3].name, scientists[17].name));
 
         //chef
+        scientists[4].ComboScientist(scientists[6], new DeathMethod("Eating a Nail", scientists[4].name, scientists[6].name));
         scientists[4].ComboScientist(scientists[7], new DeathMethod("Kitchen Fire", scientists[4].name, scientists[7].name));
         scientists[4].ComboScientist(scientists[8], new DeathMethod("Famine", scientists[4].name, scientists[8].name));
         scientists[4].ComboScientist(scientists[9], new DeathMethod("Cyanide", scientists[4].name, scientists[9].name));
@@ -121,9 +126,11 @@ public class ScientistManager : MonoBehaviour
 
         //construction worker
         scientists[6].ComboScientist(scientists[7], new DeathMethod("Jackhammer", scientists[6].name, scientists[7].name));
+        scientists[6].ComboScientist(scientists[8], new DeathMethod("Barbed Wire", scientists[6].name, scientists[8].name));
         scientists[6].ComboScientist(scientists[12], new DeathMethod("Chainsaw", scientists[6].name, scientists[12].name));
 
         //mechanic
+        scientists[7].ComboScientist(scientists[9], new DeathMethod("Booby Traps", scientists[7].name, scientists[9].name));
         scientists[7].ComboScientist(scientists[12], new DeathMethod("Busted Engine", scientists[7].name, scientists[12].name));
         scientists[7].ComboScientist(scientists[14], new DeathMethod("Faulty Airlock", scientists[7].name, scientists[14].name));
         scientists[7].ComboScientist(scientists[20], new DeathMethod("Head-on Collision", scientists[7].name, scientists[20].name));
@@ -133,6 +140,7 @@ public class ScientistManager : MonoBehaviour
         scientists[8].ComboScientist(scientists[10], new DeathMethod("Plague", scientists[8].name, scientists[10].name));
         scientists[8].ComboScientist(scientists[12], new DeathMethod("Shipwreck", scientists[8].name, scientists[12].name));
         scientists[8].ComboScientist(scientists[14], new DeathMethod("Big Bang", scientists[8].name, scientists[14].name));
+        scientists[8].ComboScientist(scientists[15], new DeathMethod("Wildfire", scientists[8].name, scientists[15].name));
         scientists[8].ComboScientist(scientists[17], new DeathMethod("Black Death", scientists[8].name, scientists[17].name));
         scientists[8].ComboScientist(scientists[19], new DeathMethod("Fireworks", scientists[8].name, scientists[19].name));
         scientists[8].ComboScientist(scientists[22], new DeathMethod("Mustard Gas", scientists[8].name, scientists[22].name));
@@ -187,6 +195,8 @@ public class ScientistManager : MonoBehaviour
 
         //chemist
 
+        //doctor
+
         #endregion
     }
 
@@ -235,7 +245,7 @@ public class ScientistManager : MonoBehaviour
             //increase the size of the content box for scrolling purposes
             tab4content.GetComponent<RectTransform>().sizeDelta = new Vector2(
                 tab4content.GetComponent<RectTransform>().rect.width,
-                tab4content.GetComponent<RectTransform>().rect.height + 160f);
+                tab4content.GetComponent<RectTransform>().rect.height + 170f);
         }
         
         return scientist;
