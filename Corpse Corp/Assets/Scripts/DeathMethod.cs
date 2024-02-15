@@ -46,6 +46,30 @@ public class DeathMethod : MonoBehaviour
 
         passivePurchased = false;
     }
+    //==== CONSTRUCTOR WITHOUT ICON OR DESCRIPTION ====
+    public DeathMethod(string name, float rateOfSale, float price, string scientist1, string scientist2)
+    {
+        this.name = name;
+        this.rateOfSale = rateOfSale;
+        this.price = price;
+        this.scientist1name = scientist1;
+        this.scientist2name = scientist2;
+
+        if (name == "Soft Pillow" || name == "Pencil")
+        {
+            this.active = true;
+        }
+        else
+        {
+            this.active = false;
+        }
+
+        manager = GameObject.FindObjectOfType<DeathMethodManager>();
+        manager.deathMethods.Add(this);
+
+        passivePurchased = false;
+    }
+
     //==== SIMPLE CONSTRUCTOR ====
     public DeathMethod(string name, string scientist1, string scientist2)
     {
@@ -103,7 +127,7 @@ public class DeathMethod : MonoBehaviour
     //==== UPDATE ====
     void Update()
     {
-        
+        //Nothing needs to happen here
     }
 
     public IEnumerator UpdateMoney()
