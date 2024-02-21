@@ -277,7 +277,7 @@ public class ScientistManager : MonoBehaviour
             //increase the size of the content box for scrolling purposes
             tab4content.GetComponent<RectTransform>().sizeDelta = new Vector2(
                 tab4content.GetComponent<RectTransform>().rect.width,
-                tab4content.GetComponent<RectTransform>().rect.height + 170f);
+                tab4content.GetComponent<RectTransform>().rect.height + 180f);
             tab4content.GetComponent<RectTransform>().position = new Vector3(tab4content.GetComponent<RectTransform>().position.x, -1100, 0); //Set scroll window to start at top
         }
 
