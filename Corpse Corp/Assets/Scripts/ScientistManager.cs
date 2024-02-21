@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,6 +11,8 @@ public class ScientistManager : MonoBehaviour
     [SerializeField] GameObject scientistForHirePrefab;
 
     [SerializeField] Transform tab4content;
+
+    [SerializeField] UIManager uiManager;
 
     // Start is called before the first frame update
     void Start()
@@ -200,6 +203,32 @@ public class ScientistManager : MonoBehaviour
 
         //doctor
 
+        //Loop Through Scientist Combos To Automatically Determine Scientist Prices
+        for (int i = 0; i < scientists.Length; i++)
+        {
+            if (scientists[i].tier == 1) //If it's a Tier One, skip it or hardcode price if it's College Student
+            {
+                if (scientists[i].name == "College Student")
+                {
+                    scientists[i].price = 200;
+                }
+            }
+            else if (scientists[i].tier == 2) //Tier 2 price equals # of matches times 350
+            {
+                scientists[i].price = scientists[i].combinations.Count * 350;
+            }
+            else if (scientists[i].tier == 3) //Tier 3 price equals # of matches times 2000
+            {
+                scientists[i].price = scientists[i].combinations.Count * 2000;
+            }
+            else if (scientists[i].tier == 4) //Tier 4 price equals # of matches times 5000
+            {
+                scientists[i].price = scientists[i].combinations.Count * 5000;
+            }
+            uiManager.SetHirePrefabText(scientists[i].gameObject, scientists[i].price);
+            //Debug.Log($"{scientists[i].name}: {scientists[i].price}");
+        }
+
         #endregion
     }
 
@@ -249,7 +278,10 @@ public class ScientistManager : MonoBehaviour
             tab4content.GetComponent<RectTransform>().sizeDelta = new Vector2(
                 tab4content.GetComponent<RectTransform>().rect.width,
                 tab4content.GetComponent<RectTransform>().rect.height + 170f);
+            tab4content.GetComponent<RectTransform>().position = new Vector3(tab4content.GetComponent<RectTransform>().position.x, -1100, 0); //Set scroll window to start at top
         }
+
+        uiManager.hirePrefabs.Add(instantiation);
         
         return scientist;
     }

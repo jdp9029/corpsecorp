@@ -16,10 +16,14 @@ public class Scientist : MonoBehaviour
     public bool Purchased;
     public int numInOrder;
 
+    public DeathMethodManager dmManager;
+
     // Start is called before the first frame update
     void Start()
     {
         transform.GetChild(0).GetComponent<Button>().onClick.AddListener(ButtonClick);
+        
+        dmManager = GameObject.FindObjectOfType<DeathMethodManager>();
     }
 
     // Update is called once per frame
@@ -49,14 +53,18 @@ public class Scientist : MonoBehaviour
 
     private void ButtonClick()
     {
-        foreach(Scientist s in GameObject.FindObjectOfType<ScientistManager>().scientists) //This foreach loop doesn't shift everything up
+        if (this.price <= dmManager.money) //Make Sure You Have Enough Money
         {
-            if(s.numInOrder > numInOrder)
+            foreach (Scientist s in GameObject.FindObjectOfType<ScientistManager>().scientists) //This foreach loop doesn't shift everything up
             {
-                s.numInOrder--;
+                if (s.numInOrder > numInOrder)
+                {
+                    s.numInOrder--;
+                }
             }
+            this.Purchased = true;
+            this.mainMethod.active = true;
+            dmManager.money -= this.price;
         }
-        this.Purchased = true;
-        this.mainMethod.active = true;
     }
 }

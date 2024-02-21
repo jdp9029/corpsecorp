@@ -51,6 +51,10 @@ public class UIManager : MonoBehaviour
     List<DeathMethod> activeDeathMethods;
     #endregion
 
+    #region Hire Scientists (Fields)
+    public List<GameObject> hirePrefabs;
+    #endregion
+
     //==== START ====
     void Start()
     {
@@ -94,6 +98,11 @@ public class UIManager : MonoBehaviour
         rightButtonActive = false;
 
         activeDeathMethods = new List<DeathMethod>();
+        #endregion
+
+        #region Hire Scientists (Start)
+        //hirePrefabs = GameObject.FindGameObjectsWithTag("ForHirePrefab");
+        //UnityEngine.Debug.Log(hirePrefabs.Length);
         #endregion
     }
 
@@ -168,7 +177,7 @@ public class UIManager : MonoBehaviour
         }
         else //If there's not a match...
         {
-            matchButton.GetComponent<Image>().color = Color.red;
+            matchButton.GetComponent<Image>().color = Color.gray;
             matchButton.GetComponent<Button>().onClick.RemoveListener(ActivateMatch); //hopefully this means that it can't be used when red
             matchBtnActive = false;
         }
@@ -254,6 +263,20 @@ public class UIManager : MonoBehaviour
             $"Sells 1u Every {activeDeathMethods[dmIndex].rateOfSale} Seconds";
         #endregion
 
+        #region Hire Scientists (Update)
+        for (int i = 0; i < hirePrefabs.Count; i++) //Loop thru hire prefabs
+        {
+            if (dmManager.money < hirePrefabs[i].GetComponent<Scientist>().price) //If you don't have enough money to purchase a scientist, deactivate button & change color
+            {
+                hirePrefabs[i].transform.GetChild(0).GetComponent<Image>().color = Color.gray;
+            }
+            else
+            {
+                hirePrefabs[i].transform.GetChild(0).GetComponent<Image>().color = Color.green;
+            }
+        }
+        #endregion
+
         statBar.text = $"MONEY: {dmManager.money}M";
     }
 
@@ -285,6 +308,11 @@ public class UIManager : MonoBehaviour
                 StartCoroutine(PrintDiscoveryMessage(5.0f, dmManager.deathMethods[i]));
             }
         }
+    }
+
+    public void SetHirePrefabText(GameObject prefabInstance, int price)
+    {
+        prefabInstance.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = price.ToString() + "M";
     }
 
     //Coroutine that prints a congrats message for waitTime seconds

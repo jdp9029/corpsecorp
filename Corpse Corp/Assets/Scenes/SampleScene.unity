@@ -547,6 +547,7 @@ MonoBehaviour:
   leftButton: {fileID: 1667686687}
   rightButton: {fileID: 1759877888}
   clickerText: {fileID: 1738217884}
+  hirePrefabs: []
 --- !u!1 &46657283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,7 +3111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 161, y: 1110.5051}
+  m_AnchoredPosition: {x: 161, y: 1073}
   m_SizeDelta: {x: 800, y: 224.4502}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &767576199
@@ -4242,6 +4243,7 @@ MonoBehaviour:
   scientists: []
   scientistForHirePrefab: {fileID: 5770852086238665778, guid: 3966aa1c7c9f39a4caf83938aa752a4d, type: 3}
   tab4content: {fileID: 525680325}
+  uiManager: {fileID: 21672619}
 --- !u!4 &1240511951
 Transform:
   m_ObjectHideFlags: 0
