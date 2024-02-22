@@ -29,9 +29,6 @@ public class Scientist : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(transform.parent.parent.position.x + 240f,
-            transform.parent.parent.position.y + (130 * (11 - numInOrder)), 0);
-
         if(Purchased)
         {
             for(int i = 0; i < transform.childCount; i++)
@@ -39,6 +36,10 @@ public class Scientist : MonoBehaviour
                 transform.GetChild(i).gameObject.SetActive(false);
             }
             numInOrder = -1;
+        }
+        else
+        {
+            transform.position = new Vector3(transform.position.x, transform.parent.parent.position.y + 1800 + (10 * (11 - numInOrder)), 0);
         }
     }
 
@@ -53,6 +54,7 @@ public class Scientist : MonoBehaviour
 
     private void ButtonClick()
     {
+        Debug.Log(numInOrder);
         if (this.price <= dmManager.money) //Make Sure You Have Enough Money
         {
             foreach (Scientist s in GameObject.FindObjectOfType<ScientistManager>().scientists) //This foreach loop doesn't shift everything up
@@ -60,11 +62,15 @@ public class Scientist : MonoBehaviour
                 if (s.numInOrder > numInOrder)
                 {
                     s.numInOrder--;
+                    Debug.Log("Shifted " + s.name);
                 }
             }
             this.Purchased = true;
             this.mainMethod.active = true;
             dmManager.money -= this.price;
+            transform.parent.parent.GetComponent<RectTransform>().sizeDelta = new Vector2(transform.parent.parent.GetComponent<RectTransform>().sizeDelta.x,
+                transform.parent.parent.GetComponent<RectTransform>().sizeDelta.y - 100);
+            transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
         }
     }
 }
