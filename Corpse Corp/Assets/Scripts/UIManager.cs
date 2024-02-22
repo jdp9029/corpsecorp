@@ -141,11 +141,17 @@ public class UIManager : MonoBehaviour
             {
                 if (currentScientist2.combinations.ContainsKey(dropdown1.options[i].text)) //If there's a match...
                 {
-                    //Get a reference to the option's ColorBlock, change it, and set it as the reference
-                    ColorBlock colors = dropdown1.transform.Find("Dropdown List").transform.Find("Viewport").transform.Find("Content").transform.Find($"Item {i}: {dropdown1.options[i].text}").GetComponent<Toggle>().colors;
-                    colors.normalColor = new Color(0, 1, 1, 1);
-                    colors.selectedColor = new Color(0, 1, 1, 1);
-                    dropdown1.transform.Find("Dropdown List").transform.Find("Viewport").transform.Find("Content").transform.Find($"Item {i}: {dropdown1.options[i].text}").GetComponent<Toggle>().colors = colors;
+                    foreach (DeathMethod dm in dmManager.deathMethods) //Loop through all Death Methods
+                    {
+                        if (currentScientist2.combinations.ContainsValue(dm.name) && dm.active) //If this Death Method is the result of the match, and it's been discovered...
+                        {
+                            //Get a reference to the option's ColorBlock, change it, and set it as the reference
+                            ColorBlock colors = dropdown1.transform.Find("Dropdown List").transform.Find("Viewport").transform.Find("Content").transform.Find($"Item {i}: {dropdown1.options[i].text}").GetComponent<Toggle>().colors;
+                            colors.normalColor = new Color(0.5f, 0.5f, 0.5f, 1);
+                            colors.selectedColor = new Color(0.5f, 0.5f, 0.5f, 1);
+                            dropdown1.transform.Find("Dropdown List").transform.Find("Viewport").transform.Find("Content").transform.Find($"Item {i}: {dropdown1.options[i].text}").GetComponent<Toggle>().colors = colors;
+                        }
+                    }
                 }
             }
         }
@@ -156,11 +162,17 @@ public class UIManager : MonoBehaviour
             {
                 if (currentScientist1.combinations.ContainsKey(dropdown2.options[i].text)) //If there's a match...
                 {
-                    //Get a reference to the option's ColorBlock, change it, and set it as the reference
-                    ColorBlock colors = dropdown2.transform.Find("Dropdown List").transform.Find("Viewport").transform.Find("Content").transform.Find($"Item {i}: {dropdown2.options[i].text}").GetComponent<Toggle>().colors;
-                    colors.normalColor = new Color(0, 1, 1, 1);
-                    colors.selectedColor = new Color(0, 1, 1, 1);
-                    dropdown2.transform.Find("Dropdown List").transform.Find("Viewport").transform.Find("Content").transform.Find($"Item {i}: {dropdown2.options[i].text}").GetComponent<Toggle>().colors = colors;
+                    foreach (DeathMethod dm in dmManager.deathMethods) //Loop through all Death Methods
+                    {
+                        if (currentScientist1.combinations.ContainsValue(dm.name) && dm.active) //If this Death Method is the result of the match, and it's been discovered...
+                        {
+                            //Get a reference to the option's ColorBlock, change it, and set it as the reference
+                            ColorBlock colors = dropdown2.transform.Find("Dropdown List").transform.Find("Viewport").transform.Find("Content").transform.Find($"Item {i}: {dropdown2.options[i].text}").GetComponent<Toggle>().colors;
+                            colors.normalColor = new Color(0.5f, 0.5f, 0.5f, 1);
+                            colors.selectedColor = new Color(0.5f, 0.5f, 0.5f, 1);
+                            dropdown2.transform.Find("Dropdown List").transform.Find("Viewport").transform.Find("Content").transform.Find($"Item {i}: {dropdown2.options[i].text}").GetComponent<Toggle>().colors = colors;
+                        }
+                    }
                 }
             }
         }

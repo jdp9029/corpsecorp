@@ -81,117 +81,119 @@ public class ScientistManager : MonoBehaviour
         //combos should have the index of the scientist on the left always LESS than the index of the scientist on the right
         //ie. when we get to scientists[1] that does not need to match with scientists[0], that's already taken care of
 
+        //NOTE: DeathMethod constructor goes Name, Scientist1 Name, Scientist2 Name, Price, Rate of Sale
+
         //all combos for HS dropout
-        scientists[0].ComboScientist(scientists[1], new DeathMethod("Book", scientists[0].name, scientists[1].name));
-        scientists[0].ComboScientist(scientists[2], new DeathMethod("Herpes", scientists[0].name, scientists[2].name));
-        scientists[0].ComboScientist(scientists[4], new DeathMethod("Food Poisoning", scientists[0].name, scientists[4].name));
-        scientists[0].ComboScientist(scientists[6], new DeathMethod("Dropped Steel Beam", scientists[0].name, scientists[6].name));
-        scientists[0].ComboScientist(scientists[8], new DeathMethod("Gang Activity", scientists[0].name, scientists[8].name));
-        scientists[0].ComboScientist(scientists[11], new DeathMethod("Drowning", scientists[0].name, scientists[11].name));
-        scientists[0].ComboScientist(scientists[14], new DeathMethod("Helmet Removal", scientists[0].name, scientists[14].name));
-        scientists[0].ComboScientist(scientists[22], new DeathMethod("Broken Glass", scientists[0].name, scientists[22].name));
-        scientists[0].ComboScientist(scientists[23], new DeathMethod("Botched Surgery", scientists[0].name, scientists[23].name));
+        scientists[0].ComboScientist(scientists[1], new DeathMethod("Book", scientists[0].name, scientists[1].name, 4, 3));
+        scientists[0].ComboScientist(scientists[2], new DeathMethod("Herpes", scientists[0].name, scientists[2].name, 7, 5));
+        scientists[0].ComboScientist(scientists[4], new DeathMethod("Food Poisoning", scientists[0].name, scientists[4].name, 10, 4));
+        scientists[0].ComboScientist(scientists[6], new DeathMethod("Dropped Steel Beam", scientists[0].name, scientists[6].name, 20, 15));
+        scientists[0].ComboScientist(scientists[8], new DeathMethod("Gang Activity", scientists[0].name, scientists[8].name, 30, 20));
+        scientists[0].ComboScientist(scientists[11], new DeathMethod("Drowning", scientists[0].name, scientists[11].name, 50, 4));
+        scientists[0].ComboScientist(scientists[14], new DeathMethod("Helmet Removal", scientists[0].name, scientists[14].name, 40, 3));
+        scientists[0].ComboScientist(scientists[22], new DeathMethod("Broken Glass", scientists[0].name, scientists[22].name, 32, 1));
+        scientists[0].ComboScientist(scientists[23], new DeathMethod("Botched Surgery", scientists[0].name, scientists[23].name, 95, 3));
 
         //hs graduate
-        scientists[1].ComboScientist(scientists[2], new DeathMethod("Hit By Bus", scientists[1].name, scientists[2].name));
-        scientists[1].ComboScientist(scientists[3], new DeathMethod("Mosquito Bite", scientists[1].name, scientists[3].name));
-        scientists[1].ComboScientist(scientists[5], new DeathMethod("Scissors", scientists[1].name, scientists[5].name));
-        scientists[1].ComboScientist(scientists[6], new DeathMethod("Scaffolding Collapse", scientists[1].name, scientists[6].name));
-        scientists[1].ComboScientist(scientists[9], new DeathMethod("Military Service", scientists[1].name, scientists[9].name));
-        scientists[1].ComboScientist(scientists[22], new DeathMethod("Chemical Burn", scientists[1].name, scientists[22].name));
+        scientists[1].ComboScientist(scientists[2], new DeathMethod("Hit By Bus", scientists[1].name, scientists[2].name, 15, 10));
+        scientists[1].ComboScientist(scientists[3], new DeathMethod("Mosquito Bite", scientists[1].name, scientists[3].name, 6, 2));
+        scientists[1].ComboScientist(scientists[5], new DeathMethod("Scissors", scientists[1].name, scientists[5].name, 8, 2));
+        scientists[1].ComboScientist(scientists[6], new DeathMethod("Scaffolding Collapse", scientists[1].name, scientists[6].name, 20, 15));
+        scientists[1].ComboScientist(scientists[9], new DeathMethod("Military Service", scientists[1].name, scientists[9].name, 30, 20));
+        scientists[1].ComboScientist(scientists[22], new DeathMethod("Chemical Burn", scientists[1].name, scientists[22].name, 68, 2));
 
         //college student
-        scientists[2].ComboScientist(scientists[3], new DeathMethod("Snake Charmed", scientists[2].name, scientists[3].name));
-        scientists[2].ComboScientist(scientists[8], new DeathMethod("Extremism", scientists[2].name, scientists[8].name));
-        scientists[2].ComboScientist(scientists[9], new DeathMethod("Debt", scientists[2].name, scientists[9].name));
-        scientists[2].ComboScientist(scientists[13], new DeathMethod("Cocaine", scientists[2].name, scientists[13].name));
-        scientists[2].ComboScientist(scientists[23], new DeathMethod("Misdiagnosis", scientists[2].name, scientists[23].name));
+        scientists[2].ComboScientist(scientists[3], new DeathMethod("Snake Charmed", scientists[2].name, scientists[3].name, 11, 10));
+        scientists[2].ComboScientist(scientists[8], new DeathMethod("Extremism", scientists[2].name, scientists[8].name, 40, 25));
+        scientists[2].ComboScientist(scientists[9], new DeathMethod("Debt", scientists[2].name, scientists[9].name, 12, 3));
+        scientists[2].ComboScientist(scientists[13], new DeathMethod("Cocaine", scientists[2].name, scientists[13].name, 75, 5));
+        scientists[2].ComboScientist(scientists[23], new DeathMethod("Misdiagnosis", scientists[2].name, scientists[23].name, 100, 3));
 
         //vet
-        scientists[3].ComboScientist(scientists[4], new DeathMethod("E. Coli", scientists[3].name, scientists[4].name));
-        scientists[3].ComboScientist(scientists[5], new DeathMethod("Hairball Ingestion", scientists[3].name, scientists[5].name));
-        scientists[3].ComboScientist(scientists[7], new DeathMethod("Dog Driving", scientists[3].name, scientists[7].name));
-        scientists[3].ComboScientist(scientists[10], new DeathMethod("Anthrax", scientists[3].name, scientists[10].name));
-        scientists[3].ComboScientist(scientists[11], new DeathMethod("Shark Attack", scientists[3].name, scientists[11].name));
-        scientists[3].ComboScientist(scientists[17], new DeathMethod("Chicken Pox", scientists[3].name, scientists[17].name));
-        scientists[3].ComboScientist(scientists[23], new DeathMethod("Leeches", scientists[3].name, scientists[23].name));
+        scientists[3].ComboScientist(scientists[4], new DeathMethod("E. Coli", scientists[3].name, scientists[4].name, 12, 2));
+        scientists[3].ComboScientist(scientists[5], new DeathMethod("Hairball Ingestion", scientists[3].name, scientists[5].name, 9, 2));
+        scientists[3].ComboScientist(scientists[7], new DeathMethod("Dog Driving", scientists[3].name, scientists[7].name, 35, 8));
+        scientists[3].ComboScientist(scientists[10], new DeathMethod("Anthrax", scientists[3].name, scientists[10].name, 60, 4));
+        scientists[3].ComboScientist(scientists[11], new DeathMethod("Shark Attack", scientists[3].name, scientists[11].name, 80, 5));
+        scientists[3].ComboScientist(scientists[17], new DeathMethod("Chicken Pox", scientists[3].name, scientists[17].name, 40, 1));
+        scientists[3].ComboScientist(scientists[23], new DeathMethod("Leeches", scientists[3].name, scientists[23].name, 80, 2));
 
         //chef
-        scientists[4].ComboScientist(scientists[6], new DeathMethod("Eating a Nail", scientists[4].name, scientists[6].name));
-        scientists[4].ComboScientist(scientists[7], new DeathMethod("Kitchen Fire", scientists[4].name, scientists[7].name));
-        scientists[4].ComboScientist(scientists[8], new DeathMethod("Famine", scientists[4].name, scientists[8].name));
-        scientists[4].ComboScientist(scientists[9], new DeathMethod("Cyanide", scientists[4].name, scientists[9].name));
-        scientists[4].ComboScientist(scientists[10], new DeathMethod("Salmonella", scientists[4].name, scientists[10].name));
-        scientists[4].ComboScientist(scientists[13], new DeathMethod("Hemlock", scientists[4].name, scientists[13].name));
-        scientists[4].ComboScientist(scientists[17], new DeathMethod("Obesity", scientists[4].name, scientists[17].name));
-        scientists[4].ComboScientist(scientists[22], new DeathMethod("Poison", scientists[4].name, scientists[22].name));
+        scientists[4].ComboScientist(scientists[6], new DeathMethod("Eating a Nail", scientists[4].name, scientists[6].name, 15, 2));
+        scientists[4].ComboScientist(scientists[7], new DeathMethod("Kitchen Fire", scientists[4].name, scientists[7].name, 40, 7));
+        scientists[4].ComboScientist(scientists[8], new DeathMethod("Famine", scientists[4].name, scientists[8].name, 70, 10));
+        scientists[4].ComboScientist(scientists[9], new DeathMethod("Cyanide", scientists[4].name, scientists[9].name, 80, 10));
+        scientists[4].ComboScientist(scientists[10], new DeathMethod("Salmonella", scientists[4].name, scientists[10].name, 15, 1));
+        scientists[4].ComboScientist(scientists[13], new DeathMethod("Hemlock", scientists[4].name, scientists[13].name, 70, 4));
+        scientists[4].ComboScientist(scientists[17], new DeathMethod("Obesity", scientists[4].name, scientists[17].name, 72, 2));
+        scientists[4].ComboScientist(scientists[22], new DeathMethod("Poison", scientists[4].name, scientists[22].name, 120, 3));
 
         //barber
-        scientists[5].ComboScientist(scientists[9], new DeathMethod("Scalping", scientists[5].name, scientists[9].name));
-        scientists[5].ComboScientist(scientists[12], new DeathMethod("Electric Razor", scientists[5].name, scientists[12].name));
+        scientists[5].ComboScientist(scientists[9], new DeathMethod("Scalping", scientists[5].name, scientists[9].name, 40, 8));
+        scientists[5].ComboScientist(scientists[12], new DeathMethod("Electric Razor", scientists[5].name, scientists[12].name, 16, 1));
 
         //construction worker
-        scientists[6].ComboScientist(scientists[7], new DeathMethod("Jackhammer", scientists[6].name, scientists[7].name));
-        scientists[6].ComboScientist(scientists[8], new DeathMethod("Barbed Wire", scientists[6].name, scientists[8].name));
-        scientists[6].ComboScientist(scientists[12], new DeathMethod("Chainsaw", scientists[6].name, scientists[12].name));
+        scientists[6].ComboScientist(scientists[7], new DeathMethod("Jackhammer", scientists[6].name, scientists[7].name, 25, 4));
+        scientists[6].ComboScientist(scientists[8], new DeathMethod("Barbed Wire", scientists[6].name, scientists[8].name, 25, 4));
+        scientists[6].ComboScientist(scientists[12], new DeathMethod("Chainsaw", scientists[6].name, scientists[12].name, 35, 2));
 
         //mechanic
-        scientists[7].ComboScientist(scientists[9], new DeathMethod("Booby Traps", scientists[7].name, scientists[9].name));
-        scientists[7].ComboScientist(scientists[12], new DeathMethod("Busted Engine", scientists[7].name, scientists[12].name));
-        scientists[7].ComboScientist(scientists[14], new DeathMethod("Faulty Airlock", scientists[7].name, scientists[14].name));
-        scientists[7].ComboScientist(scientists[20], new DeathMethod("Head-on Collision", scientists[7].name, scientists[20].name));
-        scientists[7].ComboScientist(scientists[22], new DeathMethod("Exhaust Inhalation", scientists[7].name, scientists[22].name));
+        scientists[7].ComboScientist(scientists[9], new DeathMethod("Booby Traps", scientists[7].name, scientists[9].name, 35, 7));
+        scientists[7].ComboScientist(scientists[12], new DeathMethod("Busted Engine", scientists[7].name, scientists[12].name, 50, 3));
+        scientists[7].ComboScientist(scientists[14], new DeathMethod("Faulty Airlock", scientists[7].name, scientists[14].name, 110, 7));
+        scientists[7].ComboScientist(scientists[20], new DeathMethod("Head-on Collision", scientists[7].name, scientists[20].name, 150, 4));
+        scientists[7].ComboScientist(scientists[22], new DeathMethod("Exhaust Inhalation", scientists[7].name, scientists[22].name, 150, 4));
 
         //historian
-        scientists[8].ComboScientist(scientists[10], new DeathMethod("Plague", scientists[8].name, scientists[10].name));
-        scientists[8].ComboScientist(scientists[12], new DeathMethod("Shipwreck", scientists[8].name, scientists[12].name));
-        scientists[8].ComboScientist(scientists[14], new DeathMethod("Big Bang", scientists[8].name, scientists[14].name));
-        scientists[8].ComboScientist(scientists[15], new DeathMethod("Wildfire", scientists[8].name, scientists[15].name));
-        scientists[8].ComboScientist(scientists[17], new DeathMethod("Black Death", scientists[8].name, scientists[17].name));
-        scientists[8].ComboScientist(scientists[19], new DeathMethod("Fireworks", scientists[8].name, scientists[19].name));
-        scientists[8].ComboScientist(scientists[22], new DeathMethod("Mustard Gas", scientists[8].name, scientists[22].name));
+        scientists[8].ComboScientist(scientists[10], new DeathMethod("Plague", scientists[8].name, scientists[10].name, 175, 10));
+        scientists[8].ComboScientist(scientists[12], new DeathMethod("Shipwreck", scientists[8].name, scientists[12].name, 125, 8));
+        scientists[8].ComboScientist(scientists[14], new DeathMethod("Big Bang", scientists[8].name, scientists[14].name, 225, 12));
+        scientists[8].ComboScientist(scientists[15], new DeathMethod("Wildfire", scientists[8].name, scientists[15].name, 200, 12));
+        scientists[8].ComboScientist(scientists[17], new DeathMethod("Black Death", scientists[8].name, scientists[17].name, 300, 6));
+        scientists[8].ComboScientist(scientists[19], new DeathMethod("Fireworks", scientists[8].name, scientists[19].name, 140, 3));
+        scientists[8].ComboScientist(scientists[22], new DeathMethod("Mustard Gas", scientists[8].name, scientists[22].name, 300, 7));
 
         //gov't agent
-        scientists[9].ComboScientist(scientists[11], new DeathMethod("Waterboarding", scientists[9].name, scientists[11].name));
-        scientists[9].ComboScientist(scientists[13], new DeathMethod("Ricin", scientists[9].name, scientists[13].name));
-        scientists[9].ComboScientist(scientists[16], new DeathMethod("Climate Change", scientists[9].name, scientists[16].name));
-        scientists[9].ComboScientist(scientists[18], new DeathMethod("The Football", scientists[9].name, scientists[18].name));
+        scientists[9].ComboScientist(scientists[11], new DeathMethod("Waterboarding", scientists[9].name, scientists[11].name, 75, 4));
+        scientists[9].ComboScientist(scientists[13], new DeathMethod("Ricin", scientists[9].name, scientists[13].name, 70, 4));
+        scientists[9].ComboScientist(scientists[16], new DeathMethod("Climate Change", scientists[9].name, scientists[16].name, 160, 9));
+        scientists[9].ComboScientist(scientists[18], new DeathMethod("The Football", scientists[9].name, scientists[18].name, 500, 12));
 
         //biologist
-        scientists[10].ComboScientist(scientists[11], new DeathMethod("Animal Attack", scientists[10].name, scientists[11].name));
-        scientists[10].ComboScientist(scientists[12], new DeathMethod("Submarine Implosion", scientists[10].name, scientists[12].name));
+        scientists[10].ComboScientist(scientists[11], new DeathMethod("Animal Attack", scientists[10].name, scientists[11].name, 28, 1));
+        scientists[10].ComboScientist(scientists[12], new DeathMethod("Submarine Implosion", scientists[10].name, scientists[12].name, 260, 10));
 
         //marine biologist
-        scientists[11].ComboScientist(scientists[14], new DeathMethod("Asphyxiation", scientists[11].name, scientists[14].name));
-        scientists[11].ComboScientist(scientists[15], new DeathMethod("Flood", scientists[11].name, scientists[15].name));
-        scientists[11].ComboScientist(scientists[16], new DeathMethod("Tsunami", scientists[11].name, scientists[16].name));
-        scientists[11].ComboScientist(scientists[19], new DeathMethod("Torpedo", scientists[11].name, scientists[19].name));
+        scientists[11].ComboScientist(scientists[14], new DeathMethod("Asphyxiation", scientists[11].name, scientists[14].name, 100, 4));
+        scientists[11].ComboScientist(scientists[15], new DeathMethod("Flood", scientists[11].name, scientists[15].name, 70, 3));
+        scientists[11].ComboScientist(scientists[16], new DeathMethod("Tsunami", scientists[11].name, scientists[16].name, 140, 6));
+        scientists[11].ComboScientist(scientists[19], new DeathMethod("Torpedo", scientists[11].name, scientists[19].name, 550, 8));
 
         //engineer
-        scientists[12].ComboScientist(scientists[20], new DeathMethod("Lab Explosion", scientists[12].name, scientists[20].name));
-        scientists[12].ComboScientist(scientists[22], new DeathMethod("Poison Grenade", scientists[12].name, scientists[22].name));
+        scientists[12].ComboScientist(scientists[20], new DeathMethod("Lab Explosion", scientists[12].name, scientists[20].name, 400, 7));
+        scientists[12].ComboScientist(scientists[22], new DeathMethod("Poison Grenade", scientists[12].name, scientists[22].name, 450, 8));
 
         //botanist
 
         //astronomer
-        scientists[14].ComboScientist(scientists[16], new DeathMethod("Meteorite", scientists[14].name, scientists[16].name));
-        scientists[14].ComboScientist(scientists[18], new DeathMethod("Supernova", scientists[14].name, scientists[18].name));
-        scientists[14].ComboScientist(scientists[19], new DeathMethod("Stranded in Space", scientists[14].name, scientists[19].name));
+        scientists[14].ComboScientist(scientists[16], new DeathMethod("Meteorite", scientists[14].name, scientists[16].name, 300, 12));
+        scientists[14].ComboScientist(scientists[18], new DeathMethod("Supernova", scientists[14].name, scientists[18].name, 700, 12));
+        scientists[14].ComboScientist(scientists[19], new DeathMethod("Stranded in Space", scientists[14].name, scientists[19].name, 300, 5));
 
         //meteorologist
-        scientists[15].ComboScientist(scientists[16], new DeathMethod("Drought", scientists[15].name, scientists[16].name));
-        scientists[15].ComboScientist(scientists[22], new DeathMethod("Acid Rain", scientists[15].name, scientists[22].name));
+        scientists[15].ComboScientist(scientists[16], new DeathMethod("Drought", scientists[15].name, scientists[16].name, 200, 8));
+        scientists[15].ComboScientist(scientists[22], new DeathMethod("Acid Rain", scientists[15].name, scientists[22].name, 600, 10));
 
         //geologist
-        scientists[16].ComboScientist(scientists[21], new DeathMethod("Uranium", scientists[16].name, scientists[21].name));
-        scientists[16].ComboScientist(scientists[22], new DeathMethod("Volcano", scientists[16].name, scientists[22].name));
+        scientists[16].ComboScientist(scientists[21], new DeathMethod("Uranium", scientists[16].name, scientists[21].name, 400, 7));
+        scientists[16].ComboScientist(scientists[22], new DeathMethod("Volcano", scientists[16].name, scientists[22].name, 500, 8));
 
         //epidemiologist
-        scientists[17].ComboScientist(scientists[21], new DeathMethod("Cancer", scientists[17].name, scientists[21].name));
+        scientists[17].ComboScientist(scientists[21], new DeathMethod("Cancer", scientists[17].name, scientists[21].name, 300, 4));
 
         //nuclear scientist
-        scientists[18].ComboScientist(scientists[20], new DeathMethod("Atom Bomb", scientists[18].name, scientists[20].name));
-        scientists[18].ComboScientist(scientists[21], new DeathMethod("Fallout", scientists[18].name, scientists[21].name));
+        scientists[18].ComboScientist(scientists[20], new DeathMethod("Atom Bomb", scientists[18].name, scientists[20].name, 1100, 14));
+        scientists[18].ComboScientist(scientists[21], new DeathMethod("Fallout", scientists[18].name, scientists[21].name, 315, 4));
 
         //rocket scientist
 
@@ -247,7 +249,83 @@ public class ScientistManager : MonoBehaviour
         //essentially make up the scientist constructor here
         scientist.name = name;
         scientist.tier = tier;
-        scientist.mainMethod = new DeathMethod(deathMethodName, name, null);
+
+        //Construct Inherent DeathMethods based on DM Name
+        switch (deathMethodName)
+        {
+            case "Soft Pillow":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 2, 2);
+                break;
+            case "Pencil":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 2, 2);
+                break;
+            case "Stress":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 2, 1);
+                break;
+            case "Rabies":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 30, 6);
+                break;
+            case "Knife":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 15, 3);
+                break;
+            case "Razor":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 10, 2);
+                break;
+            case "Hammer":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 10, 2);
+                break;
+            case "Wrench":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 10, 2);
+                break;
+            case "War":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 50, 8);
+                break;
+            case "Assassination":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 60, 10);
+                break;
+            case "Infection":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 200, 9);
+                break;
+            case "Piranhas":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 45, 2);
+                break;
+            case "Building Collapse":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 90, 3);
+                break;
+            case "Venus Flytrap":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 26, 1);
+                break;
+            case "Black Hole":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 400, 15);
+                break;
+            case "Storm":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 80, 3);
+                break;
+            case "Earthquake":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 150, 7);
+                break;
+            case "Influenza":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 75, 1);
+                break;
+            case "Fusion Reaction":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 900, 12);
+                break;
+            case "Missile":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 550, 7);
+                break;
+            case "Fall Damage":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 135, 2);
+                break;
+            case "Radiation":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 76, 1);
+                break;
+            case "Acid":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 150, 2);
+                break;
+            case "Defibrillator":
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 225, 3);
+                break;
+        }
 
         //set up whether they are purchased
         if (name == "HS Dropout" || name == "HS Graduate")
@@ -280,7 +358,7 @@ public class ScientistManager : MonoBehaviour
             tab4content.GetComponent<RectTransform>().sizeDelta = new Vector2(
                 tab4content.GetComponent<RectTransform>().rect.width,
                 tab4content.GetComponent<RectTransform>().rect.height + 200f);
-            /*tab4content.GetComponent<RectTransform>().position = new Vector3(tab4content.GetComponent<RectTransform>().position.x, -500, 0); //Set scroll window to start at top*/
+            tab4content.GetComponent<RectTransform>().position = new Vector3(tab4content.GetComponent<RectTransform>().position.x, -500, 0); //Set scroll window to start at top
         }
 
         uiManager.hirePrefabs.Add(instantiation);

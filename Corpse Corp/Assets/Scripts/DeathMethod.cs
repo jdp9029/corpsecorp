@@ -47,7 +47,7 @@ public class DeathMethod : MonoBehaviour
         passivePurchased = false;
     }
     //==== CONSTRUCTOR WITHOUT ICON OR DESCRIPTION ====
-    public DeathMethod(string name, float rateOfSale, float price, string scientist1, string scientist2)
+    public DeathMethod(string name, string scientist1, string scientist2, float price, float rateOfSale)
     {
         this.name = name;
         this.rateOfSale = rateOfSale;
