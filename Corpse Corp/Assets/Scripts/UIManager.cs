@@ -339,6 +339,5 @@ public class UIManager : MonoBehaviour
     private void SubtractIndex() { dmIndex--; }
     private void AddMoney() { 
         dmManager.money += activeDeathMethods[dmIndex].price;
-        //UnityEngine.Debug.Log($"Added {activeDeathMethods[dmIndex].price} money from {activeDeathMethods[dmIndex].name}. Current Total: {dmManager.money}");
     }
 }
