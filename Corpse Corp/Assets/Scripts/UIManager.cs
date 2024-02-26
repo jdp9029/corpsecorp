@@ -281,7 +281,7 @@ public class UIManager : MonoBehaviour
         }
         #endregion
 
-        statBar.text = $"MONEY: {dmManager.money}M";
+        statBar.text = $"MONEY: {dmManager.money}M ; {dmManager.moneyPerSecond}M per S";
     }
 
     //==== FUNCTIONS ====
