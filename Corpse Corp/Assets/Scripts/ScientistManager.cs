@@ -243,7 +243,7 @@ public class ScientistManager : MonoBehaviour
     //Essentially acts as the new scientist constructor
     private Scientist CreateScientist(string name, int tier, string deathMethodName, int numInOrder)
     {
-        GameObject instantiation = Instantiate(scientistForHirePrefab, Vector3.zero, Quaternion.identity, tab4content.GetChild(0));
+        GameObject instantiation = Instantiate(scientistForHirePrefab, Vector3.zero, Quaternion.identity, tab4content);
         Scientist scientist = instantiation.GetComponent<Scientist>();
 
         //essentially make up the scientist constructor here
@@ -331,7 +331,7 @@ public class ScientistManager : MonoBehaviour
         if (name == "HS Dropout" || name == "HS Graduate")
         {
             scientist.Purchased = true;
-            scientist.transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
+            instantiation.transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
         }
         else
         {
@@ -343,25 +343,24 @@ public class ScientistManager : MonoBehaviour
         scientist.numInOrder = numInOrder;
 
         //set up the appropriate text name
-        instantiation.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = name;
+        instantiation.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
 
         //set up the position of the object on tab number 4
         if (!scientist.Purchased)
         {
             //position the text
-            instantiation.transform.GetChild(0).GetComponent<RectTransform>().position = new Vector3(320, /*instantiation.transform.parent.parent.GetComponent<RectTransform>().rect.y*/ - (numInOrder * 150), 0);
+            //instantiation.transform.GetChild(0).GetComponent<RectTransform>().position = new Vector3(320, /*instantiation.transform.parent.parent.GetComponent<RectTransform>().rect.y*/ - (numInOrder * 150), 0);
 
             /*instantiation.transform.position = new Vector3(instantiation.transform.parent.parent.position.x + 100f, 
                 instantiation.transform.parent.parent.position.y + 500 + (130 * (11 - numInOrder)), 0);*/
 
             //increase the size of the content box for scrolling purposes
-            tab4content.GetComponent<RectTransform>().sizeDelta = new Vector2(
+            /*tab4content.GetComponent<RectTransform>().sizeDelta = new Vector2(
                 tab4content.GetComponent<RectTransform>().rect.width,
                 tab4content.GetComponent<RectTransform>().rect.height + 200f);
-            tab4content.GetComponent<RectTransform>().position = new Vector3(tab4content.GetComponent<RectTransform>().position.x, -500, 0); //Set scroll window to start at top
+            tab4content.GetComponent<RectTransform>().position = new Vector3(tab4content.GetComponent<RectTransform>().position.x, -500, 0); //Set scroll window to start at top*/
+            uiManager.hirePrefabs.Add(instantiation);
         }
-
-        uiManager.hirePrefabs.Add(instantiation);
         
         return scientist;
     }

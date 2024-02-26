@@ -21,7 +21,7 @@ public class Scientist : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(ButtonClick);
+        transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ButtonClick);
         
         dmManager = GameObject.FindObjectOfType<DeathMethodManager>();
     }
@@ -39,7 +39,7 @@ public class Scientist : MonoBehaviour
         }
         else
         {
-            transform.position = new Vector3(transform.position.x, transform.parent.parent.position.y + 1800 + (10 * (11 - numInOrder)), 0);
+            //transform.position = new Vector3(transform.position.x, transform.parent.parent.position.y + 1800 + (10 * (11 - numInOrder)), 0);
         }
     }
 
@@ -68,8 +68,6 @@ public class Scientist : MonoBehaviour
             this.Purchased = true;
             this.mainMethod.active = true;
             dmManager.money -= this.price;
-            transform.parent.parent.GetComponent<RectTransform>().sizeDelta = new Vector2(transform.parent.parent.GetComponent<RectTransform>().sizeDelta.x,
-                transform.parent.parent.GetComponent<RectTransform>().sizeDelta.y - 100);
             transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
         }
     }

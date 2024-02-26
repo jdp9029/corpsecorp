@@ -195,6 +195,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 105.376434
       objectReference: {fileID: 0}
+    - target: {fileID: 1173837327929630087, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173837327929630087, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173837327929630087, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 751.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173837327929630087, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -158
+      objectReference: {fileID: 0}
     - target: {fileID: 1403403731255950699, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -256,20 +272,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0000013947487
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.00006228217
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00012207031
+      value: 843.2997
       objectReference: {fileID: 0}
     - target: {fileID: 3452217859060788991, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_AnchorMax.y
@@ -331,6 +363,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hire Scientists Tab
       objectReference: {fileID: 0}
+    - target: {fileID: 6620400978812982385, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_VerticalFit
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620400978812982385, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_HorizontalFit
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7066404566678885560, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_HorizontalFit
       value: 0
@@ -344,6 +384,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7958293405152381270, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7958293405152381270, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_ChildScaleWidth
       value: 1
       objectReference: {fileID: 0}
@@ -353,11 +397,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7958293405152381270, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_ChildControlWidth
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7958293405152381270, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_ChildControlHeight
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_RootOrder
@@ -448,10 +492,7 @@ PrefabInstance:
     - {fileID: 7142499160241010419, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4917480820350369427, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 503219542}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
 --- !u!4 &17777366 stripped
@@ -1469,6 +1510,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1173837327929630087, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 798.6533
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173837327929630087, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 317.443
+      objectReference: {fileID: 0}
     - target: {fileID: 1403403731255950699, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1508,6 +1557,22 @@ PrefabInstance:
     - target: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.000061035156
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597475321835386943, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 369.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597475321835386943, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 619.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597475321835386943, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000030517578
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597475321835386943, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0024414062
       objectReference: {fileID: 0}
     - target: {fileID: 4839155767699088903, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_Colors.m_NormalColor.b
@@ -2489,42 +2554,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 481315986}
   m_CullTransparentMesh: 1
---- !u!1 &503219541
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 503219542}
-  m_Layer: 0
-  m_Name: Test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &503219542
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503219541}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 525680325}
-  m_RootOrder: -2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &510875458
 GameObject:
   m_ObjectHideFlags: 0
@@ -4723,7 +4752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scientists: []
-  scientistForHirePrefab: {fileID: 5770852086238665778, guid: 3966aa1c7c9f39a4caf83938aa752a4d, type: 3}
+  scientistForHirePrefab: {fileID: 2199329706651809223, guid: 1f3c524de9e350a408348ffa41619a7f, type: 3}
   tab4content: {fileID: 525680325}
   uiManager: {fileID: 21672619}
 --- !u!4 &1240511951

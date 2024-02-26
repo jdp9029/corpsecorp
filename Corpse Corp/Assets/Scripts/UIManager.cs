@@ -272,11 +272,11 @@ public class UIManager : MonoBehaviour
         {
             if (dmManager.money < hirePrefabs[i].GetComponent<Scientist>().price) //If you don't have enough money to purchase a scientist, deactivate button & change color
             {
-                hirePrefabs[i].transform.GetChild(0).GetComponent<Image>().color = Color.gray;
+                hirePrefabs[i].transform.GetChild(1).GetComponent<Image>().color = Color.gray;
             }
             else
             {
-                hirePrefabs[i].transform.GetChild(0).GetComponent<Image>().color = Color.green;
+                hirePrefabs[i].transform.GetChild(1).GetComponent<Image>().color = Color.green;
             }
         }
         #endregion
@@ -329,7 +329,7 @@ public class UIManager : MonoBehaviour
 
     public void SetHirePrefabText(GameObject prefabInstance, int price)
     {
-        prefabInstance.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = price.ToString() + "M";
+        prefabInstance.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = price.ToString() + "M";
     }
 
     //Coroutine that prints a congrats message for waitTime seconds
