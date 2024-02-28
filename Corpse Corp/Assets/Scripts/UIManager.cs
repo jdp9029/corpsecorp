@@ -33,6 +33,8 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region See Death Methods (Fields)
+    [SerializeField] GameObject Tab1Content;
+    [SerializeField] GameObject InventoryAssetPrefab;
     TMP_Text[] textObjects;
     TMP_Text dmList;
     string listText;
@@ -81,7 +83,7 @@ public class UIManager : MonoBehaviour
         #endregion
 
         #region See Death Methods (Start)
-        textObjects = GameObject.FindObjectsOfType<TMP_Text>();
+        /*textObjects = GameObject.FindObjectsOfType<TMP_Text>();
         for (int i = 0; i < textObjects.Length; i++)
         {
             if (textObjects[i].name == "DM List")
@@ -89,7 +91,7 @@ public class UIManager : MonoBehaviour
                 dmList = textObjects[i];
             }
         }
-        listText = "";
+        listText = "";*/
         #endregion
 
         #region Clicker (Start)
@@ -198,7 +200,7 @@ public class UIManager : MonoBehaviour
         #endregion
 
         #region See Death Methods (Update)
-        listText = ""; //Clear Text Placeholder
+        /*listText = ""; //Clear Text Placeholder
         for (int i = 0; i < dmManager.deathMethods.Count; i++) //Loop through Death Methods
         {
             if (dmManager.deathMethods[i].active) //If a Death Method is active (discovered / default from a purchased scientist)...
@@ -211,7 +213,7 @@ public class UIManager : MonoBehaviour
                 listText += "\n";
             }
         }
-        dmList.text = listText; //Set the death method list text to the text placeholder string
+        dmList.text = listText; //Set the death method list text to the text placeholder string*/
         #endregion
 
         #region Clicker (Update)
@@ -332,6 +334,7 @@ public class UIManager : MonoBehaviour
             {
                 dmManager.deathMethods[i].active = true;
                 StartCoroutine(PrintDiscoveryMessage(5.0f, dmManager.deathMethods[i]));
+                GameObject.FindObjectOfType<UIManager>().AddToInventory(dmManager.deathMethods[i]);
             }
         }
     }
@@ -362,5 +365,11 @@ public class UIManager : MonoBehaviour
         clickRect.sizeDelta = new Vector2(415, 415);
         yield return new WaitForSeconds(waitTime);
         clickRect.sizeDelta = new Vector2(400, 400);
+    }
+
+    public void AddToInventory(DeathMethod dm)
+    {
+        GameObject obj = Instantiate(InventoryAssetPrefab, Tab1Content.transform);
+        obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dm.name;
     }
 }

@@ -332,6 +332,7 @@ public class ScientistManager : MonoBehaviour
         {
             scientist.Purchased = true;
             instantiation.transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
+            GameObject.FindObjectOfType<UIManager>().AddToInventory(scientist.mainMethod);
         }
         else
         {
