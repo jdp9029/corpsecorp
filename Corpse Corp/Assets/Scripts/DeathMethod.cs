@@ -140,10 +140,4 @@ public class DeathMethod : MonoBehaviour
 
         passivePurchased = false;
     }
-    private IEnumerator PassiveOnAndOff(float waitTime)
-    {
-        passivePurchased = true;
-        yield return new WaitForSeconds(rateOfSale);
-        passivePurchased = false;
-    }
 }

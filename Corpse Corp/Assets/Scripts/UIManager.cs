@@ -172,17 +172,26 @@ public class UIManager : MonoBehaviour
         //Determine If There's a Match
         if (currentScientist1.combinations.ContainsKey(currentScientist2.name)) //If there's a match...
         {
-            matchButton.GetComponent<Image>().color = Color.green;
-            if (!matchBtnActive)
+            if (FindDeathMethod(dmManager, currentScientist1.combinations[currentScientist2.name]).active) //If that death method is already discovered, turn button yellow & turn it off
             {
-                matchButton.GetComponent<Button>().onClick.AddListener(ActivateMatch); //Make sure the button can only be used if there's a match
-                matchBtnActive = true;
+                matchButton.GetComponent<Image>().color = Color.yellow;
+                matchButton.GetComponent<Button>().onClick.RemoveListener(ActivateMatch); //Button can no longer be used
+                matchBtnActive = false;
+            }
+            else //If it's a new match, turn button green and activate it
+            {
+                matchButton.GetComponent<Image>().color = Color.green;
+                if (!matchBtnActive)
+                {
+                    matchButton.GetComponent<Button>().onClick.AddListener(ActivateMatch); //Make sure the button can only be used if there's a match
+                    matchBtnActive = true;
+                }
             }
         }
-        else //If there's not a match...
+        else //If there's not a match, turn button gray & deactivate it
         {
             matchButton.GetComponent<Image>().color = Color.gray;
-            matchButton.GetComponent<Button>().onClick.RemoveListener(ActivateMatch); //hopefully this means that it can't be used when red
+            matchButton.GetComponent<Button>().onClick.RemoveListener(ActivateMatch); //Button can no longer be used
             matchBtnActive = false;
         }
 
@@ -281,7 +290,7 @@ public class UIManager : MonoBehaviour
         }
         #endregion
 
-        statBar.text = $"MONEY: {dmManager.money}M ; {dmManager.moneyPerSecond}M per S";
+        statBar.text = $"<i>MONEY: {dmManager.money}M ; {dmManager.moneyPerSecond}M / S</i>";
     }
 
     //==== FUNCTIONS ====
@@ -335,14 +344,23 @@ public class UIManager : MonoBehaviour
     //Coroutine that prints a congrats message for waitTime seconds
     private IEnumerator PrintDiscoveryMessage(float waitTime, DeathMethod dm)
     {
-        discoveryBanner.text = $"Congratulations! You've Discovered {dm.name}!";
+        discoveryBanner.text = $"Congratulations! You've Discovered <b>{dm.name}!</b>";
         yield return new WaitForSeconds(waitTime);
         discoveryBanner.text = "";
     }
     //Helper Functions for Clicker Page Buttons
     private void AddIndex() { dmIndex++; }
     private void SubtractIndex() { dmIndex--; }
-    private void AddMoney() { 
+    private void AddMoney() //Add money & expand the clicker button rect briefly
+    {
         dmManager.money += activeDeathMethods[dmIndex].price;
+        StartCoroutine(ExpandClickButton(0.1f));
+    }
+    private IEnumerator ExpandClickButton(float waitTime) //Make the ClickerButton bigger on click for a very short amount of time
+    {
+        RectTransform clickRect = clickerButton.GetComponent<RectTransform>();
+        clickRect.sizeDelta = new Vector2(415, 415);
+        yield return new WaitForSeconds(waitTime);
+        clickRect.sizeDelta = new Vector2(400, 400);
     }
 }
