@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,12 +33,14 @@ public class UIManager : MonoBehaviour
     TMP_Text discoveryBanner;
     #endregion
 
-    #region See Death Methods (Fields)
+    #region See Inventory (Fields)
     [SerializeField] GameObject Tab1Content;
     [SerializeField] GameObject InventoryAssetPrefab;
     TMP_Text[] textObjects;
     TMP_Text dmList;
     string listText;
+
+    [SerializeField] GameObject Tab1ContentScientists;
     #endregion
 
     #region Clicker (Fields)
@@ -371,5 +374,11 @@ public class UIManager : MonoBehaviour
     {
         GameObject obj = Instantiate(InventoryAssetPrefab, Tab1Content.transform);
         obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dm.name;
+    }
+
+    public void AddScientistToInventory(Scientist sci)
+    {
+        GameObject obj = Instantiate(InventoryAssetPrefab, Tab1ContentScientists.transform);
+        obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci.name;
     }
 }

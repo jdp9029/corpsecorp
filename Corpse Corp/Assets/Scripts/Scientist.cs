@@ -70,6 +70,7 @@ public class Scientist : MonoBehaviour
             dmManager.money -= this.price;
             transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
             GameObject.FindObjectOfType<UIManager>().AddToInventory(mainMethod);
+            GameObject.FindObjectOfType<UIManager>().AddScientistToInventory(this);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -231,6 +232,9 @@ public class ScientistManager : MonoBehaviour
             //Debug.Log($"{scientists[i].name}: {scientists[i].price}");
         }
 
+        //Sort by price
+        //SortScientistsByCost();
+
         #endregion
     }
 
@@ -333,6 +337,7 @@ public class ScientistManager : MonoBehaviour
             scientist.Purchased = true;
             instantiation.transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
             GameObject.FindObjectOfType<UIManager>().AddToInventory(scientist.mainMethod);
+            GameObject.FindObjectOfType<UIManager>().AddScientistToInventory(scientist);
         }
         else
         {
@@ -364,5 +369,27 @@ public class ScientistManager : MonoBehaviour
         }
         
         return scientist;
+    }
+
+    private void SortScientistsByCost()
+    {
+        Scientist[] unPurchasedScientists = scientists.Where(scientist => !scientist.Purchased).ToArray();
+
+        for(int i = 1; i < unPurchasedScientists.Length; i++)
+        {
+            if (unPurchasedScientists[i].price < unPurchasedScientists[i - 1].price)
+            {
+                unPurchasedScientists[i].numInOrder--;
+                unPurchasedScientists[i - 1].numInOrder++;
+
+                Scientist s1 = unPurchasedScientists[i];
+                Scientist s2 = unPurchasedScientists[i - 1];
+
+                unPurchasedScientists[i] = s2;
+                unPurchasedScientists[i - 1] = s1;
+
+                SortScientistsByCost();
+            }
+        }
     }
 }
