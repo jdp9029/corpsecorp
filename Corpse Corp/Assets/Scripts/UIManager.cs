@@ -227,6 +227,20 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        //Sort Active DM Array by Price
+        for (int i = 0; i < activeDeathMethods.Count - 1; i++)
+        {
+            for (int j = 0; j < activeDeathMethods.Count - i - 1; j++)
+            {
+                if (activeDeathMethods[j].price > activeDeathMethods[j + 1].price)
+                {
+                    DeathMethod tempDM = activeDeathMethods[j];
+                    activeDeathMethods[j] = activeDeathMethods[j + 1];
+                    activeDeathMethods[j + 1] = tempDM;
+                }
+            }
+        }
+
         //Activate Clicker Button
         clickerButton.onClick.RemoveAllListeners();
         clickerButton.onClick.AddListener(AddMoney);
