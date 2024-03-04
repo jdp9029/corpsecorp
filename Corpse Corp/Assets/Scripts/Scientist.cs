@@ -15,6 +15,7 @@ public class Scientist : MonoBehaviour
     public int price;
     public bool Purchased;
     public int numInOrder;
+    public Sprite Icon;
 
     public DeathMethodManager dmManager;
 
@@ -44,12 +45,13 @@ public class Scientist : MonoBehaviour
     }
 
     //Combines two scientists together (called only in ScientistManager.Start())
-    public void ComboScientist(Scientist scientist, DeathMethod method)
+    public void ComboScientist(Scientist scientist, DeathMethod method /*, Sprite icon*/)
     {
         combinations.Add(scientist.name, method.name);
         scientist.combinations.Add(this.name, method.name);
         method.scientist1name = this.name;
         method.scientist2name = scientist.name;
+        //method.Icon = icon;
     }
 
     private void ButtonClick()

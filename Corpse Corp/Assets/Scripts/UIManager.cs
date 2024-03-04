@@ -388,11 +388,13 @@ public class UIManager : MonoBehaviour
     {
         GameObject obj = Instantiate(InventoryAssetPrefab, Tab1Content.transform);
         obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dm.name;
+        //obj.transform.GetChild(1).GetComponent<Image>().sprite = dm.Icon; commented out for now due to compiler reasons
     }
 
     public void AddScientistToInventory(Scientist sci)
     {
         GameObject obj = Instantiate(InventoryAssetPrefab, Tab1ContentScientists.transform);
         obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci.name;
+        obj.transform.GetChild(1).GetComponent<Image>().sprite = sci.Icon;
     }
 }

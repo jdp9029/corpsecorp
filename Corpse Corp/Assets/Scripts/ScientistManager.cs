@@ -15,6 +15,13 @@ public class ScientistManager : MonoBehaviour
 
     [SerializeField] UIManager uiManager;
 
+    //icons for scientists
+    [SerializeField] List<Sprite> icons;
+
+    [SerializeField] List<Sprite> pureIcons;
+
+    [SerializeField] List<Sprite> unpureIcons;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -330,6 +337,13 @@ public class ScientistManager : MonoBehaviour
                 scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 225, 3);
                 break;
         }
+
+        //set up the icon
+        scientist.Icon = icons[numInOrder];
+
+        //set up the icons for the pure death methods (commented out for now due to compiler reasons)
+        //scientist.mainMethod.Icon = pureIcons[numInOrder];
+
 
         //set up whether they are purchased
         if (name == "HS Dropout" || name == "HS Graduate")

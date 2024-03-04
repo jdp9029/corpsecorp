@@ -8,7 +8,7 @@ public class DeathMethod : MonoBehaviour
     //==== FIELDS ====
     public string name;
     public string description;
-    public Sprite icon;
+    public Sprite Icon;
 
     public float rateOfSale;
     public float price;
@@ -21,12 +21,13 @@ public class DeathMethod : MonoBehaviour
 
     DeathMethodManager manager;
 
+
     //==== CONSTRUCTOR ====
     public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, string scientist1, string scientist2)
     {
         this.name = name;
         this.description = description;
-        this.icon = icon;
+        this.Icon = icon;
         this.rateOfSale = rateOfSale;
         this.price = price;
         this.scientist1name = scientist1;

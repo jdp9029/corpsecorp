@@ -5054,6 +5054,33 @@ MonoBehaviour:
   scientistForHirePrefab: {fileID: 2199329706651809223, guid: 1f3c524de9e350a408348ffa41619a7f, type: 3}
   tab4content: {fileID: 525680325}
   uiManager: {fileID: 21672619}
+  icons:
+  - {fileID: 21300000, guid: 4b0b25ba8e47e6d4ca3f301c93c2f109, type: 3}
+  - {fileID: 21300000, guid: ea18f451e0d9b4b458afd6cca13f2fa4, type: 3}
+  - {fileID: 21300000, guid: 5f20645700acb4246a0b37af26509f5a, type: 3}
+  - {fileID: 21300000, guid: 7b430b3206622f349aa2a897d0840c19, type: 3}
+  - {fileID: 21300000, guid: b5f5ecfee12c65f49b1ae1c34e782d50, type: 3}
+  - {fileID: 21300000, guid: 4a60190f1cc32e347bc09a780ba44ff6, type: 3}
+  - {fileID: 21300000, guid: e278ae10a9a9bb14795e5e6843cb4c99, type: 3}
+  - {fileID: 21300000, guid: 97b5293fea5b0bc4fa378cbea1f00c1c, type: 3}
+  - {fileID: 21300000, guid: 6f3d202207f02684fa1329dc72b2ba7f, type: 3}
+  - {fileID: 21300000, guid: 37c3f7706203813408bdfe2fd350437b, type: 3}
+  - {fileID: 21300000, guid: 5156206a4160cfd4ba7c16f50702ff3e, type: 3}
+  - {fileID: 21300000, guid: 08a56139b2b5aff48acb8e79d1e45732, type: 3}
+  - {fileID: 21300000, guid: 68be35674b09b0f4eaae7e82d91877f7, type: 3}
+  - {fileID: 21300000, guid: a97987bae12d0f0448df1fd3d71a2e12, type: 3}
+  - {fileID: 21300000, guid: cdb6b9d3d458765438cc7f80f9e92882, type: 3}
+  - {fileID: 21300000, guid: 6ea89b7529c53424fb48c26e0a751516, type: 3}
+  - {fileID: 21300000, guid: 4b1297585dc760543b88916877227808, type: 3}
+  - {fileID: 21300000, guid: 9350e1f34c4e1cc4a856c5289a579ef7, type: 3}
+  - {fileID: 21300000, guid: 1e1dd87a9e0fc104bb39904b9913744d, type: 3}
+  - {fileID: 21300000, guid: 03839ecdc8306784888457783dc9120e, type: 3}
+  - {fileID: 21300000, guid: a637a119f27996b488d7d0c1cc649197, type: 3}
+  - {fileID: 21300000, guid: 994b7d35b5e336e4d94c4d4fcced72c7, type: 3}
+  - {fileID: 21300000, guid: ed4dff1f82dfbbd488fa92ebe6b540c7, type: 3}
+  - {fileID: 21300000, guid: f42bb86afc503b7459e96eaed354a2a6, type: 3}
+  pureIcons: []
+  unpureIcons: []
 --- !u!4 &1240511951
 Transform:
   m_ObjectHideFlags: 0
