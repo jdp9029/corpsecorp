@@ -30,7 +30,8 @@ public class UIManager : MonoBehaviour
     Scientist currentScientist1;
     Scientist currentScientist2;
 
-    TMP_Text discoveryBanner;
+    [SerializeField] GameObject discoveryBanner;
+    [SerializeField] GameObject discoveryParent;
     #endregion
 
     #region See Inventory (Fields)
@@ -80,8 +81,6 @@ public class UIManager : MonoBehaviour
         //Initialize Match Button
         matchButton = GameObject.FindGameObjectWithTag("MatchButton");
         matchBtnActive = false;
-
-        discoveryBanner = GameObject.Find("Discovery Banner").GetComponent<TMP_Text>();
 
         #endregion
 
@@ -364,9 +363,13 @@ public class UIManager : MonoBehaviour
     //Coroutine that prints a congrats message for waitTime seconds
     private IEnumerator PrintDiscoveryMessage(float waitTime, DeathMethod dm)
     {
-        discoveryBanner.text = $"Congratulations! You've Discovered <b>{dm.name}!</b>";
+        //GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(160, 330, 0), Quaternion.identity, discoveryParent.transform);
+        //discoveryInst.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = $"Congratulations! You've Discovered <b>{dm.name}!</b>";
+        discoveryParent.GetComponent<TextMeshProUGUI>().text = $"Congratulations! You've Discovered <b>{dm.name}!</b>";
         yield return new WaitForSeconds(waitTime);
-        discoveryBanner.text = "";
+        discoveryParent.GetComponent<TextMeshProUGUI>().text = $"";
+        //discoveryInst.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+        //Destroy(discoveryInst.gameObject);
     }
     //Helper Functions for Clicker Page Buttons
     private void AddIndex() { dmIndex++; }
