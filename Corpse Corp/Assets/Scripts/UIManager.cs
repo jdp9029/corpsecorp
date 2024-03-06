@@ -314,7 +314,7 @@ public class UIManager : MonoBehaviour
     //==== FUNCTIONS ====
 
     //Helper Function to Find Scientists by Name
-    Scientist FindScientist(ScientistManager manager, string name)
+    public Scientist FindScientist(ScientistManager manager, string name)
     {
         Scientist scientist = null;
         for (int i = 0; i < manager.scientists.Length; i++)
@@ -327,7 +327,7 @@ public class UIManager : MonoBehaviour
         }
         return scientist;
     }
-    DeathMethod FindDeathMethod(DeathMethodManager manager, string name)
+    public DeathMethod FindDeathMethod(DeathMethodManager manager, string name)
     {
         DeathMethod method = null;
         foreach (DeathMethod dm in manager.deathMethods)
@@ -349,7 +349,7 @@ public class UIManager : MonoBehaviour
             if (dmManager.deathMethods[i].name == currentScientist1.combinations[currentScientist2.name])
             {
                 dmManager.deathMethods[i].active = true;
-                StartCoroutine(PrintDiscoveryMessage(5.0f, dmManager.deathMethods[i]));
+                StartCoroutine(PrintDiscoveryMessage(3.0f, dmManager.deathMethods[i]));
                 GameObject.FindObjectOfType<UIManager>().AddToInventory(dmManager.deathMethods[i]);
             }
         }
@@ -361,15 +361,13 @@ public class UIManager : MonoBehaviour
     }
 
     //Coroutine that prints a congrats message for waitTime seconds
-    private IEnumerator PrintDiscoveryMessage(float waitTime, DeathMethod dm)
+    public IEnumerator PrintDiscoveryMessage(float waitTime, DeathMethod dm)
     {
-        //GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(160, 330, 0), Quaternion.identity, discoveryParent.transform);
-        //discoveryInst.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = $"Congratulations! You've Discovered <b>{dm.name}!</b>";
-        discoveryParent.GetComponent<TextMeshProUGUI>().text = $"Congratulations! You've Discovered <b>{dm.name}!</b>";
+        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 600, 0), Quaternion.identity, discoveryParent.transform);
+        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Congratulations! You've Discovered <b>{dm.name}!</b>";
         yield return new WaitForSeconds(waitTime);
-        discoveryParent.GetComponent<TextMeshProUGUI>().text = $"";
-        //discoveryInst.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
-        //Destroy(discoveryInst.gameObject);
+        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+        Destroy(discoveryInst.gameObject);
     }
     //Helper Functions for Clicker Page Buttons
     private void AddIndex() { dmIndex++; }

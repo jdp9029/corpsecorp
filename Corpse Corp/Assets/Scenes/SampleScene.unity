@@ -1831,8 +1831,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '*NOTE: Not every Scientist matches with every other Scientist! When the
-    button turns green, you''ve found a new combination!'
+  m_text: 'Not every Scientist matches with every other Scientist! It''s up to you
+    to find the right combos!
+
+
+    GREEN: You''ve found a new combination!
+
+    YELLOW:
+    You''re found this combo already!
+
+    GRAY: You can''t combine these Scientists!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1859,8 +1867,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3889,12 +3897,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1121195925}
-  m_RootOrder: -2
+  m_Father: {fileID: 1034356977}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 161, y: 328.311}
+  m_AnchoredPosition: {x: 0, y: -429.6297}
   m_SizeDelta: {x: 800, y: 151.0722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &767576199
@@ -4656,6 +4664,7 @@ RectTransform:
   - {fileID: 17777366}
   - {fileID: 558821013}
   - {fileID: 2066057618}
+  - {fileID: 767576198}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4824,9 +4833,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       insertIndex: -1
       addedObject: {fileID: 916809926}
-    - targetCorrespondingSourceObject: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 767576198}
     - targetCorrespondingSourceObject: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       insertIndex: -1
       addedObject: {fileID: 731296841}
@@ -5734,7 +5740,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4, y: 808}
+  m_AnchoredPosition: {x: 4, y: 845}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1536601241
@@ -5917,7 +5923,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -296, y: 795.52716}
+  m_AnchoredPosition: {x: -296, y: 845}
   m_SizeDelta: {x: 165.0441, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1667686687
@@ -6183,7 +6189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.7364, y: 461.59183}
+  m_AnchoredPosition: {x: 1.7364, y: 533.7}
   m_SizeDelta: {x: 734.7928, y: 172.8165}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1738217884
@@ -6320,7 +6326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: 792}
+  m_AnchoredPosition: {x: 300, y: 845}
   m_SizeDelta: {x: 161.102, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1759877888

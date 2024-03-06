@@ -73,6 +73,7 @@ public class Scientist : MonoBehaviour
             transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
             GameObject.FindObjectOfType<UIManager>().AddToInventory(mainMethod);
             GameObject.FindObjectOfType<UIManager>().AddScientistToInventory(this);
+            StartCoroutine(GameObject.FindObjectOfType<UIManager>().PrintDiscoveryMessage(3.0f, this.mainMethod));
         }
     }
 }
