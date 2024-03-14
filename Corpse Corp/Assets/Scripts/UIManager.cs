@@ -268,7 +268,7 @@ public class UIManager : MonoBehaviour
                 {
                     scientistsToAdd.Add(activeDeathMethods[i].scientist2name);
                 }
-                dmInst.transform.Find("PriceDropdown").GetComponent<TMP_Dropdown>().AddOptions(scientistsToAdd); //PriceDropdown
+                dmInst.transform.GetChild(2).Find("PriceDropdown").GetComponent<TMP_Dropdown>().AddOptions(scientistsToAdd); //PriceDropdown
 
                 activeDeathMethods[i].instantiated = true;
             }
@@ -293,7 +293,7 @@ public class UIManager : MonoBehaviour
             dmP.transform.GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = $"<b>${Mathf.Round(dm.price)} / {Mathf.Round(dm.rateOfSale)} seconds</b>";
 
             //Affix Buttons & Info Boxes with Correct Values & Functions
-            TMP_Dropdown dropdown = dmP.transform.Find("PriceDropdown").GetComponent<TMP_Dropdown>();
+            TMP_Dropdown dropdown = dmP.transform.GetChild(2).Find("PriceDropdown").GetComponent<TMP_Dropdown>();
             dmP.transform.Find("BoostButton").GetChild(0).GetComponent<TMP_Text>().text = $"BOOST";
             dmP.transform.Find("PlusBox").GetChild(0).GetComponent<TMP_Text>().text = $"+${dm.boostValue}";
             dmP.transform.Find("CostBox").GetChild(0).GetComponent<TMP_Text>().text = $"-${dm.boostCost}";
