@@ -25,6 +25,8 @@ public class Scientist : MonoBehaviour
 
     public DeathMethodManager dmManager;
 
+    public bool busy;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +36,7 @@ public class Scientist : MonoBehaviour
         }
         
         dmManager = GameObject.FindObjectOfType<DeathMethodManager>();
+        busy = false;
     }
 
     // Update is called once per frame

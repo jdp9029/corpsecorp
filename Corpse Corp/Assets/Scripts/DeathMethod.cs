@@ -22,6 +22,11 @@ public class DeathMethod : MonoBehaviour
 
     public bool instantiated; //This makes sure that the Ecpnomy tab only instantiates one instance of each death method
 
+    public float boostValue; //How much the price will get boosted by
+    public float boostCost; //How much it costs to boost
+    public float boostTime; //How long the boost will take
+    public int boostIncrement = 1; //How many times (-1) that this DM has been boosted
+
     //==== CONSTRUCTOR ====
     public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, string scientist1, string scientist2)
     {
@@ -46,6 +51,10 @@ public class DeathMethod : MonoBehaviour
         manager.deathMethods.Add(this);
 
         instantiated = false;
+
+        boostValue = price / 2;
+        boostCost = price * 5;
+        boostTime = rateOfSale * boostIncrement;
     }
     //==== CONSTRUCTOR WITHOUT ICON OR DESCRIPTION ====
     public DeathMethod(string name, string scientist1, string scientist2, float price, float rateOfSale)
@@ -69,6 +78,10 @@ public class DeathMethod : MonoBehaviour
         manager.deathMethods.Add(this);
 
         instantiated = false;
+
+        boostValue = price / 2;
+        boostCost = price * 5;
+        boostTime = rateOfSale * boostIncrement;
     }
 
     //==== SIMPLE CONSTRUCTOR ====
@@ -99,6 +112,10 @@ public class DeathMethod : MonoBehaviour
         manager.deathMethods.Add(this);
 
         instantiated = false;
+
+        boostValue = price / 2;
+        boostCost = price * 5;
+        boostTime = rateOfSale * boostIncrement;
     }
     //==== SUPER SIMPLE CONSTRUCTOR ====
     /*public DeathMethod(string name)

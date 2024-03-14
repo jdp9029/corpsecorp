@@ -269,25 +269,39 @@ public class UIManager : MonoBehaviour
                     scientistsToAdd.Add(activeDeathMethods[i].scientist2name);
                 }
                 dmInst.transform.Find("PriceDropdown").GetComponent<TMP_Dropdown>().AddOptions(scientistsToAdd); //PriceDropdown
-                dmInst.transform.Find("SalesDropdown").GetComponent<TMP_Dropdown>().AddOptions(scientistsToAdd); //SalesDropdown
 
                 activeDeathMethods[i].instantiated = true;
             }
         }
 
-        //Get Scaling Rects to Scale According to DM RatesOfSale
-        for (int i = 0; i < dmPrefabList.Count; i++)
+        //Within Each Death Method Prefab...
+        foreach(GameObject dmP in dmPrefabList)
         {
-            DeathMethod dm = FindDeathMethod(dmManager, dmPrefabList[i].transform.GetChild(0).GetComponent<TMP_Text>().text);
+            DeathMethod dm = FindDeathMethod(dmManager, dmP.transform.GetChild(0).GetComponent<TMP_Text>().text);
 
-            Vector2 scaleRectScale = dmPrefabList[i].transform.Find("BaseLoadRect").Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
+            //Get Scaling Rects to Scale According to DM RatesOfSale
+            Vector2 scaleRectScale = dmP.transform.Find("BaseLoadRect").Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
             scaleRectScale.x += (Time.deltaTime / dm.rateOfSale) * 100;
             if (scaleRectScale.x >= 100)
             {
                 dm.UpdateMoney();
                 scaleRectScale.x = 0;
             }
-            dmPrefabList[i].transform.Find("BaseLoadRect").transform.Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = scaleRectScale;
+            dmP.transform.Find("BaseLoadRect").transform.Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = scaleRectScale;
+
+            //Update BaseRect Text
+            dmP.transform.GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = $"<b>${Mathf.Round(dm.price)} / {Mathf.Round(dm.rateOfSale)} seconds</b>";
+
+            //Affix Buttons with Correct Values & Functions
+            TMP_Dropdown dropdown = dmP.transform.Find("PriceDropdown").GetComponent<TMP_Dropdown>();
+            dmP.transform.Find("PriceButton").GetChild(0).GetComponent<TMP_Text>().text = $"Increase Price by ${Mathf.Round(dm.boostValue)} \n ${Mathf.Round(dm.boostCost)}, {Mathf.Round(dm.boostTime)} seconds";
+
+            dmP.transform.Find("PriceButton").GetComponent<Button>().onClick.RemoveAllListeners();
+            if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dropdown.options[dropdown.value].text).busy)
+            {
+                dmP.transform.Find("PriceButton").GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dropdown.options[dropdown.value].text), dm)); });
+            }
+
         }
 
         /*//Activate Clicker Button
@@ -445,5 +459,22 @@ public class UIManager : MonoBehaviour
         GameObject obj = Instantiate(InventoryAssetPrefab, Tab1ContentScientists.transform);
         obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci.name;
         obj.transform.GetChild(1).GetComponent<Image>().sprite = sci.Icon;
+    }
+    public IEnumerator BoostDMEcon(Scientist sci, DeathMethod deathMethod)
+    {       
+        UnityEngine.Debug.Log("Boost Begun");
+        sci.busy = true;
+
+        yield return new WaitForSeconds(deathMethod.boostTime);
+
+        UnityEngine.Debug.Log("Boost Finished");
+
+        deathMethod.price += deathMethod.boostValue;
+        deathMethod.boostIncrement++;
+        deathMethod.boostValue = deathMethod.price / 2;
+        deathMethod.boostCost = deathMethod.price * 5;
+        deathMethod.boostTime = deathMethod.rateOfSale * deathMethod.boostIncrement;
+
+        sci.busy = false;
     }
 }
