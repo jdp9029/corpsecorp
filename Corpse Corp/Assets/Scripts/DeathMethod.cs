@@ -21,6 +21,7 @@ public class DeathMethod : MonoBehaviour
 
     DeathMethodManager manager;
 
+    public bool instantiated; //This makes sure that the Ecpnomy tab only instantiates one instance of each death method
 
     //==== CONSTRUCTOR ====
     public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, string scientist1, string scientist2)
@@ -46,6 +47,7 @@ public class DeathMethod : MonoBehaviour
         manager.deathMethods.Add(this);
 
         passivePurchased = false;
+        instantiated = false;
     }
     //==== CONSTRUCTOR WITHOUT ICON OR DESCRIPTION ====
     public DeathMethod(string name, string scientist1, string scientist2, float price, float rateOfSale)
@@ -69,6 +71,7 @@ public class DeathMethod : MonoBehaviour
         manager.deathMethods.Add(this);
 
         passivePurchased = false;
+        instantiated = false;
     }
 
     //==== SIMPLE CONSTRUCTOR ====
@@ -99,6 +102,7 @@ public class DeathMethod : MonoBehaviour
         manager.deathMethods.Add(this);
 
         passivePurchased = false;
+        instantiated = false;
     }
     //==== SUPER SIMPLE CONSTRUCTOR ====
     /*public DeathMethod(string name)

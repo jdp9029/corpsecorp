@@ -45,16 +45,19 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Clicker (Fields)
-    [SerializeField] Button clickerButton;
+    /*[SerializeField] Button clickerButton;
     [SerializeField] Button leftButton;
     [SerializeField] Button rightButton;
     [SerializeField] TMP_Text clickerText;
 
     int dmIndex;
     bool leftButtonActive;
-    bool rightButtonActive;
+    bool rightButtonActive;*/
 
     List<DeathMethod> activeDeathMethods;
+    [SerializeField] GameObject dmPrefab;
+    [SerializeField] Transform dmContent; //This is ScrollViewPanel --> View --> Content
+
     #endregion
 
     #region Hire Scientists (Fields)
@@ -97,9 +100,9 @@ public class UIManager : MonoBehaviour
         #endregion
 
         #region Clicker (Start)
-        dmIndex = 0;
+        /*dmIndex = 0;
         leftButtonActive = false;
-        rightButtonActive = false;
+        rightButtonActive = false;*/
 
         activeDeathMethods = new List<DeathMethod>();
         #endregion
@@ -218,7 +221,8 @@ public class UIManager : MonoBehaviour
         dmList.text = listText; //Set the death method list text to the text placeholder string*/
         #endregion
 
-        #region Clicker (Update)
+        #region Clicker (Update)      
+        
         //Populate Active DM Array
         activeDeathMethods.Clear();
         for (int i = 0; i < dmManager.deathMethods.Count; i++)
@@ -243,7 +247,32 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        //Activate Clicker Button
+        //Loop Through & Instantiate Active Death Methods
+        for (int i = 0; i < activeDeathMethods.Count; i++)
+        {
+            if (!activeDeathMethods[i].instantiated)
+            {
+                GameObject dmInst = Instantiate(dmPrefab, Vector3.zero, Quaternion.identity, dmContent); //Instantiate Prefab
+
+                //Set Info
+                dmInst.transform.GetChild(0).GetComponent<TMP_Text>().text = activeDeathMethods[i].name; //DMName
+                dmInst.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = $"<b>${activeDeathMethods[i].price} / {activeDeathMethods[i].rateOfSale} seconds</b>"; //BaseLoadRect
+
+                //Fill In Options
+                List<string> scientistsToAdd = new List<string>();
+                scientistsToAdd.Add(activeDeathMethods[i].scientist1name);
+                if (activeDeathMethods[i].scientist2name != null)
+                {
+                    scientistsToAdd.Add(activeDeathMethods[i].scientist2name);
+                }
+                dmInst.transform.Find("PriceDropdown").GetComponent<TMP_Dropdown>().AddOptions(scientistsToAdd); //PriceDropdown
+                dmInst.transform.Find("SalesDropdown").GetComponent<TMP_Dropdown>().AddOptions(scientistsToAdd); //SalesDropdown
+
+                activeDeathMethods[i].instantiated = true;
+            }
+        }
+
+        /*//Activate Clicker Button
         clickerButton.onClick.RemoveAllListeners();
         clickerButton.onClick.AddListener(AddMoney);
         
@@ -291,7 +320,7 @@ public class UIManager : MonoBehaviour
         //Fill Out Text (M/u = Money per Unit, u = Unit)
         clickerText.text = $"NAME: {activeDeathMethods[dmIndex].name}\n" +
             $"SELLS FOR: {activeDeathMethods[dmIndex].price} M/u\n" +
-            $"Sells 1u Every {activeDeathMethods[dmIndex].rateOfSale} Seconds";
+            $"Sells 1u Every {activeDeathMethods[dmIndex].rateOfSale} Seconds";*/
         #endregion
 
         #region Hire Scientists (Update)
@@ -371,7 +400,7 @@ public class UIManager : MonoBehaviour
         Destroy(discoveryInst.gameObject);
     }
     //Helper Functions for Clicker Page Buttons
-    private void AddIndex() { dmIndex++; }
+    /*private void AddIndex() { dmIndex++; }
     private void SubtractIndex() { dmIndex--; }
     private void AddMoney() //Add money & expand the clicker button rect briefly
     {
@@ -384,7 +413,7 @@ public class UIManager : MonoBehaviour
         clickRect.sizeDelta = new Vector2(415, 415);
         yield return new WaitForSeconds(waitTime);
         clickRect.sizeDelta = new Vector2(400, 400);
-    }
+    }*/
 
     public void AddToInventory(DeathMethod dm)
     {
