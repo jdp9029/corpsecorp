@@ -128,7 +128,10 @@ public class EmployButton : MonoBehaviour
     //use a scientist to boost the econ
     private void ScientistBoostEcon(Scientist sci, DeathMethod deathMethod, GameObject econPanel)
     {
-        //do the thing
+        if (!sci.busy)
+        {
+            StartCoroutine(GameObject.FindObjectOfType<UIManager>().BoostDMEcon(sci, deathMethod));
+        }
 
         Destroy(econPanel);
     }
