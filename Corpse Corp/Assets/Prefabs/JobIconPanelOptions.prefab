@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 1464860663047296646}
   - component: {fileID: 5739344185871342668}
   - component: {fileID: 3686810197149057115}
-  - component: {fileID: 261528840889526488}
   m_Layer: 0
-  m_Name: ScientistPanel
+  m_Name: JobIconPanelOptions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,27 +99,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &261528840889526488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2199329706651809223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 505ba2d40fbfaae4ca1fe141e3321227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMethod: {fileID: 0}
-  name: 
-  tier: 0
-  price: 0
-  Purchased: 0
-  numInOrder: 0
-  Icon: {fileID: 0}
-  jobIcons: {fileID: 6018861072607784065, guid: cbf05e26a47e77f4d92817467829b4de, type: 3}
-  dmManager: {fileID: 0}
 --- !u!1 &4628792231375463031
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +300,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hire
+  m_text: Action
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

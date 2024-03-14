@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScientistManager : MonoBehaviour
 {
@@ -235,7 +236,11 @@ public class ScientistManager : MonoBehaviour
             {
                 scientists[i].price = scientists[i].combinations.Count * 5000;
             }
-            uiManager.SetHirePrefabText(scientists[i].gameObject, scientists[i].price);
+
+            if (!scientists[i].Purchased)
+            {
+                uiManager.SetHirePrefabText(scientists[i].gameObject, scientists[i].price);
+            }
             //Debug.Log($"{scientists[i].name}: {scientists[i].price}");
         }
 
@@ -349,9 +354,12 @@ public class ScientistManager : MonoBehaviour
         if (name == "HS Dropout" || name == "HS Graduate")
         {
             scientist.Purchased = true;
-            instantiation.transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
+            //instantiation.transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
             GameObject.FindObjectOfType<UIManager>().AddToInventory(scientist.mainMethod);
             GameObject.FindObjectOfType<UIManager>().AddScientistToInventory(scientist);
+            instantiation.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Unemployed";
+            instantiation.transform.GetChild(1).GetComponent<Image>().color = Color.grey;
+            scientist.ReplaceButtonWithIcons();
         }
         else
         {
@@ -359,7 +367,7 @@ public class ScientistManager : MonoBehaviour
         }
 
         //because two scientists are purchased, move the other ones up the list
-        numInOrder -= 2;
+        //numInOrder -= 2;
         scientist.numInOrder = numInOrder;
 
         //set up the appropriate text name
@@ -368,17 +376,6 @@ public class ScientistManager : MonoBehaviour
         //set up the position of the object on tab number 4
         if (!scientist.Purchased)
         {
-            //position the text
-            //instantiation.transform.GetChild(0).GetComponent<RectTransform>().position = new Vector3(320, /*instantiation.transform.parent.parent.GetComponent<RectTransform>().rect.y*/ - (numInOrder * 150), 0);
-
-            /*instantiation.transform.position = new Vector3(instantiation.transform.parent.parent.position.x + 100f, 
-                instantiation.transform.parent.parent.position.y + 500 + (130 * (11 - numInOrder)), 0);*/
-
-            //increase the size of the content box for scrolling purposes
-            /*tab4content.GetComponent<RectTransform>().sizeDelta = new Vector2(
-                tab4content.GetComponent<RectTransform>().rect.width,
-                tab4content.GetComponent<RectTransform>().rect.height + 200f);
-            tab4content.GetComponent<RectTransform>().position = new Vector3(tab4content.GetComponent<RectTransform>().position.x, -500, 0); //Set scroll window to start at top*/
             uiManager.hirePrefabs.Add(instantiation);
         }
         

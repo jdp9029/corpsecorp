@@ -3242,6 +3242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settings Tab
       objectReference: {fileID: 0}
+    - target: {fileID: 5870804446883788172, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4780,6 +4784,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Combo Scientists Tab
       objectReference: {fileID: 0}
+    - target: {fileID: 5870804446883788172, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4944,6 +4952,10 @@ PrefabInstance:
     - target: {fileID: 5870804446883788172, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_Name
       value: Main Clicker Tab
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870804446883788172, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_RootOrder

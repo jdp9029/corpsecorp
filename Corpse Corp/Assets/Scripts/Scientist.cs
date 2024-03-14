@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 //using UnityEditor.UI;
 using UnityEngine.UI;
+using UnityEditor.SceneManagement;
 
 public class Scientist : MonoBehaviour
 {
@@ -16,13 +17,20 @@ public class Scientist : MonoBehaviour
     public bool Purchased;
     public int numInOrder;
     public Sprite Icon;
+    public GameObject jobIcons;
+
+    private GameObject labIcon;
+    private GameObject econIcon;
 
     public DeathMethodManager dmManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ButtonClick);
+        if(!Purchased)
+        {
+            transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ButtonClick);
+        }
         
         dmManager = GameObject.FindObjectOfType<DeathMethodManager>();
     }
@@ -30,7 +38,7 @@ public class Scientist : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Purchased)
+       /* if(Purchased)
         {
             for(int i = 0; i < transform.childCount; i++)
             {
@@ -41,7 +49,7 @@ public class Scientist : MonoBehaviour
         else
         {
             //transform.position = new Vector3(transform.position.x, transform.parent.parent.position.y + 1800 + (10 * (11 - numInOrder)), 0);
-        }
+        }*/
     }
 
     //Combines two scientists together (called only in ScientistManager.Start())
@@ -59,21 +67,35 @@ public class Scientist : MonoBehaviour
         Debug.Log(numInOrder);
         if (this.price <= dmManager.money) //Make Sure You Have Enough Money
         {
-            foreach (Scientist s in GameObject.FindObjectOfType<ScientistManager>().scientists) //This foreach loop doesn't shift everything up
+            /*foreach (Scientist s in GameObject.FindObjectOfType<ScientistManager>().scientists) //This foreach loop doesn't shift everything up
             {
                 if (s.numInOrder > numInOrder)
                 {
                     s.numInOrder--;
                     Debug.Log("Shifted " + s.name);
                 }
-            }
+            }*/
             this.Purchased = true;
             this.mainMethod.active = true;
             dmManager.money -= this.price;
-            transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
+            //transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
             GameObject.FindObjectOfType<UIManager>().AddToInventory(mainMethod);
             GameObject.FindObjectOfType<UIManager>().AddScientistToInventory(this);
+            transform.GetChild(1).GetComponent<Button>().onClick.RemoveListener(ButtonClick);
+            ReplaceButtonWithIcons();
             StartCoroutine(GameObject.FindObjectOfType<UIManager>().PrintDiscoveryMessage(3.0f, this.mainMethod));
         }
+    }
+
+    public void ReplaceButtonWithIcons()
+    {
+        //first, destroy the button part of the object
+        GameObject.Destroy(transform.GetChild(1).gameObject);
+
+        //next, replace them with icons
+        labIcon = Instantiate(jobIcons, new Vector3(200, 0, 0), Quaternion.identity, transform);
+
+        econIcon = Instantiate(jobIcons, new Vector3(400, 0, 0), Quaternion.identity, transform);
+
     }
 }

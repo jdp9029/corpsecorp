@@ -297,6 +297,7 @@ public class UIManager : MonoBehaviour
         #region Hire Scientists (Update)
         for (int i = 0; i < hirePrefabs.Count; i++) //Loop thru hire prefabs
         {
+            if (hirePrefabs[i].GetComponent<Scientist>().Purchased) { continue; }
             if (dmManager.money < hirePrefabs[i].GetComponent<Scientist>().price) //If you don't have enough money to purchase a scientist, deactivate button & change color
             {
                 hirePrefabs[i].transform.GetChild(1).GetComponent<Image>().color = Color.gray;
