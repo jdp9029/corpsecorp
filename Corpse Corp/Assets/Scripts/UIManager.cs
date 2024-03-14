@@ -386,7 +386,7 @@ public class UIManager : MonoBehaviour
         }
         #endregion
 
-        statBar.text = $"<i>MONEY: ${Mathf.Round(dmManager.money)} ; ${Mathf.Round(dmManager.moneyPerSecond)} / S</i>";
+        statBar.text = $"<i>MONEY: ${Mathf.Round(dmManager.money)} ; ${Mathf.Round(dmManager.moneyPerSecond)} / s</i>";
     }
 
     //==== FUNCTIONS ====
