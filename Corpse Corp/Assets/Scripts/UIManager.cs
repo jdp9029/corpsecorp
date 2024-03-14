@@ -292,14 +292,17 @@ public class UIManager : MonoBehaviour
             //Update BaseRect Text
             dmP.transform.GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = $"<b>${Mathf.Round(dm.price)} / {Mathf.Round(dm.rateOfSale)} seconds</b>";
 
-            //Affix Buttons with Correct Values & Functions
+            //Affix Buttons & Info Boxes with Correct Values & Functions
             TMP_Dropdown dropdown = dmP.transform.Find("PriceDropdown").GetComponent<TMP_Dropdown>();
-            dmP.transform.Find("PriceButton").GetChild(0).GetComponent<TMP_Text>().text = $"Increase Price by ${Mathf.Round(dm.boostValue)} \n ${Mathf.Round(dm.boostCost)}, {Mathf.Round(dm.boostTime)} seconds";
+            dmP.transform.Find("BoostButton").GetChild(0).GetComponent<TMP_Text>().text = $"BOOST";
+            dmP.transform.Find("PlusBox").GetChild(0).GetComponent<TMP_Text>().text = $"+${dm.boostValue}";
+            dmP.transform.Find("CostBox").GetChild(0).GetComponent<TMP_Text>().text = $"-${dm.boostCost}";
+            dmP.transform.Find("TimeBox").GetChild(0).GetComponent<TMP_Text>().text = $"{dm.boostTime} s";
 
-            dmP.transform.Find("PriceButton").GetComponent<Button>().onClick.RemoveAllListeners();
+            dmP.transform.Find("BoostButton").GetComponent<Button>().onClick.RemoveAllListeners();
             if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dropdown.options[dropdown.value].text).busy)
             {
-                dmP.transform.Find("PriceButton").GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dropdown.options[dropdown.value].text), dm)); });
+                dmP.transform.Find("BoostButton").GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dropdown.options[dropdown.value].text), dm)); });
             }
 
         }
@@ -464,6 +467,7 @@ public class UIManager : MonoBehaviour
     {       
         UnityEngine.Debug.Log("Boost Begun");
         sci.busy = true;
+        deathMethod.beingBoosted = true;
 
         yield return new WaitForSeconds(deathMethod.boostTime);
 
@@ -476,5 +480,6 @@ public class UIManager : MonoBehaviour
         deathMethod.boostTime = deathMethod.rateOfSale * deathMethod.boostIncrement;
 
         sci.busy = false;
+        deathMethod.beingBoosted = false;
     }
 }
