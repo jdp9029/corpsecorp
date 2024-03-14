@@ -142,3 +142,4 @@ MonoBehaviour:
   PanelParent: {fileID: 0}
   EconSprite: {fileID: 21300000, guid: 8a95144b772fe794c83471a654e24fa4, type: 3}
   LabSprite: {fileID: 21300000, guid: 706b449b3ce334347bd21cce9dfa3a2c, type: 3}
+  BusyObject: {fileID: 2199329706651809223, guid: 06ec057ee7dcde7409c0360968a36f71, type: 3}

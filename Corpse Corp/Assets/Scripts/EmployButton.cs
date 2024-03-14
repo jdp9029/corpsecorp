@@ -16,14 +16,19 @@ public class EmployButton : MonoBehaviour
     [HideInInspector] public Transform PanelParent;
     public Sprite EconSprite;
     public Sprite LabSprite;
+    [SerializeField] GameObject BusyObject;
+
+    private GameObject BusyObjInstance;
 
     private bool buttonActive;
+    private bool busyObjectActive;
 
     // Start is called before the first frame update
     void Start()
     {
         GetComponent<Button>().onClick.AddListener(ButtonClick);
         buttonActive = true;
+        busyObjectActive = false;
 
         if(IsForEcon)
         {
@@ -38,24 +43,72 @@ public class EmployButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!IsForEcon)
+        if(!scientist.busy)
         {
-            if (CompatibleResearchPartners().Count == 0)
+            //code to destroy the busy object
+            if(busyObjectActive && !IsForEcon)
             {
-                //if we can't research, dont
-                GetComponent<Button>().onClick.RemoveAllListeners();
-                GetComponent<Image>().color = new Color32(255, 255, 255, 0);
-                buttonActive = false;
+                busyObjectActive = false;
+                Destroy(BusyObjInstance);
             }
-            else if (!buttonActive)
+
+            //code for lab buttons when scientist isn't busy
+            if(!IsForEcon)
             {
-                //if we can research, do
-                GetComponent<Button>().onClick.AddListener(ButtonClick);
-                GetComponent<Image>().color = new Color32(255, 255, 255, 255);
-                buttonActive = true;
+                if (CompatibleResearchPartners().Count == 0)
+                {
+                    //if we can't research, dont
+                    if (buttonActive) { DeActivateButton(); }
+                }
+                else if (!buttonActive)
+                {
+                    //if we can research, do
+                    ActivateButton();
+                }
+            }
+
+            //code for econ buttons when scientist isn't busy
+            else
+            {
+                //this is the boolean that determines whether or not we can go
+                if(false)
+                {
+                    if (buttonActive) { DeActivateButton(); }
+                }
+                else if(!buttonActive)
+                {
+                    ActivateButton();
+                }
+            }
+        }
+        else
+        {
+            DeActivateButton();
+
+            //code to instantiate the busy object (we only do it from the lab icon bc we don't need it twice)
+            if(!busyObjectActive && !IsForEcon)
+            {
+                busyObjectActive = true;
+                BusyObjInstance = Instantiate(BusyObject, new Vector3(300, 0, 0) + transform.parent.position, Quaternion.identity, transform.parent);
+                BusyObjInstance.GetComponent<Image>().color = Color.grey;
             }
         }
     }
+
+    private void DeActivateButton()
+    {
+        GetComponent<Button>().onClick.RemoveAllListeners();
+        GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+        buttonActive = false;
+    }
+
+    private void ActivateButton()
+    {
+        GetComponent<Button>().onClick.AddListener(ButtonClick);
+        GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        buttonActive = true;
+    }
+
 
     private List<Scientist> CompatibleResearchPartners()
     {
@@ -66,6 +119,11 @@ public class EmployButton : MonoBehaviour
         DeathMethodManager dmm = GameObject.FindObjectOfType<DeathMethodManager>();
 
         return scis.Where(sci => !GameObject.FindObjectOfType<UIManager>().FindDeathMethod(dmm, scientist.combinations[sci.name]).active).ToList();
+    }
+
+    private bool AvailableEconBoosts()
+    {
+        
     }
 
     private void ButtonClick()
