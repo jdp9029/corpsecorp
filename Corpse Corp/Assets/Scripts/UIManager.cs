@@ -268,7 +268,6 @@ public class UIManager : MonoBehaviour
                 {
                     scientistsToAdd.Add(activeDeathMethods[i].scientist2name);
                 }
-                dmInst.transform.GetChild(2).Find("PriceDropdown").GetComponent<TMP_Dropdown>().AddOptions(scientistsToAdd); //PriceDropdown
 
                 activeDeathMethods[i].instantiated = true;
             }
@@ -292,18 +291,96 @@ public class UIManager : MonoBehaviour
             //Update BaseRect Text
             dmP.transform.GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = $"<b>${Mathf.Round(dm.price)} / {Mathf.Round(dm.rateOfSale)} seconds</b>";
 
-            //Affix Buttons & Info Boxes with Correct Values & Functions
-            TMP_Dropdown dropdown = dmP.transform.GetChild(2).Find("PriceDropdown").GetComponent<TMP_Dropdown>();
+            dmP.transform.GetChild(2).Find("CostText").GetComponent<TMP_Text>().text = $"-${Mathf.Round(dm.boostCost)}";
+            dmP.transform.GetChild(2).Find("TimeText").GetComponent<TMP_Text>().text = $"{Mathf.Round(dm.boostTime)}s";
+            dmP.transform.GetChild(2).Find("PlusText").GetComponent<TMP_Text>().text = $"+${Mathf.Round(dm.boostValue)}";
+
+            //Remove Listeners From Boost Button
+            dmP.transform.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
+
+            //Set Up Scientist 1 Button
+            dmP.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = dm.scientist1name;
+            dmP.transform.GetChild(3).GetComponent<Button>().onClick.RemoveAllListeners();
+
+            //Check if Scientist 2 is Null
+            if (dm.scientist2name != null) //If Not, Hook Up the Buttons
+            {
+                dmP.transform.GetChild(4).GetChild(0).GetComponent<TMP_Text>().text = dm.scientist2name;
+                dmP.transform.GetChild(4).GetComponent<Button>().onClick.RemoveAllListeners();
+
+                if (!dm.sci1Chosen) //If Scientist 2 is Chosen
+                {
+                    dmP.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { SwitchScientist(dm); });
+
+                    RectTransform sci1rect = dmP.transform.GetChild(3).GetComponent<RectTransform>();
+                    sci1rect.sizeDelta = new Vector2(325, 75);
+
+                    RectTransform sci2rect = dmP.transform.GetChild(4).GetComponent<RectTransform>();
+                    sci2rect.sizeDelta = new Vector2(400, 120);
+
+                    //Hook Up Boost Button
+                    if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist2name).busy)
+                    {
+                        dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist2name), dm)); });
+                    }
+                }
+                else //If Scientist 1 is Chosen
+                {
+                    dmP.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(delegate { SwitchScientist(dm); });
+
+                    RectTransform sci2rect = dmP.transform.GetChild(4).GetComponent<RectTransform>();
+                    sci2rect.sizeDelta = new Vector2(325, 75);
+
+                    RectTransform sci1rect = dmP.transform.GetChild(3).GetComponent<RectTransform>();
+                    sci1rect.sizeDelta = new Vector2(400, 120);
+
+                    //Hook Up Boost Button
+                    if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy)
+                    {
+                        dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist1name), dm)); });
+                    }
+                }
+            }
+            else //If No Scientist 2...
+            {
+                //Hook Up Boost Button
+                if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy)
+                {
+                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist1name), dm)); });
+                }
+
+                //If not destroyed, destroy Scientist 2 Button object
+                if (dmP.transform.childCount > 4)
+                {
+                    Destroy(dmP.transform.GetChild(4).gameObject);
+                }
+            }
+
+            if (dm.beingBoosted)
+            {
+                Vector2 boostLoadScale = dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
+                boostLoadScale.x += (Time.deltaTime / dm.boostTime) * 100;
+                dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = boostLoadScale;
+            }
+            else
+            {
+                Vector2 boostLoadScale = dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
+                boostLoadScale.x = 0;
+                dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = boostLoadScale;
+            }
+
+            /*Affix Buttons & Info Boxes with Correct Values & Functions
             dmP.transform.GetChild(2).Find("BoostButton").GetChild(0).GetComponent<TMP_Text>().text = $"BOOST";
             dmP.transform.GetChild(2).Find("PlusBox").GetChild(0).GetComponent<TMP_Text>().text = $"+${dm.boostValue}";
             dmP.transform.GetChild(2).Find("CostBox").GetChild(0).GetComponent<TMP_Text>().text = $"-${dm.boostCost}";
             dmP.transform.GetChild(2).Find("TimeBox").GetChild(0).GetComponent<TMP_Text>().text = $"{dm.boostTime} s";
 
-            dmP.transform.GetChild(2).Find("BoostButton").GetComponent<Button>().onClick.RemoveAllListeners();
+            dmP.transform.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
             if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dropdown.options[dropdown.value].text).busy)
             {
                 dmP.transform.GetChild(2).Find("BoostButton").GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dropdown.options[dropdown.value].text), dm)); });
             }
+            */
 
         }
 
@@ -481,6 +558,7 @@ public class UIManager : MonoBehaviour
         UnityEngine.Debug.Log("Boost Begun");
         sci.busy = true;
         deathMethod.beingBoosted = true;
+        dmManager.money -= deathMethod.boostCost;
 
         yield return new WaitForSeconds(deathMethod.boostTime);
 
@@ -531,5 +609,9 @@ public class UIManager : MonoBehaviour
 
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
         Destroy(discoveryInst.gameObject);
+    }
+    public void SwitchScientist(DeathMethod dm)
+    {
+        dm.sci1Chosen = !dm.sci1Chosen;
     }
 }
