@@ -368,71 +368,7 @@ public class UIManager : MonoBehaviour
                 boostLoadScale.x = 0;
                 dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = boostLoadScale;
             }
-
-            /*Affix Buttons & Info Boxes with Correct Values & Functions
-            dmP.transform.GetChild(2).Find("BoostButton").GetChild(0).GetComponent<TMP_Text>().text = $"BOOST";
-            dmP.transform.GetChild(2).Find("PlusBox").GetChild(0).GetComponent<TMP_Text>().text = $"+${dm.boostValue}";
-            dmP.transform.GetChild(2).Find("CostBox").GetChild(0).GetComponent<TMP_Text>().text = $"-${dm.boostCost}";
-            dmP.transform.GetChild(2).Find("TimeBox").GetChild(0).GetComponent<TMP_Text>().text = $"{dm.boostTime} s";
-
-            dmP.transform.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
-            if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dropdown.options[dropdown.value].text).busy)
-            {
-                dmP.transform.GetChild(2).Find("BoostButton").GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dropdown.options[dropdown.value].text), dm)); });
-            }
-            */
-
         }
-
-        /*//Activate Clicker Button
-        clickerButton.onClick.RemoveAllListeners();
-        clickerButton.onClick.AddListener(AddMoney);
-        
-        //Fill In Clicker Button (DM Name for now, will be DM Icon)
-        clickerButton.transform.GetChild(0).GetComponent<TMP_Text>().text = activeDeathMethods[dmIndex].name;
-        
-        //Left Button Functionality
-        if (dmIndex - 1 >= 0)
-        {
-            leftButton.transform.GetChild(0).GetComponent<TMP_Text>().text = activeDeathMethods[dmIndex - 1].name;
-            leftButton.GetComponent<Image>().color = Color.white;
-            if (!leftButtonActive)
-            {
-                leftButton.onClick.AddListener(SubtractIndex);
-                leftButtonActive = true;
-            }
-        }
-        else
-        {
-            leftButton.GetComponent<Image>().color = Color.gray;
-            leftButton.onClick.RemoveListener(SubtractIndex);
-            leftButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "N/A";
-            leftButtonActive = false;
-        }
-
-        //Right Button Functionality
-        if (dmIndex + 1 < activeDeathMethods.Count)
-        {
-            rightButton.transform.GetChild(0).GetComponent<TMP_Text>().text = activeDeathMethods[dmIndex + 1].name;
-            rightButton.GetComponent<Image>().color = Color.white;
-            if (!rightButtonActive)
-            {
-                rightButton.onClick.AddListener(AddIndex);
-                rightButtonActive = true;
-            }
-        }
-        else
-        {
-            rightButton.GetComponent<Image>().color = Color.gray;
-            rightButton.onClick.RemoveListener(AddIndex);
-            rightButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "N/A";
-            rightButtonActive = false;
-        }
-
-        //Fill Out Text (M/u = Money per Unit, u = Unit)
-        clickerText.text = $"NAME: {activeDeathMethods[dmIndex].name}\n" +
-            $"SELLS FOR: {activeDeathMethods[dmIndex].price} M/u\n" +
-            $"Sells 1u Every {activeDeathMethods[dmIndex].rateOfSale} Seconds";*/
         #endregion
 
         #region Hire Scientists (Update)
@@ -450,7 +386,7 @@ public class UIManager : MonoBehaviour
         }
         #endregion
 
-        statBar.text = $"<i>MONEY: {dmManager.money}M ; {dmManager.moneyPerSecond}M / S</i>";
+        statBar.text = $"<i>MONEY: ${Mathf.Round(dmManager.money)} ; ${Mathf.Round(dmManager.moneyPerSecond)} / S</i>";
     }
 
     //==== FUNCTIONS ====
@@ -522,23 +458,6 @@ public class UIManager : MonoBehaviour
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
         Destroy(discoveryInst.gameObject);
     }
-
-
-    //Helper Functions for Clicker Page Buttons
-    /*private void AddIndex() { dmIndex++; }
-    private void SubtractIndex() { dmIndex--; }
-    private void AddMoney() //Add money & expand the clicker button rect briefly
-    {
-        dmManager.money += activeDeathMethods[dmIndex].price;
-        StartCoroutine(ExpandClickButton(0.1f));
-    }
-    private IEnumerator ExpandClickButton(float waitTime) //Make the ClickerButton bigger on click for a very short amount of time
-    {
-        RectTransform clickRect = clickerButton.GetComponent<RectTransform>();
-        clickRect.sizeDelta = new Vector2(415, 415);
-        yield return new WaitForSeconds(waitTime);
-        clickRect.sizeDelta = new Vector2(400, 400);
-    }*/
 
     public void AddToInventory(DeathMethod dm)
     {
