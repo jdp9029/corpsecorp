@@ -578,7 +578,7 @@ MonoBehaviour:
   InventoryAssetPrefab: {fileID: 426447940382314921, guid: 7f4656e6a2431dd458285d807bca74c9, type: 3}
   Tab1ContentScientists: {fileID: 1964478997}
   dmPrefab: {fileID: 2199329706651809223, guid: 0b1d3863156d32143b66786741c971c3, type: 3}
-  dmContent: {fileID: 958141024}
+  dmContent: {fileID: 1409179972}
   hirePrefabs: []
 --- !u!1 &44427419
 GameObject:
@@ -2565,10 +2565,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settings Tab
       objectReference: {fileID: 0}
-    - target: {fileID: 5870804446883788172, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -3890,11 +3886,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
---- !u!224 &958141024 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
-  m_PrefabInstance: {fileID: 1155833299}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1034356973
 GameObject:
   m_ObjectHideFlags: 0
@@ -4112,10 +4103,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Combo Scientists Tab
       objectReference: {fileID: 0}
-    - target: {fileID: 5870804446883788172, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4227,7 +4214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1173837327929630087, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 840
+      value: 850
       objectReference: {fileID: 0}
     - target: {fileID: 1403403731255950699, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4274,16 +4261,8 @@ PrefabInstance:
       value: 372.23
       objectReference: {fileID: 0}
     - target: {fileID: 4597475321835386943, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 619.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 4597475321835386943, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00048828125
-      objectReference: {fileID: 0}
-    - target: {fileID: 4597475321835386943, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.0024185
+      value: -0.00045776367
       objectReference: {fileID: 0}
     - target: {fileID: 5487296657680752919, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4305,10 +4284,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Clicker Tab
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
-    - target: {fileID: 5870804446883788172, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
-      propertyPath: m_IsActive
-=======
     - target: {fileID: 7958293405152381270, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_ChildScaleWidth
       value: 1
@@ -4323,7 +4298,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7958293405152381270, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_ChildControlHeight
->>>>>>> Stashed changes
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8311446351873874918, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
@@ -4717,6 +4691,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1370781613}
   m_CullTransparentMesh: 1
+--- !u!224 &1409179972 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+  m_PrefabInstance: {fileID: 1155833299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1441314379
 GameObject:
   m_ObjectHideFlags: 0
