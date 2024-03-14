@@ -18,7 +18,7 @@ public class EmployButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetComponent<Button>().onClick.AddListener(ButtonClick);
     }
 
     // Update is called once per frame
@@ -34,12 +34,14 @@ public class EmployButton : MonoBehaviour
             //instantiate the econ panel and populate it
             GameObject econPanel = Instantiate(EconPanel, PanelParent);
             econPanel.transform.SetAsLastSibling();
+            econPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Boosts for " + scientist.name;
 
             //get the list of applicable death methods and save them
             Transform content = econPanel.transform.GetChild(2).GetChild(0).GetChild(0);
             DeathMethodManager dmm = GameObject.FindObjectOfType<DeathMethodManager>();
 
-            List<DeathMethod> deathMethods = dmm.deathMethods.Where(dm => dm.scientist1name == scientist.name || dm.scientist2name == scientist.name).ToList();
+            List<DeathMethod> deathMethods = dmm.deathMethods.Where(
+                dm => dm.active && (dm.scientist1name == scientist.name || dm.scientist2name == scientist.name)).ToList();
 
             foreach(DeathMethod deathMethod in deathMethods)
             {
@@ -50,7 +52,7 @@ public class EmployButton : MonoBehaviour
             }
 
             //also add the back arrow
-            EconPanel.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { Destroy(econPanel); });
+            econPanel.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { Destroy(econPanel); });
         }
 
         else
@@ -61,20 +63,20 @@ public class EmployButton : MonoBehaviour
 
             //get the list of applicable death methods and save them
             Transform content = labPanel.transform.GetChild(2).GetChild(0).GetChild(0);
-            DeathMethodManager dmm = GameObject.FindObjectOfType<DeathMethodManager>();
+            ScientistManager scimgr = GameObject.FindObjectOfType<ScientistManager>();
 
-            List<DeathMethod> deathMethods = dmm.deathMethods.Where(dm => dm.scientist1name == scientist.name || dm.scientist2name == scientist.name).ToList();
+            List<Scientist> scis = scimgr.scientists.Where(sci => sci.Purchased && scientist.combinations.ContainsKey(sci.name)).ToList();
 
-            foreach (DeathMethod deathMethod in deathMethods)
+            foreach (Scientist sci in scis)
             {
                 GameObject instance = Instantiate(PanelOptionPrefab, content);
-                instance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = deathMethod.name;
-                instance.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { ScientistBoostEcon(scientist, deathMethod, labPanel); });
-                instance.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Boost";
+                instance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci.name;
+                instance.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { LabCombo(scientist, sci, labPanel); });
+                instance.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research";
             }
 
             //also add the back arrow
-            EconPanel.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { Destroy(labPanel); });
+            labPanel.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { Destroy(labPanel); });
         }
     }
 
@@ -83,5 +85,12 @@ public class EmployButton : MonoBehaviour
         //do the thing
 
         Destroy(econPanel);
+    }
+
+    private void LabCombo(Scientist sci1, Scientist sci2, GameObject labPanel)
+    {
+
+
+        Destroy(labPanel);
     }
 }

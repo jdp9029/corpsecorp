@@ -6,6 +6,7 @@ using TMPro;
 //using UnityEditor.UI;
 using UnityEngine.UI;
 using UnityEditor.SceneManagement;
+using System.Linq;
 
 public class Scientist : MonoBehaviour
 {
@@ -94,8 +95,14 @@ public class Scientist : MonoBehaviour
 
         //next, replace them with icons
         labIcon = Instantiate(jobIcons, new Vector3(200, 0, 0), Quaternion.identity, transform);
+        labIcon.GetComponent<EmployButton>().IsForEcon = false;
+        labIcon.GetComponent<EmployButton>().scientist = this;
+        labIcon.GetComponent<EmployButton>().PanelParent = GameObject.FindObjectsOfType<Tab>().Where(tab => tab.tabNum == 4).ToArray()[0].transform;
 
         econIcon = Instantiate(jobIcons, new Vector3(400, 0, 0), Quaternion.identity, transform);
+        econIcon.GetComponent<EmployButton>().IsForEcon = true;
+        econIcon.GetComponent<EmployButton>().scientist = this;
+        econIcon.GetComponent<EmployButton>().PanelParent = GameObject.FindObjectsOfType<Tab>().Where(tab => tab.tabNum == 4).ToArray()[0].transform;
 
     }
 }

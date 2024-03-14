@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4300870153085881541}
   - component: {fileID: 4579218836875010425}
   - component: {fileID: 3713605540157992001}
+  - component: {fileID: 2621778282393111987}
   m_Layer: 0
   m_Name: JobIcon
   m_TagString: Untagged
@@ -121,3 +122,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2621778282393111987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6018861072607784065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3aa93ace3acc0e4b849c3f04a12c330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsForEcon: 0
+  scientist: {fileID: 0}
+  EconPanel: {fileID: 8646638906581341489, guid: 7dde7224786720642b5ad479d01c7d57, type: 3}
+  LabPanel: {fileID: 8646638906581341489, guid: d1de25b8e436f144eb55fe55b0d4c4dc, type: 3}
+  PanelOptionPrefab: {fileID: 2199329706651809223, guid: c003c430f744f4b4c817ea7287b7d014, type: 3}
+  PanelParent: {fileID: 0}

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Tab : MonoBehaviour
 {
+    public int tabNum;
     public void OnMouseClick()
     {
         GameObject.FindObjectOfType<TabManager>().TabClicked(this);
