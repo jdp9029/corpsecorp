@@ -55,6 +55,7 @@ public class UIManager : MonoBehaviour
     bool rightButtonActive;*/
 
     List<DeathMethod> activeDeathMethods;
+    List<GameObject> dmPrefabList;
     [SerializeField] GameObject dmPrefab;
     [SerializeField] Transform dmContent; //This is ScrollViewPanel --> View --> Content
 
@@ -105,6 +106,7 @@ public class UIManager : MonoBehaviour
         rightButtonActive = false;*/
 
         activeDeathMethods = new List<DeathMethod>();
+        dmPrefabList = new List<GameObject>();
         #endregion
 
         #region Hire Scientists (Start)
@@ -247,16 +249,17 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        //Loop Through & Instantiate Active Death Methods
+        //Loop Through & Instantiate Active Death Method Prefabs
         for (int i = 0; i < activeDeathMethods.Count; i++)
         {
             if (!activeDeathMethods[i].instantiated)
             {
                 GameObject dmInst = Instantiate(dmPrefab, Vector3.zero, Quaternion.identity, dmContent); //Instantiate Prefab
+                dmPrefabList.Add(dmInst);
 
                 //Set Info
                 dmInst.transform.GetChild(0).GetComponent<TMP_Text>().text = activeDeathMethods[i].name; //DMName
-                dmInst.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = $"<b>${activeDeathMethods[i].price} / {activeDeathMethods[i].rateOfSale} seconds</b>"; //BaseLoadRect
+                dmInst.transform.GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = $"<b>${activeDeathMethods[i].price} / {activeDeathMethods[i].rateOfSale} seconds</b>"; //BaseLoadRect
 
                 //Fill In Options
                 List<string> scientistsToAdd = new List<string>();
@@ -270,6 +273,21 @@ public class UIManager : MonoBehaviour
 
                 activeDeathMethods[i].instantiated = true;
             }
+        }
+
+        //Get Scaling Rects to Scale According to DM RatesOfSale
+        for (int i = 0; i < dmPrefabList.Count; i++)
+        {
+            DeathMethod dm = FindDeathMethod(dmManager, dmPrefabList[i].transform.GetChild(0).GetComponent<TMP_Text>().text);
+
+            Vector2 scaleRectScale = dmPrefabList[i].transform.Find("BaseLoadRect").Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
+            scaleRectScale.x += (Time.deltaTime / dm.rateOfSale) * 100;
+            if (scaleRectScale.x >= 100)
+            {
+                dm.UpdateMoney();
+                scaleRectScale.x = 0;
+            }
+            dmPrefabList[i].transform.Find("BaseLoadRect").transform.Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = scaleRectScale;
         }
 
         /*//Activate Clicker Button

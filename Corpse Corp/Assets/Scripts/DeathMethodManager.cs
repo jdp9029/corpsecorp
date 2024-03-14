@@ -25,12 +25,6 @@ public class DeathMethodManager : MonoBehaviour
         //Update Money & Money per Second
         for (int i = 0; i < deathMethods.Count; i++)
         {
-            //Update Money
-            if (deathMethods[i].active && !deathMethods[i].passivePurchased)
-            {
-                StartCoroutine(deathMethods[i].UpdateMoney());
-            }
-
             //Update Money Per Second
             if (deathMethods[i].active)
             {

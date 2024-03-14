@@ -17,7 +17,6 @@ public class DeathMethod : MonoBehaviour
     public string scientist2name;
 
     public bool active; //Shows if this DeathMethod has been discovered
-    public bool passivePurchased; //Shows if this DeathMethod has been passively purchased (this will constantly get updated between true and false)
 
     DeathMethodManager manager;
 
@@ -46,7 +45,6 @@ public class DeathMethod : MonoBehaviour
         manager = GameObject.FindObjectOfType<DeathMethodManager>();
         manager.deathMethods.Add(this);
 
-        passivePurchased = false;
         instantiated = false;
     }
     //==== CONSTRUCTOR WITHOUT ICON OR DESCRIPTION ====
@@ -70,7 +68,6 @@ public class DeathMethod : MonoBehaviour
         manager = GameObject.FindObjectOfType<DeathMethodManager>();
         manager.deathMethods.Add(this);
 
-        passivePurchased = false;
         instantiated = false;
     }
 
@@ -101,7 +98,6 @@ public class DeathMethod : MonoBehaviour
         manager = GameObject.FindObjectOfType<DeathMethodManager>();
         manager.deathMethods.Add(this);
 
-        passivePurchased = false;
         instantiated = false;
     }
     //==== SUPER SIMPLE CONSTRUCTOR ====
@@ -119,8 +115,6 @@ public class DeathMethod : MonoBehaviour
 
         manager = GameObject.FindObjectOfType<DeathMethodManager>();
         manager.deathMethods.Add(this);
-
-        passivePurchased = false;
     }*/
 
     //==== START ====
@@ -135,14 +129,8 @@ public class DeathMethod : MonoBehaviour
         //Nothing needs to happen here
     }
 
-    public IEnumerator UpdateMoney()
+    public void UpdateMoney()
     {
         manager.money += price;
-        passivePurchased = true;
-        //Debug.Log($"Added {price} money from {this.name}. Current Total: {manager.money}");
-
-        yield return new WaitForSeconds(rateOfSale);
-
-        passivePurchased = false;
     }
 }
