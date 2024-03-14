@@ -27,6 +27,7 @@ public class DeathMethod : MonoBehaviour
     public float boostTime; //How long the boost will take
     public int boostIncrement = 1; //How many times (-1) that this DM has been boosted
     public bool beingBoosted;
+    public float researchTime; //how long it takes to research this death method
 
     //==== CONSTRUCTOR ====
     public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, string scientist1, string scientist2)
@@ -56,6 +57,7 @@ public class DeathMethod : MonoBehaviour
         boostValue = Mathf.Round(price / 2);
         boostCost = price * 5;
         boostTime = rateOfSale * boostIncrement;
+        researchTime = boostTime * 3;
         beingBoosted = false;
     }
     //==== CONSTRUCTOR WITHOUT ICON OR DESCRIPTION ====
@@ -84,6 +86,7 @@ public class DeathMethod : MonoBehaviour
         boostValue = price / 2;
         boostCost = price * 5;
         boostTime = rateOfSale * boostIncrement;
+        researchTime = boostTime * 3;
         beingBoosted = false;
     }
 
@@ -119,6 +122,7 @@ public class DeathMethod : MonoBehaviour
         boostValue = price / 2;
         boostCost = price * 5;
         boostTime = rateOfSale * boostIncrement;
+        researchTime = boostTime * 3;
         beingBoosted = false;
     }
     //==== SUPER SIMPLE CONSTRUCTOR ====

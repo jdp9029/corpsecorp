@@ -177,10 +177,8 @@ public class EmployButton : MonoBehaviour
     //use a scientist to boost the econ
     private void ScientistBoostEcon(Scientist sci, DeathMethod deathMethod, GameObject econPanel)
     {
-        if (!sci.busy)
-        {
-            StartCoroutine(GameObject.FindObjectOfType<UIManager>().BoostDMEcon(sci, deathMethod));
-        }
+        StartCoroutine(GameObject.FindObjectOfType<UIManager>().BoostDMEcon(sci, deathMethod));
+        StartCoroutine(GameObject.FindObjectOfType<UIManager>().EconStartBanner(1.5f,sci, deathMethod,PanelParent));
 
         Destroy(econPanel);
     }
@@ -188,7 +186,8 @@ public class EmployButton : MonoBehaviour
     //combine two scientists
     private void LabCombo(Scientist sci1, Scientist sci2, GameObject labPanel)
     {
-        GameObject.FindObjectOfType<UIManager>().ActivateMatch(sci1, sci2);
+        StartCoroutine(GameObject.FindObjectOfType<UIManager>().StartResearch(sci1, sci2));
+        StartCoroutine(GameObject.FindObjectOfType<UIManager>().ResearchStartBanner(1.5f, sci1, sci2, PanelParent));
 
         Destroy(labPanel);
     }

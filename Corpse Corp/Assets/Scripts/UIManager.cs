@@ -414,7 +414,7 @@ public class UIManager : MonoBehaviour
             if (dmManager.deathMethods[i].name == sci1.combinations[sci2.name])
             {
                 dmManager.deathMethods[i].active = true;
-                StartCoroutine(PrintDiscoveryMessage(3.0f, dmManager.deathMethods[i]));
+                StartCoroutine(PrintDiscoveryMessage(1.5f, dmManager.deathMethods[i]));
                 GameObject.FindObjectOfType<UIManager>().AddToInventory(dmManager.deathMethods[i]);
             }
         }
@@ -428,12 +428,25 @@ public class UIManager : MonoBehaviour
     //Coroutine that prints a congrats message for waitTime seconds
     public IEnumerator PrintDiscoveryMessage(float waitTime, DeathMethod dm)
     {
-        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 600, 0), Quaternion.identity, discoveryParent.transform);
+        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, discoveryParent.transform);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Congratulations! You've Discovered <b>{dm.name}!</b>";
         yield return new WaitForSeconds(waitTime);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
         Destroy(discoveryInst.gameObject);
     }
+
+    //Coroutine that prints a congrats message for waitTime seconds
+    public IEnumerator PrintBoostCompleteMessage(float waitTime, Scientist sci, DeathMethod dm)
+    {
+        UnityEngine.Debug.Log("im a bitch");
+        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, discoveryParent.transform);
+        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci.name} is done boosting profits for {dm.name}";
+        yield return new WaitForSeconds(waitTime);
+        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+        Destroy(discoveryInst.gameObject);
+    }
+
+
     //Helper Functions for Clicker Page Buttons
     /*private void AddIndex() { dmIndex++; }
     private void SubtractIndex() { dmIndex--; }
@@ -481,5 +494,42 @@ public class UIManager : MonoBehaviour
 
         sci.busy = false;
         deathMethod.beingBoosted = false;
+        StartCoroutine(PrintBoostCompleteMessage(1.5f,sci,deathMethod));
+    }
+    
+    public IEnumerator StartResearch(Scientist sci1, Scientist sci2)
+    {
+        UnityEngine.Debug.Log("Research Begun");
+        sci1.busy = true;
+        sci2.busy = true;
+
+        yield return new WaitForSeconds(FindDeathMethod(dmManager, sci1.combinations[sci2.name]).researchTime);
+
+        UnityEngine.Debug.Log("Research Ended");
+        sci1.busy = false;
+        sci2.busy = false;
+        ActivateMatch(sci1, sci2);
+    }
+
+    //Coroutine that prints a research start message for waitTime seconds
+    public IEnumerator ResearchStartBanner(float waitTime, Scientist sci1, Scientist sci2, Transform parent)
+    {
+        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, parent);
+        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci1.name} and {sci2.name} are researching together";
+        yield return new WaitForSeconds(waitTime);
+
+        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+        Destroy(discoveryInst.gameObject);
+    }
+
+    //Coroutine that prints a econ boost start message for waitTime seconds
+    public IEnumerator EconStartBanner(float waitTime, Scientist sci, DeathMethod dm, Transform parent)
+    {
+        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, parent);
+        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci.name} is boosting profits for {dm.name}";
+        yield return new WaitForSeconds(waitTime);
+
+        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+        Destroy(discoveryInst.gameObject);
     }
 }
