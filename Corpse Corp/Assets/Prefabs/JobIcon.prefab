@@ -140,3 +140,5 @@ MonoBehaviour:
   LabPanel: {fileID: 8646638906581341489, guid: d1de25b8e436f144eb55fe55b0d4c4dc, type: 3}
   PanelOptionPrefab: {fileID: 2199329706651809223, guid: c003c430f744f4b4c817ea7287b7d014, type: 3}
   PanelParent: {fileID: 0}
+  EconSprite: {fileID: 21300000, guid: 8a95144b772fe794c83471a654e24fa4, type: 3}
+  LabSprite: {fileID: 21300000, guid: 706b449b3ce334347bd21cce9dfa3a2c, type: 3}

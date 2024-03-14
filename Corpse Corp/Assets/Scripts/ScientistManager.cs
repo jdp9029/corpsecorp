@@ -357,9 +357,7 @@ public class ScientistManager : MonoBehaviour
             //instantiation.transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
             GameObject.FindObjectOfType<UIManager>().AddToInventory(scientist.mainMethod);
             GameObject.FindObjectOfType<UIManager>().AddScientistToInventory(scientist);
-            instantiation.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Unemployed";
-            instantiation.transform.GetChild(1).GetComponent<Image>().color = Color.grey;
-            scientist.ReplaceButtonWithIcons();
+            scientist.ReplaceButtonWithIcons(true);
         }
         else
         {

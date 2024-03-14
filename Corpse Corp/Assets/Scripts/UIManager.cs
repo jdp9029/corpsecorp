@@ -184,7 +184,7 @@ public class UIManager : MonoBehaviour
             if (FindDeathMethod(dmManager, currentScientist1.combinations[currentScientist2.name]).active) //If that death method is already discovered, turn button yellow & turn it off
             {
                 matchButton.GetComponent<Image>().color = Color.yellow;
-                matchButton.GetComponent<Button>().onClick.RemoveListener(ActivateMatch); //Button can no longer be used
+                matchButton.GetComponent<Button>().onClick.RemoveAllListeners(); //Button can no longer be used
                 matchBtnActive = false;
             }
             else //If it's a new match, turn button green and activate it
@@ -192,7 +192,7 @@ public class UIManager : MonoBehaviour
                 matchButton.GetComponent<Image>().color = Color.green;
                 if (!matchBtnActive)
                 {
-                    matchButton.GetComponent<Button>().onClick.AddListener(ActivateMatch); //Make sure the button can only be used if there's a match
+                    matchButton.GetComponent<Button>().onClick.AddListener(delegate { ActivateMatch(currentScientist1, currentScientist2); }); //Make sure the button can only be used if there's a match
                     matchBtnActive = true;
                 }
             }
@@ -200,7 +200,7 @@ public class UIManager : MonoBehaviour
         else //If there's not a match, turn button gray & deactivate it
         {
             matchButton.GetComponent<Image>().color = Color.gray;
-            matchButton.GetComponent<Button>().onClick.RemoveListener(ActivateMatch); //Button can no longer be used
+            matchButton.GetComponent<Button>().onClick.RemoveAllListeners(); //Button can no longer be used
             matchBtnActive = false;
         }
 
@@ -404,11 +404,11 @@ public class UIManager : MonoBehaviour
     }
 
     //Helper Function to Activate Matches
-    void ActivateMatch()
+    public void ActivateMatch(Scientist sci1, Scientist sci2)
     {
         for (int i = 0; i < dmManager.deathMethods.Count; i++)
         {
-            if (dmManager.deathMethods[i].name == currentScientist1.combinations[currentScientist2.name])
+            if (dmManager.deathMethods[i].name == sci1.combinations[sci2.name])
             {
                 dmManager.deathMethods[i].active = true;
                 StartCoroutine(PrintDiscoveryMessage(3.0f, dmManager.deathMethods[i]));

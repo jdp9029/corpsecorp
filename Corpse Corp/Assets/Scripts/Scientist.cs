@@ -86,12 +86,12 @@ public class Scientist : MonoBehaviour
             GameObject.FindObjectOfType<UIManager>().AddToInventory(mainMethod);
             GameObject.FindObjectOfType<UIManager>().AddScientistToInventory(this);
             transform.GetChild(1).GetComponent<Button>().onClick.RemoveListener(ButtonClick);
-            ReplaceButtonWithIcons();
+            ReplaceButtonWithIcons(false);
             StartCoroutine(GameObject.FindObjectOfType<UIManager>().PrintDiscoveryMessage(3.0f, this.mainMethod));
         }
     }
 
-    public void ReplaceButtonWithIcons()
+    public void ReplaceButtonWithIcons(bool isStart)
     {
         //first, destroy the button part of the object
         GameObject.Destroy(transform.GetChild(1).gameObject);
@@ -106,6 +106,12 @@ public class Scientist : MonoBehaviour
         econIcon.GetComponent<EmployButton>().IsForEcon = true;
         econIcon.GetComponent<EmployButton>().scientist = this;
         econIcon.GetComponent<EmployButton>().PanelParent = GameObject.FindObjectsOfType<Tab>().Where(tab => tab.tabNum == 4).ToArray()[0].transform;
+
+        if(!isStart)
+        {
+            labIcon.transform.position = new Vector3(200 + transform.position.x, transform.position.y, 0f);
+            econIcon.transform.position = new Vector3(400 + transform.position.x, transform.position.y, 0f);
+        }
 
     }
 }
