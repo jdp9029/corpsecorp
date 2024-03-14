@@ -87,7 +87,7 @@ public class Scientist : MonoBehaviour
             GameObject.FindObjectOfType<UIManager>().AddScientistToInventory(this);
             transform.GetChild(1).GetComponent<Button>().onClick.RemoveListener(ButtonClick);
             ReplaceButtonWithIcons(false);
-            StartCoroutine(GameObject.FindObjectOfType<UIManager>().PrintDiscoveryMessage(1.5f, this.mainMethod));
+            GameObject.FindObjectOfType<UIManager>().StartPrintDiscoveryCoroutine(1.5f, this.mainMethod);
         }
     }
 

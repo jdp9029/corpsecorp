@@ -581,6 +581,8 @@ public class UIManager : MonoBehaviour
         sci1.busy = true;
         sci2.busy = true;
 
+        UnityEngine.Debug.Log(FindDeathMethod(dmManager, sci1.combinations[sci2.name]).researchTime);
+
         yield return new WaitForSeconds(FindDeathMethod(dmManager, sci1.combinations[sci2.name]).researchTime);
 
         UnityEngine.Debug.Log("Research Ended");
@@ -590,9 +592,9 @@ public class UIManager : MonoBehaviour
     }
 
     //Coroutine that prints a research start message for waitTime seconds
-    public IEnumerator ResearchStartBanner(float waitTime, Scientist sci1, Scientist sci2, Transform parent)
+    public IEnumerator ResearchStartBanner(float waitTime, Scientist sci1, Scientist sci2)
     {
-        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, parent);
+        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, discoveryParent.transform);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci1.name} and {sci2.name} are researching together";
         yield return new WaitForSeconds(waitTime);
 
@@ -601,15 +603,33 @@ public class UIManager : MonoBehaviour
     }
 
     //Coroutine that prints a econ boost start message for waitTime seconds
-    public IEnumerator EconStartBanner(float waitTime, Scientist sci, DeathMethod dm, Transform parent)
+    public IEnumerator EconStartBanner(float waitTime, Scientist sci, DeathMethod dm)
     {
-        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, parent);
+        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, discoveryParent.transform);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci.name} is boosting profits for {dm.name}";
         yield return new WaitForSeconds(waitTime);
 
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
         Destroy(discoveryInst.gameObject);
     }
+
+    public void StartPrintDiscoveryCoroutine(float waitTime, DeathMethod dm)
+    {
+        StartCoroutine(PrintDiscoveryMessage(waitTime, dm));
+    }
+
+    public void StartEconCoroutine(float waitTime, Scientist sci, DeathMethod dm)
+    {
+        StartCoroutine(EconStartBanner(waitTime, sci, dm));
+        StartCoroutine(BoostDMEcon(sci, dm));
+    }
+
+    public void StartResearchCoroutine(float waitTime, Scientist sci1, Scientist sci2)
+    {
+        StartCoroutine(ResearchStartBanner(waitTime, sci1, sci2));
+        StartCoroutine(StartResearch(sci1,sci2));
+    }
+
     public void SwitchScientist(DeathMethod dm)
     {
         dm.sci1Chosen = !dm.sci1Chosen;
