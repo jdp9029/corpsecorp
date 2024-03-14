@@ -294,15 +294,15 @@ public class UIManager : MonoBehaviour
 
             //Affix Buttons & Info Boxes with Correct Values & Functions
             TMP_Dropdown dropdown = dmP.transform.GetChild(2).Find("PriceDropdown").GetComponent<TMP_Dropdown>();
-            dmP.transform.Find("BoostButton").GetChild(0).GetComponent<TMP_Text>().text = $"BOOST";
-            dmP.transform.Find("PlusBox").GetChild(0).GetComponent<TMP_Text>().text = $"+${dm.boostValue}";
-            dmP.transform.Find("CostBox").GetChild(0).GetComponent<TMP_Text>().text = $"-${dm.boostCost}";
-            dmP.transform.Find("TimeBox").GetChild(0).GetComponent<TMP_Text>().text = $"{dm.boostTime} s";
+            dmP.transform.GetChild(2).Find("BoostButton").GetChild(0).GetComponent<TMP_Text>().text = $"BOOST";
+            dmP.transform.GetChild(2).Find("PlusBox").GetChild(0).GetComponent<TMP_Text>().text = $"+${dm.boostValue}";
+            dmP.transform.GetChild(2).Find("CostBox").GetChild(0).GetComponent<TMP_Text>().text = $"-${dm.boostCost}";
+            dmP.transform.GetChild(2).Find("TimeBox").GetChild(0).GetComponent<TMP_Text>().text = $"{dm.boostTime} s";
 
-            dmP.transform.Find("BoostButton").GetComponent<Button>().onClick.RemoveAllListeners();
+            dmP.transform.GetChild(2).Find("BoostButton").GetComponent<Button>().onClick.RemoveAllListeners();
             if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dropdown.options[dropdown.value].text).busy)
             {
-                dmP.transform.Find("BoostButton").GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dropdown.options[dropdown.value].text), dm)); });
+                dmP.transform.GetChild(2).Find("BoostButton").GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dropdown.options[dropdown.value].text), dm)); });
             }
 
         }
