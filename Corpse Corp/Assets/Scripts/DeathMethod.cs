@@ -27,6 +27,7 @@ public class DeathMethod : MonoBehaviour
     public float boostTime; //How long the boost will take
     public int boostIncrement = 1; //How many times (-1) that this DM has been boosted
     public bool beingBoosted;
+    public bool sci1Chosen = true;
 
     //==== CONSTRUCTOR ====
     public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, string scientist1, string scientist2)
