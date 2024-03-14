@@ -71,11 +71,7 @@ public class EmployButton : MonoBehaviour
             else
             {
                 //this is the boolean that determines whether or not we can go
-                if(!AvailableEconBoosts())
-                {
-                    if (buttonActive) { DeActivateButton(); }
-                }
-                else if(!buttonActive)
+                if(!buttonActive)
                 {
                     ActivateButton();
                 }
@@ -118,25 +114,7 @@ public class EmployButton : MonoBehaviour
 
         DeathMethodManager dmm = GameObject.FindObjectOfType<DeathMethodManager>();
 
-        return scis.Where(sci => !GameObject.FindObjectOfType<UIManager>().FindDeathMethod(dmm, scientist.combinations[sci.name]).active).ToList();
-    }
-
-    //returns whether or not there are available boosts for the econ tab
-    private bool AvailableEconBoosts()
-    {
-        if (!scientist.mainMethod.beingBoosted) { return true; }
-        DeathMethodManager dmm = GameObject.FindObjectOfType<DeathMethodManager>();
-        UIManager uim = GameObject.FindObjectOfType<UIManager>();
-        foreach (string dmName in scientist.combinations.Values)
-        {
-            //active members only
-            if (!uim.FindDeathMethod(dmm, dmName).active) { continue; }
-
-            //if it's not being boosted already, return true
-            if (!uim.FindDeathMethod(dmm, dmName).beingBoosted) { return true; }
-        }
-
-        return false;
+        return scis.Where(sci => !sci.busy && !GameObject.FindObjectOfType<UIManager>().FindDeathMethod(dmm, scientist.combinations[sci.name]).active).ToList();
     }
 
     private void ButtonClick()
@@ -154,7 +132,7 @@ public class EmployButton : MonoBehaviour
 
             //get the death methods we want to appear on the panel
             List<DeathMethod> deathMethods = dmm.deathMethods.Where(
-                dm => dm.active && (dm.scientist1name == scientist.name || dm.scientist2name == scientist.name)).ToList();
+                dm => dm.active && (dm.scientist1name == scientist.name || dm.scientist2name == scientist.name) && !dm.beingBoosted).ToList();
 
             //instantiate all of the options
             foreach(DeathMethod deathMethod in deathMethods)
