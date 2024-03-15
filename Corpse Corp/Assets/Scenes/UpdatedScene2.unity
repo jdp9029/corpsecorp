@@ -585,7 +585,7 @@ MonoBehaviour:
   dmManager: {fileID: 1302464854}
   statBar: {fileID: 2066057619}
   discoveryBanner: {fileID: 8646638906581341489, guid: abbced0c9541ab643bf065d1cb3a911e, type: 3}
-  discoveryParent: {fileID: 0}
+  discoveryParent: {fileID: 2066057617}
   Tab1Content: {fileID: 514439180}
   InventoryAssetPrefab: {fileID: 426447940382314921, guid: 7f4656e6a2431dd458285d807bca74c9, type: 3}
   Tab1ContentScientists: {fileID: 1964478997}
