@@ -105,6 +105,7 @@ public class EmployButton : MonoBehaviour
                 {
                     float timer = uiManager.slidersFilling[scientist.name];
                     float totalTime = lastResearchedOrBoostedMethod.researchTime;
+                    //if (IsForEcon) { totalTime = lastResearchedOrBoostedMethod.boostTime; }
                     slider.value = timer / totalTime;
                 }
             }
