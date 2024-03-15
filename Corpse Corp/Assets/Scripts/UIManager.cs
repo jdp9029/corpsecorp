@@ -63,6 +63,7 @@ public class UIManager : MonoBehaviour
 
     #region Hire Scientists (Fields)
     public List<GameObject> hirePrefabs;
+    public Dictionary<string, float> slidersFilling;
     #endregion
 
     //==== START ====
@@ -112,6 +113,7 @@ public class UIManager : MonoBehaviour
         #region Hire Scientists (Start)
         //hirePrefabs = GameObject.FindGameObjectsWithTag("ForHirePrefab");
         //UnityEngine.Debug.Log(hirePrefabs.Length);
+        slidersFilling = new Dictionary<string, float>();
         #endregion
     }
 
@@ -383,6 +385,12 @@ public class UIManager : MonoBehaviour
             {
                 hirePrefabs[i].transform.GetChild(1).GetComponent<Image>().color = Color.green;
             }
+        }
+
+        for(int i = 0; i < slidersFilling.Count; i++)
+        {
+            string slider = slidersFilling.ElementAt(i).Key;
+            slidersFilling[slider] += Time.deltaTime;
         }
         #endregion
 

@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class EmployButton : MonoBehaviour
 {
@@ -23,9 +24,13 @@ public class EmployButton : MonoBehaviour
     private bool buttonActive;
     private bool busyObjectActive;
 
+    private DeathMethod lastResearchedOrBoostedMethod;
+    UIManager uiManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        uiManager = FindObjectOfType<UIManager>();
         GetComponent<Button>().onClick.AddListener(ButtonClick);
         buttonActive = true;
         busyObjectActive = false;
@@ -48,8 +53,12 @@ public class EmployButton : MonoBehaviour
             //code to destroy the busy object
             if(busyObjectActive && !IsForEcon)
             {
-                busyObjectActive = false;
-                Destroy(BusyObjInstance);
+                if(!IsForEcon)
+                {
+                    busyObjectActive = false;
+                    Destroy(BusyObjInstance);
+                }
+                uiManager.slidersFilling.Remove(scientist.name);
             }
 
             //code for lab buttons when scientist isn't busy
@@ -88,6 +97,20 @@ public class EmployButton : MonoBehaviour
                 BusyObjInstance = Instantiate(BusyObject, new Vector3(300, 0, 0) + transform.parent.position, Quaternion.identity, transform.parent);
                 BusyObjInstance.GetComponent<Image>().color = Color.grey;
             }
+
+            //code to update the percentage of business
+            if(BusyObjInstance != null)
+            {
+                if (BusyObjInstance.TryGetComponent<Slider>(out Slider slider))
+                {
+                    float timer = uiManager.slidersFilling[scientist.name];
+                    float totalTime = lastResearchedOrBoostedMethod.researchTime;
+                    slider.value = timer / totalTime;
+                }
+            }
+            else { Debug.Log("null slider"); }
+
+
         }
     }
 
@@ -114,7 +137,7 @@ public class EmployButton : MonoBehaviour
 
         DeathMethodManager dmm = GameObject.FindObjectOfType<DeathMethodManager>();
 
-        return scis.Where(sci => !sci.busy && !GameObject.FindObjectOfType<UIManager>().FindDeathMethod(dmm, scientist.combinations[sci.name]).active).ToList();
+        return scis.Where(sci => !sci.busy && !uiManager.FindDeathMethod(dmm, scientist.combinations[sci.name]).active).ToList();
     }
 
     private void ButtonClick()
@@ -177,7 +200,9 @@ public class EmployButton : MonoBehaviour
     //use a scientist to boost the econ
     private void ScientistBoostEcon(Scientist sci, DeathMethod deathMethod, GameObject econPanel)
     {
-        GameObject.FindObjectOfType<UIManager>().StartEconCoroutine(1.5f, sci, deathMethod);
+        lastResearchedOrBoostedMethod = deathMethod;
+        uiManager.slidersFilling.Add(sci.name, 0f);
+        uiManager.StartEconCoroutine(1.5f, sci, deathMethod);
 
         Destroy(econPanel);
     }
@@ -185,8 +210,25 @@ public class EmployButton : MonoBehaviour
     //combine two scientists
     private void LabCombo(Scientist sci1, Scientist sci2, GameObject labPanel)
     {
-        GameObject.FindObjectOfType<UIManager>().StartResearchCoroutine(1.5f,sci1,sci2);
+        DeathMethodManager dmm = GameObject.FindObjectOfType<DeathMethodManager>();
+        lastResearchedOrBoostedMethod = uiManager.FindDeathMethod(dmm, sci1.combinations[sci2.name]);
+        FindButtonAssociatedWithScientist(sci2.name).lastResearchedOrBoostedMethod = lastResearchedOrBoostedMethod;
+        uiManager.slidersFilling.Add(sci1.name, 0f);
+        uiManager.slidersFilling.Add(sci2.name, 0f);
+        uiManager.StartResearchCoroutine(1.5f,sci1,sci2);
 
         Destroy(labPanel);
+    }
+
+    private EmployButton FindButtonAssociatedWithScientist(string scientistName)
+    {
+        foreach(EmployButton eb in GameObject.FindObjectsOfType<EmployButton>())
+        {
+            if(eb.scientist.name == scientistName && !eb.IsForEcon)
+            {
+                return eb;
+            }
+        }
+        return null;
     }
 }
