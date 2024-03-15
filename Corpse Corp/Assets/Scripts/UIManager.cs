@@ -55,6 +55,7 @@ public class UIManager : MonoBehaviour
     #region Hire Scientists (Fields)
     public List<GameObject> hirePrefabs;
     public Dictionary<string, float> slidersFilling;
+    public List<EmployButton> employButtons;
     #endregion
 
     //==== START ====
@@ -101,6 +102,7 @@ public class UIManager : MonoBehaviour
         //hirePrefabs = GameObject.FindGameObjectsWithTag("ForHirePrefab");
         //UnityEngine.Debug.Log(hirePrefabs.Length);
         slidersFilling = new Dictionary<string, float>();
+        employButtons = new List<EmployButton>();
         #endregion
     }
 
@@ -286,9 +288,21 @@ public class UIManager : MonoBehaviour
             dmP.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = dm.scientist1name;
             dmP.transform.GetChild(3).GetComponent<Button>().onClick.RemoveAllListeners();
 
-            //Check if Scientist 2 is Null
-            if (dm.scientist2name != null) //If Not, Hook Up the Buttons
+            //Grey out the boost button if too expensive (and we are not actively upgrading it)
+            if (dmManager.money < dm.boostCost && !dm.beingBoosted)
             {
+                dmP.transform.GetChild(2).GetComponent<Image>().color = Color.gray;
+            }
+            else
+            {
+                dmP.transform.GetChild(2).GetComponent<Image>().color = Color.white;
+            }
+
+
+            //Check if Scientist 2 is Null
+            if (dm.scientist2name != null) //If Not
+            {
+                //Hook Up the Buttons
                 dmP.transform.GetChild(4).GetChild(0).GetComponent<TMP_Text>().text = dm.scientist2name;
                 dmP.transform.GetChild(4).GetComponent<Button>().onClick.RemoveAllListeners();
                 
@@ -297,6 +311,8 @@ public class UIManager : MonoBehaviour
                 {
                     dmP.transform.GetChild(3).GetComponent<Image>().color = Color.gray;
                 }
+
+                //If they're not busy, keep the scientist 1 button white
                 else
                 {
                     dmP.transform.GetChild(3).GetComponent<Image>().color = Color.white;
@@ -307,6 +323,8 @@ public class UIManager : MonoBehaviour
                 {
                     dmP.transform.GetChild(4).GetComponent<Image>().color = Color.gray;
                 }
+
+                //If they're not busy, keep the scientist 2 button white
                 else
                 {
                     dmP.transform.GetChild(4).GetComponent<Image>().color = Color.white;
@@ -323,8 +341,8 @@ public class UIManager : MonoBehaviour
                     RectTransform sci2rect = dmP.transform.GetChild(4).GetComponent<RectTransform>();
                     sci2rect.sizeDelta = new Vector2(400, 120);
 
-                    //Hook Up Boost Button
-                    if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist2name).busy)
+                    //Hook Up Boost Button, if we can afford it
+                    if (dmManager.money >= dm.boostCost && !FindScientist(sciManager, dm.scientist2name).busy)
                     {
                         dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist2name), dm)); });
                     }
@@ -340,26 +358,28 @@ public class UIManager : MonoBehaviour
                     RectTransform sci1rect = dmP.transform.GetChild(3).GetComponent<RectTransform>();
                     sci1rect.sizeDelta = new Vector2(400, 120);
 
-                    //Hook Up Boost Button
+                    //Hook Up Boost Button, if we can afford it
                     if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy)
                     {
                         dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist1name), dm)); });
                     }
                 }
             }
-            else //If No Scientist 2...
+            else //If this is a pure DM (no scientist 2 exists)
             {
                 //Gray Out Scientist 1 Button if Scientist is Busy
                 if (FindScientist(sciManager, dm.scientist1name).busy)
                 {
                     dmP.transform.GetChild(3).GetComponent<Image>().color = Color.gray;
                 }
+
+                //Otherwise, keep the Scientist 1 Button White
                 else
                 {
                     dmP.transform.GetChild(3).GetComponent<Image>().color = Color.white;
                 }
 
-                //Hook Up Boost Button
+                //Hook Up the Boost Button if we can afford it
                 if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy)
                 {
                     dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist1name), dm)); });
@@ -372,13 +392,16 @@ public class UIManager : MonoBehaviour
                 }
             }
 
-            //Determine Boost Rect Scaling
+            //Moves how much of the boost bar gets filled mid-upgrade
             if (dm.beingBoosted)
             {
                 Vector2 boostLoadScale = dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
-                boostLoadScale.x += (Time.deltaTime / dm.boostTime) * 100;
+
+                boostLoadScale.x = 100 * (float)((float)slidersFilling[dm.scientistBoostingThis.name] / (float)dm.boostTime);
                 dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = boostLoadScale;
             }
+
+            //If we're not mid upgrade, it should not be filled at all
             else
             {
                 Vector2 boostLoadScale = dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
@@ -474,7 +497,6 @@ public class UIManager : MonoBehaviour
     //Coroutine that prints a congrats message for waitTime seconds
     public IEnumerator PrintBoostCompleteMessage(float waitTime, Scientist sci, DeathMethod dm)
     {
-        UnityEngine.Debug.Log("im a bitch");
         GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, discoveryParent.transform);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci.name} is done boosting profits for {dm.name}";
         yield return new WaitForSeconds(waitTime);
@@ -499,39 +521,66 @@ public class UIManager : MonoBehaviour
     //Boost DM Price After A Certain Amount of Time (BoostCost)
     public IEnumerator BoostDMEcon(Scientist sci, DeathMethod deathMethod)
     {       
-        UnityEngine.Debug.Log("Boost Begun");
+        //make the scientist busy and set up the DM to being boosted
         sci.busy = true;
         deathMethod.beingBoosted = true;
+        deathMethod.scientistBoostingThis = sci;
+
+        //pay the price for the boost
         dmManager.money -= deathMethod.boostCost;
 
+        //set up the buttons accordingly
+        FindButtonAssociatedWithScientist(sci.name).lastResearchedOrBoostedMethod = deathMethod;
+        FindButtonAssociatedWithScientist(sci.name).busyForEcon = true;
+        slidersFilling.Add(sci.name, 0f);
+
+        //Wait until the boost has concluded
         yield return new WaitForSeconds(deathMethod.boostTime);
 
-        UnityEngine.Debug.Log("Boost Finished");
-
+        //change all the appropriate values for the DM
         deathMethod.price += deathMethod.boostValue;
         deathMethod.boostIncrement++;
         deathMethod.boostValue = deathMethod.price / 2;
         deathMethod.boostCost = deathMethod.price * 5;
         deathMethod.boostTime = deathMethod.rateOfSale * deathMethod.boostIncrement;
-
-        sci.busy = false;
         deathMethod.beingBoosted = false;
+        deathMethod.scientistBoostingThis = null;
+
+        //change all the appropriate values for the scientist
+        slidersFilling.Remove(sci.name);
+        sci.busy = false;
+
+        //start the coroutine for completing the boost
         StartCoroutine(PrintBoostCompleteMessage(1.5f,sci,deathMethod));
     }
     
+    //Coroutine that does the research between two scientists
     public IEnumerator StartResearch(Scientist sci1, Scientist sci2)
     {
-        UnityEngine.Debug.Log("Research Begun");
+        //Make them busy
         sci1.busy = true;
         sci2.busy = true;
 
-        UnityEngine.Debug.Log(FindDeathMethod(dmManager, sci1.combinations[sci2.name]).researchTime);
+        //Set up the attributes for their EmployButtons
+        FindButtonAssociatedWithScientist(sci1.name).lastResearchedOrBoostedMethod = FindDeathMethod(dmManager, sci1.combinations[sci2.name]);
+        FindButtonAssociatedWithScientist(sci2.name).lastResearchedOrBoostedMethod = FindDeathMethod(dmManager, sci1.combinations[sci2.name]);
+        FindButtonAssociatedWithScientist(sci1.name).busyForEcon = false;
+        FindButtonAssociatedWithScientist(sci2.name).busyForEcon = false;
 
+        //Add them to the sliders being filled
+        slidersFilling.Add(sci1.name, 0f);
+        slidersFilling.Add(sci2.name, 0f);
+
+        //wait until their research has concluded
         yield return new WaitForSeconds(FindDeathMethod(dmManager, sci1.combinations[sci2.name]).researchTime);
 
-        UnityEngine.Debug.Log("Research Ended");
+        //make them not busy and remove them from the sliders being filled
         sci1.busy = false;
         sci2.busy = false;
+        slidersFilling.Remove(sci1.name);
+        slidersFilling.Remove(sci2.name);
+
+        //activate the match between them
         ActivateMatch(sci1, sci2);
     }
 
@@ -557,25 +606,42 @@ public class UIManager : MonoBehaviour
         Destroy(discoveryInst.gameObject);
     }
 
+    //Start the coroutine for a research being discovered
     public void StartPrintDiscoveryCoroutine(float waitTime, DeathMethod dm)
     {
         StartCoroutine(PrintDiscoveryMessage(waitTime, dm));
     }
 
+    //Start the coroutine for an econ being made (both the banner and the actual econ itself)
     public void StartEconCoroutine(float waitTime, Scientist sci, DeathMethod dm)
     {
         StartCoroutine(EconStartBanner(waitTime, sci, dm));
         StartCoroutine(BoostDMEcon(sci, dm));
     }
 
+    //Start the coroutine for a research being made (both the banner and the actual research itself)
     public void StartResearchCoroutine(float waitTime, Scientist sci1, Scientist sci2)
     {
         StartCoroutine(ResearchStartBanner(waitTime, sci1, sci2));
         StartCoroutine(StartResearch(sci1,sci2));
     }
 
+    //Switch which scientist is chosen on the DMPanel
     public void SwitchScientist(DeathMethod dm)
     {
         dm.sci1Chosen = !dm.sci1Chosen;
+    }
+
+    //Get the EmployButton associated with a scientist (we only need the lab version of the button)
+    private EmployButton FindButtonAssociatedWithScientist(string scientistName)
+    {
+        foreach (EmployButton eb in employButtons)
+        {
+            if (eb.scientist.name == scientistName && !eb.IsForEcon)
+            {
+                return eb;
+            }
+        }
+        return null;
     }
 }

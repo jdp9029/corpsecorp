@@ -9,69 +9,96 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class EmployButton : MonoBehaviour
 {
+    //whether or not this is a coin or a beaker button
     [HideInInspector] public bool IsForEcon;
+
+    //the scientist associated with this button
     [HideInInspector] public Scientist scientist;
+
+    //the panels that pop up when clicked
     public GameObject EconPanel;
     public GameObject LabPanel;
+
+    //each of the options on the panel
     public GameObject PanelOptionPrefab;
+
+    //the parent that gets associated with the panel
     [HideInInspector] public Transform PanelParent;
+
+    //the coing an beaker sprites
     public Sprite EconSprite;
     public Sprite LabSprite;
+
+    //the grey box that replaces this sprite when the scientist is busy
     [SerializeField] GameObject BusyObject;
 
+    //the instance of said grey box
     private GameObject BusyObjInstance;
 
+    //whether or not this button is active
     private bool buttonActive;
+
+    //whether or not the busy object is active
     private bool busyObjectActive;
 
-    private DeathMethod lastResearchedOrBoostedMethod;
+    //returns true if we are busy boosting, false if we are busy researching
+    public bool busyForEcon = true;
+
+    //the most recent method this scientist has boosted or researched
+    public DeathMethod lastResearchedOrBoostedMethod;
+
+    //calls to managers
     UIManager uiManager;
+    DeathMethodManager dmm;
 
     // Start is called before the first frame update
     void Start()
     {
+        //set up the managers
         uiManager = FindObjectOfType<UIManager>();
+        dmm = GameObject.FindObjectOfType<DeathMethodManager>();
+
+        //hook up this button
         GetComponent<Button>().onClick.AddListener(ButtonClick);
+
+        //determines the activity of the button and the busy object
         buttonActive = true;
         busyObjectActive = false;
 
-        if(IsForEcon)
-        {
-            GetComponent<Image>().sprite = EconSprite;
-        }
-        else
-        {
-            GetComponent<Image>().sprite = LabSprite;
-        }
+        //add this button to ui manager
+        uiManager.employButtons.Add(this);
+
+        //set up the sprite
+        if(IsForEcon) { GetComponent<Image>().sprite = EconSprite; }
+        else { GetComponent<Image>().sprite = LabSprite; }
     }
 
     // Update is called once per frame
     void Update()
     {
+        //if the scientist is available
         if(!scientist.busy)
         {
-            //code to destroy the busy object
+            //if the busy object exists, destroy it
             if(busyObjectActive && !IsForEcon)
             {
-                if(!IsForEcon)
-                {
-                    busyObjectActive = false;
-                    Destroy(BusyObjInstance);
-                }
+                busyObjectActive = false;
+                Destroy(BusyObjInstance);
                 uiManager.slidersFilling.Remove(scientist.name);
             }
 
             //code for lab buttons when scientist isn't busy
             if(!IsForEcon)
             {
+                //if we can't research with anyone, deactivate the button
                 if (CompatibleResearchPartners().Count == 0)
                 {
-                    //if we can't research, dont
                     if (buttonActive) { DeActivateButton(); }
                 }
+
+                //if we can research with someone, activate the button
                 else if (!buttonActive)
                 {
-                    //if we can research, do
                     ActivateButton();
                 }
             }
@@ -79,15 +106,24 @@ public class EmployButton : MonoBehaviour
             //code for econ buttons when scientist isn't busy
             else
             {
-                //this is the boolean that determines whether or not we can go
-                if(!buttonActive)
+                //if there are no affordable boosts, don't show the coin
+                if (AffordableBoosts().Count == 0)
+                {
+                    if(buttonActive) { DeActivateButton(); }
+                }
+
+                //if there are affordable boosts, do show the coin
+                else if (!buttonActive)
                 {
                     ActivateButton();
                 }
             }
         }
+
+        //if the scientist is busy
         else
         {
+            //we never want an active button here
             DeActivateButton();
 
             //code to instantiate the busy object (we only do it from the lab icon bc we don't need it twice)
@@ -98,23 +134,24 @@ public class EmployButton : MonoBehaviour
                 BusyObjInstance.GetComponent<Image>().color = Color.grey;
             }
 
-            //code to update the percentage of business
+            //code to update the percentage of busy-ness completed
             if(BusyObjInstance != null)
             {
                 if (BusyObjInstance.TryGetComponent<Slider>(out Slider slider))
                 {
                     float timer = uiManager.slidersFilling[scientist.name];
-                    float totalTime = lastResearchedOrBoostedMethod.researchTime;
-                    //if (IsForEcon) { totalTime = lastResearchedOrBoostedMethod.boostTime; }
+                    float totalTime = busyForEcon ? lastResearchedOrBoostedMethod.boostTime : lastResearchedOrBoostedMethod.researchTime;
+
+
                     slider.value = timer / totalTime;
                 }
             }
-            else { Debug.Log("null slider"); }
 
 
         }
     }
 
+    //Hide and turn off the button
     private void DeActivateButton()
     {
         GetComponent<Button>().onClick.RemoveAllListeners();
@@ -122,6 +159,7 @@ public class EmployButton : MonoBehaviour
         buttonActive = false;
     }
 
+    //Show and turn on the button
     private void ActivateButton()
     {
         GetComponent<Button>().onClick.AddListener(ButtonClick);
@@ -129,20 +167,31 @@ public class EmployButton : MonoBehaviour
         buttonActive = true;
     }
 
+    //Returns the list of affordable methods that this scientist can boost
+    private List<DeathMethod> AffordableBoosts()
+    {
+        //all possible boosts that can be made
+        List<DeathMethod> deathMethods = dmm.deathMethods.Where(
+                dm => dm.active && (dm.scientist1name == scientist.name || dm.scientist2name == scientist.name) && !dm.beingBoosted).ToList();
 
+        //all of these boosts that are affordable
+        return deathMethods.Where(dm => dm.boostCost <= dmm.money).ToList(); ;
+    }
+
+    //Returns the list of compatible research partners that this scientist can research with
     private List<Scientist> CompatibleResearchPartners()
     {
         ScientistManager scimgr = GameObject.FindObjectOfType<ScientistManager>();
         List<Scientist> scis = scimgr.scientists.Where(
                 sci => sci.Purchased && scientist.combinations.ContainsKey(sci.name)).ToList();
 
-        DeathMethodManager dmm = GameObject.FindObjectOfType<DeathMethodManager>();
-
         return scis.Where(sci => !sci.busy && !uiManager.FindDeathMethod(dmm, scientist.combinations[sci.name]).active).ToList();
     }
 
+    //Code that gets called when this button gets clicked
     private void ButtonClick()
     {
+        //If this is an econ button
         if(IsForEcon)
         {
             //instantiate the econ panel and populate it
@@ -152,28 +201,33 @@ public class EmployButton : MonoBehaviour
 
             //get the list of applicable death methods and save them
             Transform content = econPanel.transform.GetChild(2).GetChild(0).GetChild(0);
-            DeathMethodManager dmm = GameObject.FindObjectOfType<DeathMethodManager>();
 
             //get the death methods we want to appear on the panel
-            List<DeathMethod> deathMethods = dmm.deathMethods.Where(
-                dm => dm.active && (dm.scientist1name == scientist.name || dm.scientist2name == scientist.name) && !dm.beingBoosted).ToList();
+            List<DeathMethod> deathMethods = AffordableBoosts();
 
             //instantiate all of the options
             foreach(DeathMethod deathMethod in deathMethods)
             {
                 GameObject instance = Instantiate(PanelOptionPrefab, content);
                 instance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = deathMethod.name;
-                instance.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { ScientistBoostEcon(scientist,deathMethod,econPanel); });
                 instance.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Boost";
+
+                //when a DM gets boosted, start the econ coroutine and destroy the econ panel
+                instance.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate
+                {
+                    uiManager.StartEconCoroutine(1.5f, scientist, deathMethod);
+                    Destroy(econPanel);
+                });
             }
 
             //also add the back arrow
             econPanel.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { Destroy(econPanel); });
         }
 
+        //if this is a lab button
         else
         {
-            //instantiate the econ panel and populate it
+            //instantiate the lab panel and populate it
             GameObject labPanel = Instantiate(LabPanel, PanelParent);
             labPanel.transform.SetAsLastSibling();
             labPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Research Partners for " + scientist.name;
@@ -189,47 +243,18 @@ public class EmployButton : MonoBehaviour
             {
                 GameObject instance = Instantiate(PanelOptionPrefab, content);
                 instance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci.name;
-                instance.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { LabCombo(scientist, sci, labPanel); });
                 instance.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research";
+
+                //when a research gets started, start the research coroutine and then destroy the lab panel
+                instance.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate
+                {
+                    uiManager.StartResearchCoroutine(1.5f, scientist, sci);
+                    Destroy(labPanel);
+                });
             }
 
             //also add the back arrow
             labPanel.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { Destroy(labPanel); });
         }
-    }
-
-    //use a scientist to boost the econ
-    private void ScientistBoostEcon(Scientist sci, DeathMethod deathMethod, GameObject econPanel)
-    {
-        lastResearchedOrBoostedMethod = deathMethod;
-        uiManager.slidersFilling.Add(sci.name, 0f);
-        uiManager.StartEconCoroutine(1.5f, sci, deathMethod);
-
-        Destroy(econPanel);
-    }
-
-    //combine two scientists
-    private void LabCombo(Scientist sci1, Scientist sci2, GameObject labPanel)
-    {
-        DeathMethodManager dmm = GameObject.FindObjectOfType<DeathMethodManager>();
-        lastResearchedOrBoostedMethod = uiManager.FindDeathMethod(dmm, sci1.combinations[sci2.name]);
-        FindButtonAssociatedWithScientist(sci2.name).lastResearchedOrBoostedMethod = lastResearchedOrBoostedMethod;
-        uiManager.slidersFilling.Add(sci1.name, 0f);
-        uiManager.slidersFilling.Add(sci2.name, 0f);
-        uiManager.StartResearchCoroutine(1.5f,sci1,sci2);
-
-        Destroy(labPanel);
-    }
-
-    private EmployButton FindButtonAssociatedWithScientist(string scientistName)
-    {
-        foreach(EmployButton eb in GameObject.FindObjectsOfType<EmployButton>())
-        {
-            if(eb.scientist.name == scientistName && !eb.IsForEcon)
-            {
-                return eb;
-            }
-        }
-        return null;
     }
 }
