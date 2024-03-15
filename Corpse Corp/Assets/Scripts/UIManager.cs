@@ -45,15 +45,6 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Clicker (Fields)
-    /*[SerializeField] Button clickerButton;
-    [SerializeField] Button leftButton;
-    [SerializeField] Button rightButton;
-    [SerializeField] TMP_Text clickerText;
-
-    int dmIndex;
-    bool leftButtonActive;
-    bool rightButtonActive;*/
-
     List<DeathMethod> activeDeathMethods;
     List<GameObject> dmPrefabList;
     [SerializeField] GameObject dmPrefab;
@@ -102,10 +93,6 @@ public class UIManager : MonoBehaviour
         #endregion
 
         #region Clicker (Start)
-        /*dmIndex = 0;
-        leftButtonActive = false;
-        rightButtonActive = false;*/
-
         activeDeathMethods = new List<DeathMethod>();
         dmPrefabList = new List<GameObject>();
         #endregion
@@ -254,22 +241,14 @@ public class UIManager : MonoBehaviour
         //Loop Through & Instantiate Active Death Method Prefabs
         for (int i = 0; i < activeDeathMethods.Count; i++)
         {
-            if (!activeDeathMethods[i].instantiated)
+            if (!activeDeathMethods[i].instantiated) //Check if it's instantiated to only instantiate it once
             {
                 GameObject dmInst = Instantiate(dmPrefab, Vector3.zero, Quaternion.identity, dmContent); //Instantiate Prefab
-                dmPrefabList.Add(dmInst);
+                dmPrefabList.Add(dmInst); //Add to prefab list
 
                 //Set Info
                 dmInst.transform.GetChild(0).GetComponent<TMP_Text>().text = activeDeathMethods[i].name; //DMName
                 dmInst.transform.GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = $"<b>${activeDeathMethods[i].price} / {activeDeathMethods[i].rateOfSale} seconds</b>"; //BaseLoadRect
-
-                //Fill In Options
-                List<string> scientistsToAdd = new List<string>();
-                scientistsToAdd.Add(activeDeathMethods[i].scientist1name);
-                if (activeDeathMethods[i].scientist2name != null)
-                {
-                    scientistsToAdd.Add(activeDeathMethods[i].scientist2name);
-                }
 
                 activeDeathMethods[i].instantiated = true;
             }
@@ -280,19 +259,22 @@ public class UIManager : MonoBehaviour
         {
             DeathMethod dm = FindDeathMethod(dmManager, dmP.transform.GetChild(0).GetComponent<TMP_Text>().text);
 
-            //Get Scaling Rects to Scale According to DM RatesOfSale
+            //Get Scaling Rect
             Vector2 scaleRectScale = dmP.transform.Find("BaseLoadRect").Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
+
+            //Update Loading Scale by RateOfSale
             scaleRectScale.x += (Time.deltaTime / dm.rateOfSale) * 100;
             if (scaleRectScale.x >= 100)
             {
                 dm.UpdateMoney();
                 scaleRectScale.x = 0;
             }
-            dmP.transform.Find("BaseLoadRect").transform.Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = scaleRectScale;
+            dmP.transform.Find("BaseLoadRect").transform.Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = scaleRectScale; //Reassign Scaling Rect
 
             //Update BaseRect Text
             dmP.transform.GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = $"<b>${Mathf.Round(dm.price)} / {Mathf.Round(dm.rateOfSale)} seconds</b>";
 
+            //Update Info Rects Text
             dmP.transform.GetChild(2).Find("CostText").GetComponent<TMP_Text>().text = $"-${Mathf.Round(dm.boostCost)}";
             dmP.transform.GetChild(2).Find("TimeText").GetComponent<TMP_Text>().text = $"{Mathf.Round(dm.boostTime)}s";
             dmP.transform.GetChild(2).Find("PlusText").GetComponent<TMP_Text>().text = $"+${Mathf.Round(dm.boostValue)}";
@@ -309,9 +291,30 @@ public class UIManager : MonoBehaviour
             {
                 dmP.transform.GetChild(4).GetChild(0).GetComponent<TMP_Text>().text = dm.scientist2name;
                 dmP.transform.GetChild(4).GetComponent<Button>().onClick.RemoveAllListeners();
-
-                if (!dm.sci1Chosen) //If Scientist 2 is Chosen
+                
+                //Gray Out Scientist 1 Button if Scientist is Busy
+                if (FindScientist(sciManager, dm.scientist1name).busy)
                 {
+                    dmP.transform.GetChild(3).GetComponent<Image>().color = Color.gray;
+                }
+                else
+                {
+                    dmP.transform.GetChild(3).GetComponent<Image>().color = Color.white;
+                }
+
+                //Gray Out Scientist 2 Button if Scientist is Busy
+                if (FindScientist(sciManager, dm.scientist2name).busy)
+                {
+                    dmP.transform.GetChild(4).GetComponent<Image>().color = Color.gray;
+                }
+                else
+                {
+                    dmP.transform.GetChild(4).GetComponent<Image>().color = Color.white;
+                }
+
+                if (!dm.sci1Chosen) //If Scientist 2 is Chosen...
+                {
+                    //Hook Up Scientist Button & Alter Button Sizes
                     dmP.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { SwitchScientist(dm); });
 
                     RectTransform sci1rect = dmP.transform.GetChild(3).GetComponent<RectTransform>();
@@ -326,8 +329,9 @@ public class UIManager : MonoBehaviour
                         dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist2name), dm)); });
                     }
                 }
-                else //If Scientist 1 is Chosen
+                else //If Scientist 1 is Chosen...
                 {
+                    //Hook Up Scientist Button & Alter Button Sizes
                     dmP.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(delegate { SwitchScientist(dm); });
 
                     RectTransform sci2rect = dmP.transform.GetChild(4).GetComponent<RectTransform>();
@@ -345,6 +349,16 @@ public class UIManager : MonoBehaviour
             }
             else //If No Scientist 2...
             {
+                //Gray Out Scientist 1 Button if Scientist is Busy
+                if (FindScientist(sciManager, dm.scientist1name).busy)
+                {
+                    dmP.transform.GetChild(3).GetComponent<Image>().color = Color.gray;
+                }
+                else
+                {
+                    dmP.transform.GetChild(3).GetComponent<Image>().color = Color.white;
+                }
+
                 //Hook Up Boost Button
                 if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy)
                 {
@@ -358,6 +372,7 @@ public class UIManager : MonoBehaviour
                 }
             }
 
+            //Determine Boost Rect Scaling
             if (dm.beingBoosted)
             {
                 Vector2 boostLoadScale = dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
@@ -480,6 +495,8 @@ public class UIManager : MonoBehaviour
         obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci.name;
         obj.transform.GetChild(1).GetComponent<Image>().sprite = sci.Icon;
     }
+
+    //Boost DM Price After A Certain Amount of Time (BoostCost)
     public IEnumerator BoostDMEcon(Scientist sci, DeathMethod deathMethod)
     {       
         UnityEngine.Debug.Log("Boost Begun");
