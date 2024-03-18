@@ -431,6 +431,7 @@ public class UIManager : MonoBehaviour
             slidersFilling[slider] += Time.deltaTime;
         }
 
+        //a comment that an be removed right here
         //if there are employ buttons, set them up
         if(GameObject.FindObjectsOfType<EmployButton>().Count() > 0)
         {
