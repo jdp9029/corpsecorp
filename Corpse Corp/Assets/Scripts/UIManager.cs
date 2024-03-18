@@ -103,6 +103,9 @@ public class UIManager : MonoBehaviour
         //UnityEngine.Debug.Log(hirePrefabs.Length);
         slidersFilling = new Dictionary<string, float>();
         employButtons = new List<EmployButton>();
+
+
+
         #endregion
     }
 
@@ -425,6 +428,8 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        SortScientistsByCost();
+
         for(int i = 0; i < slidersFilling.Count; i++)
         {
             string slider = slidersFilling.ElementAt(i).Key;
@@ -650,5 +655,26 @@ public class UIManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    private void SortScientistsByCost()
+    {
+        for (int i = 1; i < hirePrefabs.Count; i++)
+        {
+            if (hirePrefabs[i].GetComponent<Scientist>().price < hirePrefabs[i-1].GetComponent<Scientist>().price || 
+                (hirePrefabs[i].GetComponent<Scientist>().Purchased && !hirePrefabs[i - 1].GetComponent<Scientist>().Purchased))
+            {
+                hirePrefabs[i].GetComponent<Scientist>().numInOrder--;
+                hirePrefabs[i - 1].GetComponent<Scientist>().numInOrder++;
+
+                GameObject s1 = hirePrefabs[i];
+                GameObject s2 = hirePrefabs[i - 1];
+
+                hirePrefabs[i] = s2;
+                hirePrefabs[i - 1] = s1;
+
+                SortScientistsByCost();
+            }
+        }
     }
 }

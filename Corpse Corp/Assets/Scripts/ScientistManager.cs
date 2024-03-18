@@ -245,7 +245,7 @@ public class ScientistManager : MonoBehaviour
         }
 
         //Sort by price
-        //SortScientistsByCost();
+        SortScientistsByCost();
 
         #endregion
     }
@@ -382,20 +382,19 @@ public class ScientistManager : MonoBehaviour
 
     private void SortScientistsByCost()
     {
-        Scientist[] unPurchasedScientists = scientists.Where(scientist => !scientist.Purchased).ToArray();
-
-        for(int i = 1; i < unPurchasedScientists.Length; i++)
+        for (int i = 1; i < tab4content.childCount; i++)
         {
-            if (unPurchasedScientists[i].price < unPurchasedScientists[i - 1].price)
+            if (tab4content.GetChild(i).GetComponent<Scientist>().price < tab4content.GetChild(i - 1).GetComponent<Scientist>().price ||
+                (tab4content.GetChild(i).GetComponent<Scientist>().Purchased && !tab4content.GetChild(i - 1).GetComponent<Scientist>().Purchased))
             {
-                unPurchasedScientists[i].numInOrder--;
-                unPurchasedScientists[i - 1].numInOrder++;
+                GameObject s1 = tab4content.GetChild(i - 1).gameObject;
 
-                Scientist s1 = unPurchasedScientists[i];
-                Scientist s2 = unPurchasedScientists[i - 1];
+                s1.transform.SetAsLastSibling();
 
-                unPurchasedScientists[i] = s2;
-                unPurchasedScientists[i - 1] = s1;
+                for(int j = i; j < tab4content.childCount - 1; j++)
+                {
+                    tab4content.GetChild(j).transform.SetAsLastSibling();
+                }
 
                 SortScientistsByCost();
             }

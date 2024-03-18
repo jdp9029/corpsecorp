@@ -592,6 +592,7 @@ MonoBehaviour:
   dmPrefab: {fileID: 2199329706651809223, guid: 0b1d3863156d32143b66786741c971c3, type: 3}
   dmContent: {fileID: 1409179972}
   hirePrefabs: []
+  employButtons: []
 --- !u!1 &44427419
 GameObject:
   m_ObjectHideFlags: 0
