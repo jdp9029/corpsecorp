@@ -65,9 +65,6 @@ public class EmployButton : MonoBehaviour
         buttonActive = true;
         busyObjectActive = false;
 
-        //add this button to ui manager
-        uiManager.employButtons.Add(this);
-
         //set up the sprite
         if(IsForEcon) { GetComponent<Image>().sprite = EconSprite; }
         else { GetComponent<Image>().sprite = LabSprite; }

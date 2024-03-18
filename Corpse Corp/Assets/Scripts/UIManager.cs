@@ -430,6 +430,12 @@ public class UIManager : MonoBehaviour
             string slider = slidersFilling.ElementAt(i).Key;
             slidersFilling[slider] += Time.deltaTime;
         }
+
+        //if there are employ buttons, set them up
+        if(GameObject.FindObjectsOfType<EmployButton>().Count() > 0)
+        {
+            employButtons = GameObject.FindObjectsOfType<EmployButton>().ToList();
+        }
         #endregion
 
         statBar.text = $"<i>MONEY: ${Mathf.Round(dmManager.money)} ; ${Mathf.Round(dmManager.moneyPerSecond)} / s</i>";
