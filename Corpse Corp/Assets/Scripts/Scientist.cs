@@ -68,7 +68,7 @@ public class Scientist : MonoBehaviour
 
     private void ButtonClick()
     {
-        Debug.Log(numInOrder);
+        //Debug.Log(numInOrder);
         if (this.price <= dmManager.money) //Make Sure You Have Enough Money
         {
             /*foreach (Scientist s in GameObject.FindObjectOfType<ScientistManager>().scientists) //This foreach loop doesn't shift everything up
@@ -88,6 +88,7 @@ public class Scientist : MonoBehaviour
             transform.GetChild(1).GetComponent<Button>().onClick.RemoveListener(ButtonClick);
             ReplaceButtonWithIcons(false);
             GameObject.FindObjectOfType<UIManager>().StartPrintDiscoveryCoroutine(1.5f, this.mainMethod);
+            GameObject.FindObjectOfType<ScientistManager>().SortScientistsByCost();
         }
     }
 

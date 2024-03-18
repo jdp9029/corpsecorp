@@ -380,11 +380,17 @@ public class ScientistManager : MonoBehaviour
         return scientist;
     }
 
-    private void SortScientistsByCost()
+    public void SortScientistsByCost()
     {
         for (int i = 1; i < tab4content.childCount; i++)
         {
-            if (tab4content.GetChild(i).GetComponent<Scientist>().price < tab4content.GetChild(i - 1).GetComponent<Scientist>().price ||
+            //if they are both not purchased AND i's price < i - 1's price
+            //or
+            //if i is purchased and i - 1 is not purchased
+            //then there is an issue
+
+            if ((tab4content.GetChild(i).GetComponent<Scientist>().price < tab4content.GetChild(i - 1).GetComponent<Scientist>().price
+                && !tab4content.GetChild(i).GetComponent<Scientist>().Purchased && !tab4content.GetChild(i - 1).GetComponent<Scientist>().Purchased) ||
                 (tab4content.GetChild(i).GetComponent<Scientist>().Purchased && !tab4content.GetChild(i - 1).GetComponent<Scientist>().Purchased))
             {
                 GameObject s1 = tab4content.GetChild(i - 1).gameObject;
