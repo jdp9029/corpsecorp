@@ -418,8 +418,7 @@ public class UIManager : MonoBehaviour
                 if (FindButtonAssociatedWithScientist(dm.scientist1name).busyForEcon)
                 {
                     Vector2 boostLoadScale = dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
-                    //This needs a reference to the DM it is currently boosting in Scientist, to check against that boost time, NOT the prefab's respective DM boost time
-                    boostLoadScale.x += 48 * (float)((float)Time.deltaTime / (float)dm.boostTime);
+                    boostLoadScale.x += 48 * (float)((float)Time.deltaTime / (float)FindButtonAssociatedWithScientist(dm.scientist1name).lastResearchedOrBoostedMethod.boostTime);
                     dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = boostLoadScale;
                 }
                 else //Otherwise, it's boosting for research
@@ -443,7 +442,7 @@ public class UIManager : MonoBehaviour
                 if (FindButtonAssociatedWithScientist(dm.scientist2name).busyForEcon)
                 {
                     Vector2 boostLoadScale = dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
-                    boostLoadScale.x += 48 * (float)((float)Time.deltaTime / (float)dm.boostTime);
+                    boostLoadScale.x += 48 * (float)((float)Time.deltaTime / (float)FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.boostTime);
                     dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = boostLoadScale;
                 }
                 else //Otherwise, it's boosting for research
