@@ -340,9 +340,13 @@ public class UIManager : MonoBehaviour
 
                     RectTransform sci1rect = dmP.transform.GetChild(3).GetComponent<RectTransform>();
                     sci1rect.sizeDelta = new Vector2(325, 75);
+                    RectTransform sci1ScaleRect = dmP.transform.GetChild(3).GetChild(1).GetComponent<RectTransform>();
+                    sci1ScaleRect.sizeDelta = new Vector2(sci1ScaleRect.sizeDelta.x, 175);
 
                     RectTransform sci2rect = dmP.transform.GetChild(4).GetComponent<RectTransform>();
-                    sci2rect.sizeDelta = new Vector2(400, 120);
+                    sci2rect.sizeDelta = new Vector2(360, 105);
+                    RectTransform sci2ScaleRect = dmP.transform.GetChild(4).GetChild(1).GetComponent<RectTransform>();
+                    sci2ScaleRect.sizeDelta = new Vector2(sci2ScaleRect.sizeDelta.x, 315);
 
                     //Hook Up Boost Button, if we can afford it
                     if (dmManager.money >= dm.boostCost && !FindScientist(sciManager, dm.scientist2name).busy)
@@ -357,9 +361,13 @@ public class UIManager : MonoBehaviour
 
                     RectTransform sci2rect = dmP.transform.GetChild(4).GetComponent<RectTransform>();
                     sci2rect.sizeDelta = new Vector2(325, 75);
+                    RectTransform sci2ScaleRect = dmP.transform.GetChild(4).GetChild(1).GetComponent<RectTransform>();
+                    sci2ScaleRect.sizeDelta = new Vector2(sci2ScaleRect.sizeDelta.x, 175);
 
                     RectTransform sci1rect = dmP.transform.GetChild(3).GetComponent<RectTransform>();
-                    sci1rect.sizeDelta = new Vector2(400, 120);
+                    sci1rect.sizeDelta = new Vector2(360, 105);
+                    RectTransform sci1ScaleRect = dmP.transform.GetChild(3).GetChild(1).GetComponent<RectTransform>();
+                    sci1ScaleRect.sizeDelta = new Vector2(sci1ScaleRect.sizeDelta.x, 315);
 
                     //Hook Up Boost Button, if we can afford it
                     if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy)
@@ -414,17 +422,20 @@ public class UIManager : MonoBehaviour
             //Check to see if/why Scientist1 is busy, and scale its scale rect accordingly
             if (FindScientist(sciManager, dm.scientist1name).busy)
             {
+                //Determine value of scaling rects by if the scientist is selected or not
+                float scaleFactor = dm.sci1Chosen ? 49 : 45;
+                
                 //If it's boosting the Death Method
                 if (FindButtonAssociatedWithScientist(dm.scientist1name).busyForEcon)
                 {
                     Vector2 boostLoadScale = dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
-                    boostLoadScale.x += 48 * (float)((float)Time.deltaTime / (float)FindButtonAssociatedWithScientist(dm.scientist1name).lastResearchedOrBoostedMethod.boostTime);
+                    boostLoadScale.x += scaleFactor * (float)((float)Time.deltaTime / (float)FindButtonAssociatedWithScientist(dm.scientist1name).lastResearchedOrBoostedMethod.boostTime);
                     dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = boostLoadScale;
                 }
                 else //Otherwise, it's boosting for research
                 {
                     Vector2 boostLoadScale = dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
-                    boostLoadScale.x += 48 * (float)((float)Time.deltaTime / (float)FindButtonAssociatedWithScientist(dm.scientist1name).lastResearchedOrBoostedMethod.researchTime);
+                    boostLoadScale.x += scaleFactor * (float)((float)Time.deltaTime / (float)FindButtonAssociatedWithScientist(dm.scientist1name).lastResearchedOrBoostedMethod.researchTime);
                     dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = boostLoadScale;
                 }
             }
@@ -438,17 +449,20 @@ public class UIManager : MonoBehaviour
             //Check to see if/why Scientist2 is busy (if it exists), and scale its scale rect accordingly
             if (dm.scientist2name != null && FindScientist(sciManager, dm.scientist2name).busy)
             {
+                //Determine value of scaling rects by if the scientist is selected or not
+                float scaleFactor = !dm.sci1Chosen ? 49 : 45;
+
                 //If it's boosting the Death Method
                 if (FindButtonAssociatedWithScientist(dm.scientist2name).busyForEcon)
                 {
                     Vector2 boostLoadScale = dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
-                    boostLoadScale.x += 48 * (float)((float)Time.deltaTime / (float)FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.boostTime);
+                    boostLoadScale.x += scaleFactor * (float)((float)Time.deltaTime / (float)FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.boostTime);
                     dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = boostLoadScale;
                 }
                 else //Otherwise, it's boosting for research
                 {
                     Vector2 boostLoadScale = dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta;
-                    boostLoadScale.x += 48 * (float)((float)Time.deltaTime / (float)FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.researchTime);
+                    boostLoadScale.x += scaleFactor * (float)((float)Time.deltaTime / (float)FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.researchTime);
                     dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>().sizeDelta = boostLoadScale;
                 }
             }
