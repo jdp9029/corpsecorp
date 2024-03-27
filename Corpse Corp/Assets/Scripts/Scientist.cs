@@ -5,7 +5,7 @@ using UnityEngine;
 using TMPro;
 //using UnityEditor.UI;
 using UnityEngine.UI;
-using UnityEditor.SceneManagement;
+//using UnityEditor.SceneManagement;
 using System.Linq;
 
 public class Scientist : MonoBehaviour
