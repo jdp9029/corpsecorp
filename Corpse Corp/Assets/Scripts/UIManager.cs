@@ -554,14 +554,16 @@ public class UIManager : MonoBehaviour
 
     public void SetHirePrefabText(GameObject prefabInstance, int price)
     {
-        prefabInstance.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = price.ToString() + "M";
+        prefabInstance.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "$" + price.ToString();
     }
 
     //Coroutine that prints a congrats message for waitTime seconds
     public IEnumerator PrintDiscoveryMessage(float waitTime, DeathMethod dm)
     {
-        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, discoveryParent.transform);
+        GameObject discoveryInst = Instantiate(discoveryBanner, Vector3.zero, Quaternion.identity, discoveryParent.transform);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Congratulations! You've Discovered <b>{dm.name}!</b>";
+        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(.1f, .7f);
+        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(.9f, .8f);
         yield return new WaitForSeconds(waitTime);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
         Destroy(discoveryInst.gameObject);
@@ -570,8 +572,10 @@ public class UIManager : MonoBehaviour
     //Coroutine that prints a congrats message for waitTime seconds
     public IEnumerator PrintBoostCompleteMessage(float waitTime, Scientist sci, DeathMethod dm)
     {
-        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, discoveryParent.transform);
+        GameObject discoveryInst = Instantiate(discoveryBanner, Vector3.zero, Quaternion.identity, discoveryParent.transform);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci.name} is done boosting profits for {dm.name}";
+        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(.1f, .7f);
+        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(.9f, .8f);
         yield return new WaitForSeconds(waitTime);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
         Destroy(discoveryInst.gameObject);
