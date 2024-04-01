@@ -7,11 +7,13 @@ using UnityEngine.UI;
 public class TabManager : MonoBehaviour
 {
     [SerializeField] public Tab[] buttonTabs;
+    [HideInInspector] public int selectedTab;
 
     // Start is called before the first frame update
     void Start()
     {
         TabClicked(buttonTabs[3]); //0 = Statistic Summary, 1 = Combo Scientists, 2 = Clicker, 3 = Hire Scientists, 4 = Settings
+        selectedTab = 4; //selected tab operates on the 1 index, so its 1 more than tabclicked arrays
     }
 
     // Update is called once per frame
@@ -46,6 +48,8 @@ public class TabManager : MonoBehaviour
             if(tabClicked == tab)
             {
                 tab.transform.GetChild(0).localScale = new Vector3(1, 1.2f, 1);
+                selectedTab = tab.tabNum;
+                GameObject.FindObjectOfType<TutorialButton>().SwitchToTab(tab.tabNum == 3);
             }
             else
             {
