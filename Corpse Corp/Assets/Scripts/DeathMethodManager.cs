@@ -13,7 +13,7 @@ public class DeathMethodManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        money = 0;
+        money = 100000;
     }
 
     // Update is called once per frame
