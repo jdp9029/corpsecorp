@@ -98,17 +98,21 @@ public class Scientist : MonoBehaviour
         GameObject.Destroy(transform.GetChild(1).gameObject);
 
         //next, replace them with icons
-        labIcon = Instantiate(jobIcons, new Vector3(200, 0, 0), Quaternion.identity, transform);
+        labIcon = Instantiate(jobIcons, Vector3.zero, Quaternion.identity, transform);
         labIcon.GetComponent<EmployButton>().IsForEcon = false;
         labIcon.GetComponent<EmployButton>().scientist = this;
         labIcon.GetComponent<EmployButton>().PanelParent = GameObject.FindObjectsOfType<Tab>().Where(tab => tab.tabNum == 4).ToArray()[0].transform;
+        labIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0.6f, .25f);
+        labIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0.775f, .75f);
 
-        econIcon = Instantiate(jobIcons, new Vector3(400, 0, 0), Quaternion.identity, transform);
+        econIcon = Instantiate(jobIcons, Vector3.zero, Quaternion.identity, transform);
         econIcon.GetComponent<EmployButton>().IsForEcon = true;
         econIcon.GetComponent<EmployButton>().scientist = this;
         econIcon.GetComponent<EmployButton>().PanelParent = GameObject.FindObjectsOfType<Tab>().Where(tab => tab.tabNum == 4).ToArray()[0].transform;
+        econIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0.825f, .25f);
+        econIcon.GetComponent<RectTransform>().anchorMax = new Vector2(1f, .75f);
 
-        if(!isStart)
+        if (!isStart)
         {
             labIcon.transform.position = new Vector3(200 + transform.position.x, transform.position.y, 0f);
             econIcon.transform.position = new Vector3(400 + transform.position.x, transform.position.y, 0f);
