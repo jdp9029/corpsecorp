@@ -348,8 +348,8 @@ public class UIManager : MonoBehaviour
                     RectTransform sci2ScaleRect = dmP.transform.GetChild(4).GetChild(1).GetComponent<RectTransform>();
                     sci2ScaleRect.sizeDelta = new Vector2(sci2ScaleRect.sizeDelta.x, 315);
 
-                    //Hook Up Boost Button, if we can afford it
-                    if (dmManager.money >= dm.boostCost && !FindScientist(sciManager, dm.scientist2name).busy)
+                    //Hook Up Boost Button, if we can afford it AND the Scientist isn't busy AND the DM isn't being boosted
+                    if (dmManager.money >= dm.boostCost && !FindScientist(sciManager, dm.scientist2name).busy && !dm.beingBoosted)
                     {
                         dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist2name), dm)); });
                     }
@@ -734,7 +734,7 @@ public class UIManager : MonoBehaviour
                 hirePrefabs[i] = s2;
                 hirePrefabs[i - 1] = s1;
 
-                SortScientistsByCost();
+                //SortScientistsByCost(); //The purchasing works without the recursive call for some reason. With the recursive call, a Stack Overflow is caused
             }
         }
     }
