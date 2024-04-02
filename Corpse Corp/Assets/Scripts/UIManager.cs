@@ -664,8 +664,10 @@ public class UIManager : MonoBehaviour
     //Coroutine that prints a research start message for waitTime seconds
     public IEnumerator ResearchStartBanner(float waitTime, Scientist sci1, Scientist sci2)
     {
-        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, discoveryParent.transform);
+        GameObject discoveryInst = Instantiate(discoveryBanner, Vector3.zero, Quaternion.identity, discoveryParent.transform);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci1.name} and {sci2.name} are researching together";
+        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(.1f, .7f);
+        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(.9f, .8f);
         yield return new WaitForSeconds(waitTime);
 
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
@@ -675,8 +677,10 @@ public class UIManager : MonoBehaviour
     //Coroutine that prints a econ boost start message for waitTime seconds
     public IEnumerator EconStartBanner(float waitTime, Scientist sci, DeathMethod dm)
     {
-        GameObject discoveryInst = Instantiate(discoveryBanner, new Vector3(540, 2000, 0), Quaternion.identity, discoveryParent.transform);
+        GameObject discoveryInst = Instantiate(discoveryBanner, Vector3.zero, Quaternion.identity, discoveryParent.transform);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci.name} is boosting profits for {dm.name}";
+        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(.1f, .7f);
+        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(.9f, .8f);
         yield return new WaitForSeconds(waitTime);
 
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
