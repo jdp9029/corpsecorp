@@ -562,8 +562,10 @@ public class UIManager : MonoBehaviour
     {
         GameObject discoveryInst = Instantiate(discoveryBanner, Vector3.zero, Quaternion.identity, discoveryParent.transform);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Congratulations! You've Discovered <b>{dm.name}!</b>";
-        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(.1f, .7f);
-        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(.9f, .8f);
+        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
+        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
+        discoveryInst.GetComponent<RectTransform>().offsetMin = new Vector2(0f, 0f);
+        discoveryInst.GetComponent<RectTransform>().offsetMax = new Vector2(0f, 0f);
         yield return new WaitForSeconds(waitTime);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
         Destroy(discoveryInst.gameObject);
@@ -573,9 +575,10 @@ public class UIManager : MonoBehaviour
     public IEnumerator PrintBoostCompleteMessage(float waitTime, Scientist sci, DeathMethod dm)
     {
         GameObject discoveryInst = Instantiate(discoveryBanner, Vector3.zero, Quaternion.identity, discoveryParent.transform);
-        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci.name} is done boosting profits for {dm.name}";
-        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(.1f, .7f);
-        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(.9f, .8f);
+        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
+        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
+        discoveryInst.GetComponent<RectTransform>().offsetMin = new Vector2(0f, 0f);
+        discoveryInst.GetComponent<RectTransform>().offsetMax = new Vector2(0f, 0f);
         yield return new WaitForSeconds(waitTime);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
         Destroy(discoveryInst.gameObject);
@@ -666,8 +669,10 @@ public class UIManager : MonoBehaviour
     {
         GameObject discoveryInst = Instantiate(discoveryBanner, Vector3.zero, Quaternion.identity, discoveryParent.transform);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci1.name} and {sci2.name} are researching together";
-        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(.1f, .7f);
-        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(.9f, .8f);
+        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
+        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
+        discoveryInst.GetComponent<RectTransform>().offsetMin = new Vector2(0f, 0f);
+        discoveryInst.GetComponent<RectTransform>().offsetMax = new Vector2(0f, 0f);
         yield return new WaitForSeconds(waitTime);
 
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
@@ -679,8 +684,10 @@ public class UIManager : MonoBehaviour
     {
         GameObject discoveryInst = Instantiate(discoveryBanner, Vector3.zero, Quaternion.identity, discoveryParent.transform);
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci.name} is boosting profits for {dm.name}";
-        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(.1f, .7f);
-        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(.9f, .8f);
+        discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
+        discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
+        discoveryInst.GetComponent<RectTransform>().offsetMin = new Vector2(0f, 0f);
+        discoveryInst.GetComponent<RectTransform>().offsetMax = new Vector2(0f, 0f);
         yield return new WaitForSeconds(waitTime);
 
         discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
