@@ -753,4 +753,13 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    private void IncrementAnchor(float totalWaitTime, RectTransform objectIncrement)
+    {
+        float increment = (float)totalWaitTime / (float)Time.deltaTime;
+
+        objectIncrement.anchorMax = new Vector2(objectIncrement.anchorMax.x + increment, objectIncrement.anchorMax.y);
+        objectIncrement.offsetMin = Vector2.zero;
+        objectIncrement.offsetMax = Vector2.zero;
+    }
 }
