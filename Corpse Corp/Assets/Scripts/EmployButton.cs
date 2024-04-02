@@ -127,8 +127,10 @@ public class EmployButton : MonoBehaviour
             if(!busyObjectActive && !IsForEcon)
             {
                 busyObjectActive = true;
-                BusyObjInstance = Instantiate(BusyObject, new Vector3(300, 0, 0) + transform.parent.position, Quaternion.identity, transform.parent);
+                BusyObjInstance = Instantiate(BusyObject, Vector3.zero, Quaternion.identity, transform.parent);
                 BusyObjInstance.GetComponent<Image>().color = Color.grey;
+                BusyObjInstance.GetComponent<RectTransform>().offsetMin = Vector3.zero;
+                BusyObjInstance.GetComponent<RectTransform>().offsetMax = Vector3.zero;
             }
 
             //code to update the percentage of busy-ness completed
@@ -172,7 +174,7 @@ public class EmployButton : MonoBehaviour
                 dm => dm.active && (dm.scientist1name == scientist.name || dm.scientist2name == scientist.name) && !dm.beingBoosted).ToList();
 
         //all of these boosts that are affordable
-        return deathMethods.Where(dm => dm.boostCost <= dmm.money).ToList(); ;
+        return deathMethods.Where(dm => dm.boostCost <= dmm.money).ToList();
     }
 
     //Returns the list of compatible research partners that this scientist can research with
@@ -241,6 +243,7 @@ public class EmployButton : MonoBehaviour
                 GameObject instance = Instantiate(PanelOptionPrefab, content);
                 instance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci.name;
                 instance.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Research";
+
 
                 //when a research gets started, start the research coroutine and then destroy the lab panel
                 instance.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate
