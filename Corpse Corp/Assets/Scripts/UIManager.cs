@@ -334,20 +334,32 @@ public class UIManager : MonoBehaviour
                     dmP.transform.GetChild(4).GetComponent<Image>().color = Color.white;
                 }
 
-                if (!dm.sci1Chosen) //If Scientist 2 is Chosen...
+                if (!dm.sci1Chosen) //If Scientist 2 is Chosen, Scientist 1 Button is Smaller & Scientist 2 Button is Bigger
                 {
-                    //Hook Up Scientist Button & Alter Button Sizes
+                    //Hook Up Scientist Button
                     dmP.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { SwitchScientist(dm); });
 
+                    //SMALLER
+                    //Set Scientist 1 Button Rect Anchor Size
                     RectTransform sci1rect = dmP.transform.GetChild(3).GetComponent<RectTransform>();
-                    sci1rect.sizeDelta = new Vector2(325, 75);
-                    RectTransform sci1ScaleRect = dmP.transform.GetChild(3).GetChild(1).GetComponent<RectTransform>();
-                    sci1ScaleRect.sizeDelta = new Vector2(sci1ScaleRect.sizeDelta.x, 175);
+                    sci1rect.anchorMin = new Vector2(0.05f, 0.06f);
+                    sci1rect.anchorMax = new Vector2(0.4f, 0.22f);
 
+                    //Set Scientist 1 Scale Rect Anchor Size
+                    RectTransform sci1ScaleRect = dmP.transform.GetChild(3).GetChild(1).GetComponent<RectTransform>();
+                    sci1ScaleRect.anchorMin = new Vector2(sci1ScaleRect.anchorMin.x, 0);
+                    sci1ScaleRect.anchorMax = new Vector2(sci1ScaleRect.anchorMax.x, 1);
+
+                    //BIGGER
+                    //Set Scientist 2 Button Rect Anchor Size
                     RectTransform sci2rect = dmP.transform.GetChild(4).GetComponent<RectTransform>();
-                    sci2rect.sizeDelta = new Vector2(360, 105);
+                    sci2rect.anchorMin = new Vector2(0.45f, 0.05f);
+                    sci2rect.anchorMax = new Vector2(0.95f, 0.25f);
+
+                    //Set Scientist 2 Scale Rect Anchor Size
                     RectTransform sci2ScaleRect = dmP.transform.GetChild(4).GetChild(1).GetComponent<RectTransform>();
-                    sci2ScaleRect.sizeDelta = new Vector2(sci2ScaleRect.sizeDelta.x, 315);
+                    sci2ScaleRect.anchorMin = new Vector2(sci2ScaleRect.anchorMin.x, 0);
+                    sci2ScaleRect.anchorMax = new Vector2(sci2ScaleRect.anchorMax.x, 1);
 
                     //Hook Up Boost Button, if we can afford it AND the Scientist isn't busy AND the DM isn't being boosted
                     if (dmManager.money >= dm.boostCost && !FindScientist(sciManager, dm.scientist2name).busy && !dm.beingBoosted)
@@ -355,20 +367,32 @@ public class UIManager : MonoBehaviour
                         dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist2name), dm)); });
                     }
                 }
-                else //If Scientist 1 is Chosen...
+                else //If Scientist 1 is Chosen, Scientist 1 Button is Bigger & Scientist 2 Button is Smaller
                 {
                     //Hook Up Scientist Button & Alter Button Sizes
                     dmP.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(delegate { SwitchScientist(dm); });
 
+                    //SMALLER
+                    //Set Scientist 2 Button Rect Anchor Size
                     RectTransform sci2rect = dmP.transform.GetChild(4).GetComponent<RectTransform>();
-                    sci2rect.sizeDelta = new Vector2(325, 75);
-                    RectTransform sci2ScaleRect = dmP.transform.GetChild(4).GetChild(1).GetComponent<RectTransform>();
-                    sci2ScaleRect.sizeDelta = new Vector2(sci2ScaleRect.sizeDelta.x, 175);
+                    sci2rect.anchorMin = new Vector2(0.6f, 0.06f);
+                    sci2rect.anchorMax = new Vector2(0.95f, 0.22f);
 
+                    //Set Scientist 2 Scale Rect Anchor Size
+                    RectTransform sci2ScaleRect = dmP.transform.GetChild(4).GetChild(1).GetComponent<RectTransform>();
+                    sci2ScaleRect.anchorMin = new Vector2(sci2ScaleRect.anchorMin.x, 0);
+                    sci2ScaleRect.anchorMax = new Vector2(sci2ScaleRect.anchorMax.x, 1);
+
+                    //BIGGER
+                    //Set Scientist 1 Button Rect Anchor Size
                     RectTransform sci1rect = dmP.transform.GetChild(3).GetComponent<RectTransform>();
-                    sci1rect.sizeDelta = new Vector2(360, 105);
+                    sci1rect.anchorMin = new Vector2(0.05f, 0.05f);
+                    sci1rect.anchorMax = new Vector2(0.55f, 0.25f);
+
+                    //Set Scientist 1 Scale Rect Anchor Size
                     RectTransform sci1ScaleRect = dmP.transform.GetChild(3).GetChild(1).GetComponent<RectTransform>();
-                    sci1ScaleRect.sizeDelta = new Vector2(sci1ScaleRect.sizeDelta.x, 315);
+                    sci1ScaleRect.anchorMin = new Vector2(sci1ScaleRect.anchorMin.x, 0);
+                    sci1ScaleRect.anchorMax = new Vector2(sci1ScaleRect.anchorMax.x, 1);
 
                     //Hook Up Boost Button, if we can afford it
                     if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy)
