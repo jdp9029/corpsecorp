@@ -265,16 +265,16 @@ public class UIManager : MonoBehaviour
             DeathMethod dm = FindDeathMethod(dmManager, dmP.transform.GetChild(0).GetComponent<TMP_Text>().text);
 
             //Get Scaling Rect
-            RectTransform rect = dmP.transform.Find("BaseLoadRect").Find("ScalingLoadRect").GetComponent<RectTransform>();
+            RectTransform boostRect = dmP.transform.Find("BaseLoadRect").Find("ScalingLoadRect").GetComponent<RectTransform>();
 
             //Increment size by RateOfSale
-            IncrementAnchor(dm.rateOfSale, rect);
-            if (rect.anchorMax.x >= 1)
+            IncrementAnchor(dm.rateOfSale, boostRect);
+            if (boostRect.anchorMax.x >= 1)
             {
                 dm.UpdateMoney();
-                rect.anchorMax = new Vector2(0.00000001f, rect.anchorMax.y);
-                rect.offsetMin = Vector2.zero;
-                rect.offsetMax = Vector2.zero;
+                boostRect.anchorMax = new Vector2(0.00000001f, boostRect.anchorMax.y);
+                boostRect.offsetMin = Vector2.zero;
+                boostRect.offsetMax = Vector2.zero;
             }
             
             //Update BaseRect Text
@@ -405,61 +405,63 @@ public class UIManager : MonoBehaviour
             }
 
             //Moves how much of the boost bar gets filled mid-upgrade
+            boostRect = dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>();
+
             if (dm.beingBoosted)
             {
-                RectTransform rect = dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>();
-                IncrementAnchor(dm.boostTime, rect);
+                IncrementAnchor(dm.boostTime, boostRect);
             }
             //If we're not mid upgrade, it should not be filled at all
             else
             {
-                dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().anchorMax = new Vector2(0.00000001f, rect.anchorMax.y);
-                dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().offsetMin = Vector2.zero;
-                dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>().offsetMax = Vector2.zero;
+                boostRect.anchorMax = new Vector2(0.00000001f, boostRect.anchorMax.y);
+                boostRect.offsetMin = Vector2.zero;
+                boostRect.offsetMax = Vector2.zero;
             }
 
             //Check to see if/why Scientist1 is busy, and scale its scale rect accordingly
+            boostRect = dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>();
+
             if (FindScientist(sciManager, dm.scientist1name).busy)
             {
                 //If it's boosting a Death Method
                 if (FindButtonAssociatedWithScientist(dm.scientist1name).busyForEcon)
                 {
-                    RectTransform rect = dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>();
-                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist1name).lastResearchedOrBoostedMethod.boostTime, rect);
+                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist1name).lastResearchedOrBoostedMethod.boostTime, boostRect);
                 }
                 else //Otherwise, it's boosting for research
                 {
-                    RectTransform rect = dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>();
-                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist1name).lastResearchedOrBoostedMethod.researchTime, rect);
+                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist1name).lastResearchedOrBoostedMethod.researchTime, boostRect);
                 }
             }
             else //Otherwise, set scale to 0
             {
-                dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>().anchorMax = new Vector2(0.00000001f, rect.anchorMax.y);
-                dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>().offsetMin = Vector2.zero;
-                dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>().offsetMax = Vector2.zero;
+                boostRect.anchorMax = new Vector2(0.00000001f, boostRect.anchorMax.y);
+                boostRect.offsetMin = Vector2.zero;
+                boostRect.offsetMax = Vector2.zero;
             }
 
             //Check to see if/why Scientist2 is busy (if it exists), and scale its scale rect accordingly
             if (dm.scientist2name != null && FindScientist(sciManager, dm.scientist2name).busy)
             {
+                boostRect = dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>();
+
                 //If it's boosting the Death Method
                 if (FindButtonAssociatedWithScientist(dm.scientist2name).busyForEcon)
                 {
-                    RectTransform rect = dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>();
-                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.boostTime, rect);
+                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.boostTime, boostRect);
                 }
                 else //Otherwise, it's boosting for research
                 {
-                    RectTransform rect = dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>();
-                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.researchTime, rect);
+                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.researchTime, boostRect);
                 }
             }
             else if (dmP.transform.childCount > 4)//Otherwise, set scale to 0
             {
-                dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>().anchorMax = new Vector2(0.00000001f, rect.anchorMax.y);
-                dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>().offsetMin = Vector2.zero;
-                dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>().offsetMax = Vector2.zero;
+                boostRect = dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>();
+                boostRect.anchorMax = new Vector2(0.00000001f, boostRect.anchorMax.y);
+                boostRect.offsetMin = Vector2.zero;
+                boostRect.offsetMax = Vector2.zero;
             }
         }
         #endregion
@@ -745,7 +747,7 @@ public class UIManager : MonoBehaviour
 
     private void IncrementAnchor(float totalWaitTime, RectTransform objectIncrement)
     {
-        float increment = (float)totalWaitTime / (float)Time.deltaTime;
+        float increment = Time.deltaTime / totalWaitTime;
 
         objectIncrement.anchorMax = new Vector2(objectIncrement.anchorMax.x + increment, objectIncrement.anchorMax.y);
         objectIncrement.offsetMin = Vector2.zero;
