@@ -8,6 +8,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class UIManager : MonoBehaviour
 {
@@ -259,6 +260,34 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        //Sort Death Method Prefabs By Price
+        for (int i = 0; i < dmPrefabList.Count - 1; i++)
+        {
+            for (int j = 0; j < dmPrefabList.Count - i - 1; j++)
+            {
+                //Find Death Methods
+                DeathMethod dm1 = FindDeathMethod(dmManager, dmPrefabList[j].transform.GetChild(0).GetComponent<TMP_Text>().text);
+                DeathMethod dm2 = FindDeathMethod(dmManager, dmPrefabList[j + 1].transform.GetChild(0).GetComponent<TMP_Text>().text);
+
+                RectTransform dm1rect = dmPrefabList[j].transform.GetComponent<RectTransform>();
+                RectTransform dm2rect = dmPrefabList[j + 1].transform.GetComponent<RectTransform>();
+
+                //If one is priced higher than the other,swap their positions
+                if (dm1.price < dm2.price)
+                {
+                    //Swap Rect Positions
+                    Vector2 tempPos = new Vector2(dm1rect.position.x, dm1rect.position.y);
+                    dm1rect.position = new Vector2(dm1rect.position.x, dm2rect.position.y);
+                    dm2rect.position = tempPos;
+
+                    //Swap Positions In List
+                    GameObject tempDMPrefab = dmPrefabList[j];
+                    dmPrefabList[j] = dmPrefabList[j + 1];
+                    dmPrefabList[j + 1] = tempDMPrefab;
+                }
+            }
+        }
+
         //Within Each Death Method Prefab...
         foreach(GameObject dmP in dmPrefabList)
         {
@@ -338,6 +367,8 @@ public class UIManager : MonoBehaviour
                 {
                     //Hook Up Scientist Button
                     dmP.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { SwitchScientist(dm); });
+                    dmP.transform.GetChild(4).GetChild(0).GetComponent<TMP_Text>().text = $"{dm.scientist2name} (SELECTED)";
+                    dmP.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = dm.scientist1name;
 
                     //SMALLER
                     //Set Scientist 1 Button Rect Anchor Size
@@ -371,6 +402,8 @@ public class UIManager : MonoBehaviour
                 {
                     //Hook Up Scientist Button & Alter Button Sizes
                     dmP.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(delegate { SwitchScientist(dm); });
+                    dmP.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = $"{dm.scientist1name} (SELECTED)";
+                    dmP.transform.GetChild(4).GetChild(0).GetComponent<TMP_Text>().text = dm.scientist2name;
 
                     //SMALLER
                     //Set Scientist 2 Button Rect Anchor Size
@@ -403,6 +436,7 @@ public class UIManager : MonoBehaviour
             }
             else //If this is a pure DM (no scientist 2 exists)
             {
+                dmP.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = $"{dm.scientist1name} (SELECTED)";
                 //Gray Out Scientist 1 Button if Scientist is Busy
                 if (FindScientist(sciManager, dm.scientist1name).busy)
                 {
@@ -590,6 +624,7 @@ public class UIManager : MonoBehaviour
     public IEnumerator PrintBoostCompleteMessage(float waitTime, Scientist sci, DeathMethod dm)
     {
         GameObject discoveryInst = Instantiate(discoveryBanner, Vector3.zero, Quaternion.identity, discoveryParent.transform);
+        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci.name} has successfully boosted {dm.name}";
         discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
         discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
         discoveryInst.GetComponent<RectTransform>().offsetMin = new Vector2(0f, 0f);
