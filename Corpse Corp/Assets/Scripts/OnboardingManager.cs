@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class OnboardingManager : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class OnboardingManager : MonoBehaviour
     [SerializeField] RectTransform tab4content;
 
     [HideInInspector] UnityAction nextStepAction;
+
+    private bool initialGradStep = true;
+    private bool initialBoostStep = true;
+    [HideInInspector] public bool WalkthroughInProgress { get; private set; } = true;
 
 
     enum Steps
@@ -21,11 +27,11 @@ public class OnboardingManager : MonoBehaviour
         waitForBook = 3,
         clickEconTab = 4,
         scrollToBook = 5,
-        selectHSDropout = 6,
+        selectHSGraduate = 6,
         selectBoost = 7,
         selectHireTab = 8,
-        hitCoinOnGrad = 9,
-        boostPencil = 10,
+        hitCoinOnDropout = 9,
+        boostPillow = 10,
         summaryScreen = 11
     }
 
@@ -40,9 +46,13 @@ public class OnboardingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!WalkthroughInProgress)
+        {
+            return;
+        }
+
         switch(stepTracker)
         {
-            //if we are telling the 
             case Steps.clickResearchButton:
 
                 //add a listener if there is only one (the one that will open the panel)
@@ -92,18 +102,82 @@ public class OnboardingManager : MonoBehaviour
 
                 break;
             case Steps.clickEconTab:
+
+                EventTrigger econTab = tab3content.parent.parent.parent.GetComponent<EventTrigger>();
+                EventTrigger.Entry econEntry = new EventTrigger.Entry();
+                econEntry.eventID = EventTriggerType.PointerClick;
+                if(econEntry.callback.GetPersistentEventCount() == 1)
+                {
+                    econEntry.callback.AddListener(delegate
+                    {
+                        stepTracker = Steps.scrollToBook;
+                        econTab.triggers.Remove(econEntry);
+                    });
+                    econTab.triggers.Add(econEntry);
+                }
+
                 break;
             case Steps.scrollToBook:
+
+                //-- this code already auto scrolls to book --
+                //-- this code is all we need for this step --
+
+                ScrollRect scrollRect = tab3content.parent.parent.GetComponent<ScrollRect>();
+                RectTransform target = tab3content.GetChild(2).GetComponent<RectTransform>();
+
+                tab3content.anchoredPosition =
+                    (Vector2)scrollRect.transform.InverseTransformPoint(tab3content.position) - (Vector2)scrollRect.transform.InverseTransformPoint(target.position);
+                stepTracker = Steps.selectHSGraduate;
+
                 break;
-            case Steps.selectHSDropout:
+            case Steps.selectHSGraduate:
+
+                 Button gradButton = tab3content.GetChild(2).GetChild(4).GetComponent<Button>();
+                 if(initialGradStep)
+                 {
+                    gradButton.onClick.AddListener(delegate
+                    {
+                        stepTracker = Steps.selectBoost;
+                    });
+
+                    initialGradStep = false;
+                 }
+
                 break;
             case Steps.selectBoost:
+
+                Button boostButton = tab3content.GetChild(2).GetChild(2).GetComponent<Button>();
+
+                if (initialBoostStep)
+                {
+                    boostButton.onClick.AddListener(delegate
+                    {
+                        stepTracker = Steps.selectHireTab;
+                    });
+
+                    initialBoostStep = false;
+                }
+
                 break;
             case Steps.selectHireTab:
+
+                EventTrigger labTab = tab4content.parent.parent.parent.GetComponent<EventTrigger>();
+                EventTrigger.Entry labEntry = new EventTrigger.Entry();
+                labEntry.eventID = EventTriggerType.PointerClick;
+                if (labEntry.callback.GetPersistentEventCount() == 1)
+                {
+                    labEntry.callback.AddListener(delegate
+                    {
+                        stepTracker = Steps.scrollToBook;
+                        labTab.triggers.Remove(labEntry);
+                    });
+                    labTab.triggers.Add(labEntry);
+                }
+
                 break;
-            case Steps.hitCoinOnGrad:
+            case Steps.hitCoinOnDropout:
                 break;
-            case Steps.boostPencil:
+            case Steps.boostPillow:
                 break;
             case Steps.summaryScreen:
                 break;
