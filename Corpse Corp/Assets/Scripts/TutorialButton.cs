@@ -18,6 +18,9 @@ public class TutorialButton : MonoBehaviour
     bool pressedEconYet = false;
     bool pressedHireYet = false;
 
+    [SerializeField] ScrollRect tab3scrollView;
+    [SerializeField] ScrollRect tab4scrollView;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,22 +42,48 @@ public class TutorialButton : MonoBehaviour
         });
     }
 
+    private void Update()
+    {
+        if(toggledOnEcon && tab3scrollView.verticalNormalizedPosition <= .99f)
+        {
+            toggledOnEcon = false;
+            ToggleParent();
+        }
+        
+        if(toggledOnHire && tab4scrollView.verticalNormalizedPosition <= .99f)
+        {
+            toggledOnHire = false;
+            ToggleParent();
+        }
+    }
+
     public void SwitchToTab(bool econTab)
     {
         if(!pressedEconYet && econTab)
         {
+            tab3scrollView.verticalNormalizedPosition = 1;
             pressedEconYet = true;
             toggledOnEcon = true;
             toggledOnHire = false;
         }
         else if(!pressedHireYet && !econTab)
         {
+            tab4scrollView.verticalNormalizedPosition = 1;
             pressedHireYet = true;
             toggledOnHire = true;
             toggledOnEcon = false;
         }
         else
         {
+            if(econTab)
+            {
+                tab3scrollView.verticalNormalizedPosition = 1;
+            }
+            else
+            {
+                tab4scrollView.verticalNormalizedPosition = 1;
+            }
+
             toggledOnHire = false;
             toggledOnEcon = false;
         }
@@ -65,10 +94,20 @@ public class TutorialButton : MonoBehaviour
     {
         for (int i = 0; i < TutorialParentEconScreen.childCount; i++)
         {
+            if(toggledOnEcon && tab3scrollView.verticalNormalizedPosition <= .99f)
+            {
+                tab3scrollView.verticalNormalizedPosition = 1;
+            }    
+
             TutorialParentEconScreen.GetChild(i).gameObject.SetActive(toggledOnEcon);
         }
         for (int i = 0; i < TutorialParentHireScreen.childCount; i++)
         {
+            if (toggledOnHire && tab4scrollView.verticalNormalizedPosition <= .99f)
+            {
+                tab4scrollView.verticalNormalizedPosition = 1;
+            }
+
             TutorialParentHireScreen.GetChild(i).gameObject.SetActive(toggledOnHire);
         }
     }
