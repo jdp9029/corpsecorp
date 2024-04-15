@@ -18,32 +18,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] TMP_Text statBar;
 
-    #region Match Scientists (Fields)
-    TMP_Dropdown dropdown1;
-    TMP_Dropdown dropdown2;
-    GameObject matchButton;
-    bool matchBtnActive;
-
-    List<string> purchasedScientists; //This contains a list of ALL purchased scientists
-    List<string> newScientistToAdd; //This only contains the name of a purchased scientist at any one time, for the purposes of adding to the dropdowns, and is then cleared
-    GameObject[] dropdowns; //A placeholder array to find the dropdowns in the Inspector
-
-    Scientist currentScientist1;
-    Scientist currentScientist2;
-
     [SerializeField] GameObject discoveryBanner;
     [SerializeField] GameObject discoveryParent;
-    #endregion
-
-    #region See Inventory (Fields)
-    [SerializeField] GameObject Tab1Content;
-    [SerializeField] GameObject InventoryAssetPrefab;
-    TMP_Text[] textObjects;
-    TMP_Text dmList;
-    string listText;
-
-    [SerializeField] GameObject Tab1ContentScientists;
-    #endregion
 
     #region Clicker (Fields)
     List<DeathMethod> activeDeathMethods;
@@ -62,7 +38,7 @@ public class UIManager : MonoBehaviour
     //==== START ====
     void Start()
     {
-        #region Match Scientists (Start)
+        /*#region Match Scientists (Start)
 
         //Initialize Dropdown Components
         if (dropdowns == null)
@@ -80,10 +56,10 @@ public class UIManager : MonoBehaviour
         matchButton = GameObject.FindGameObjectWithTag("MatchButton");
         matchBtnActive = false;
 
-        #endregion
+        #endregion*/
 
-        #region See Death Methods (Start)
-        /*textObjects = GameObject.FindObjectsOfType<TMP_Text>();
+        /*#region See Death Methods (Start)
+        textObjects = GameObject.FindObjectsOfType<TMP_Text>();
         for (int i = 0; i < textObjects.Length; i++)
         {
             if (textObjects[i].name == "DM List")
@@ -91,8 +67,8 @@ public class UIManager : MonoBehaviour
                 dmList = textObjects[i];
             }
         }
-        listText = "";*/
-        #endregion
+        listText = "";
+        #endregion*/
 
         #region Clicker (Start)
         activeDeathMethods = new List<DeathMethod>();
@@ -113,7 +89,7 @@ public class UIManager : MonoBehaviour
     //==== UPDATE ====
     void Update()
     {
-        #region Match Scientists (Update)
+       /* #region Match Scientists (Update)
 
         //Fill In Dropdowns
         for (int i = 0; i < sciManager.scientists.Length; i++)
@@ -200,9 +176,10 @@ public class UIManager : MonoBehaviour
         }
 
         #endregion
-
+*/
+        /*
         #region See Death Methods (Update)
-        /*listText = ""; //Clear Text Placeholder
+        listText = ""; //Clear Text Placeholder
         for (int i = 0; i < dmManager.deathMethods.Count; i++) //Loop through Death Methods
         {
             if (dmManager.deathMethods[i].active) //If a Death Method is active (discovered / default from a purchased scientist)...
@@ -215,9 +192,9 @@ public class UIManager : MonoBehaviour
                 listText += "\n";
             }
         }
-        dmList.text = listText; //Set the death method list text to the text placeholder string*/
+        dmList.text = listText; //Set the death method list text to the text placeholder string
         #endregion
-
+        */
         #region Clicker (Update)      
         
         //Populate Active DM Array
@@ -596,7 +573,7 @@ public class UIManager : MonoBehaviour
             {
                 dmManager.deathMethods[i].active = true;
                 StartCoroutine(PrintDiscoveryMessage(1.5f, dmManager.deathMethods[i]));
-                GameObject.FindObjectOfType<UIManager>().AddToInventory(dmManager.deathMethods[i]);
+                //GameObject.FindObjectOfType<UIManager>().AddToInventory(dmManager.deathMethods[i]);
             }
         }
     }
@@ -634,19 +611,19 @@ public class UIManager : MonoBehaviour
         Destroy(discoveryInst.gameObject);
     }
 
-    public void AddToInventory(DeathMethod dm)
+    /*public void AddToInventory(DeathMethod dm)
     {
         GameObject obj = Instantiate(InventoryAssetPrefab, Tab1Content.transform);
         obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dm.name;
         //obj.transform.GetChild(1).GetComponent<Image>().sprite = dm.Icon; commented out for now due to compiler reasons
-    }
+    }*/
 
-    public void AddScientistToInventory(Scientist sci)
+    /*public void AddScientistToInventory(Scientist sci)
     {
         GameObject obj = Instantiate(InventoryAssetPrefab, Tab1ContentScientists.transform);
         obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci.name;
         obj.transform.GetChild(1).GetComponent<Image>().sprite = sci.Icon;
-    }
+    }*/
 
     //Boost DM Price After A Certain Amount of Time (BoostCost)
     public IEnumerator BoostDMEcon(Scientist sci, DeathMethod deathMethod)

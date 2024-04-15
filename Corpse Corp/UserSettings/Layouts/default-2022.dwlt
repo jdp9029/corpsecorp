@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 104
+  controlID: 92
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 57
+  controlID: 50
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -347,7 +347,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -355,16 +355,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Profiles\jdp9029\source\repos\corpsecorp\Corpse Corp
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 31.799927}
-    m_SelectedIDs: 96680000
-    m_LastClickedID: 26774
-    m_ExpandedIDs: 000000006c68000000ca9a3bffffff7f
+    m_SelectedIDs: f0680000
+    m_LastClickedID: 26864
+    m_ExpandedIDs: 000000007068000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -392,7 +392,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000006c680000
+    m_ExpandedIDs: 0000000070680000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -417,8 +417,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: fcf9ffff
-    m_LastClickedInstanceID: -1540
+    m_SelectedInstanceIDs: 926e0000
+    m_LastClickedInstanceID: 28306
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c62300006ea0000048700000
     m_RenameOverlay:
@@ -532,9 +532,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 08faffff
-      m_LastClickedID: -1528
-      m_ExpandedIDs: 1ed2ffff32d2ffff3cd2ffff46d2ffff72f3ffff8af9ffff92f9ffff98f9ffffa4f9ffffeef9fffffcf9ffff08faffff0efbffff02640000bc64000050650000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 14e6ffffd6eeffff0efbffffbe640000d06f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -927,9 +927,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 583.28345, y: 1332.3944, z: -3.066186}
+    m_Target: {x: 929.9396, y: 2034.1299, z: -19.073854}
     speed: 2
-    m_Value: {x: 583.28345, y: 1332.3944, z: -3.066186}
+    m_Value: {x: 929.9396, y: 2034.1299, z: -19.073854}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -979,9 +979,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 856.32745
+    m_Target: 2160.0442
     speed: 2
-    m_Value: 856.32745
+    m_Value: 2160.0442
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1077,7 +1077,7 @@ MonoBehaviour:
   m_SerializedViewNames:
   - UnityEditor.GameView
   m_SerializedViewValues:
-  - C:\Users\james\Documents\GitHub\corpsecorp\Corpse Corp\Library\PlayModeViewStates\428783000cf3ae54f8a36c7a5c0f4b3d
+  - D:\Profiles\jdp9029\source\repos\corpsecorp\Corpse Corp\Library\PlayModeViewStates\a64e0b73a4702c944bb611fbc7a6a826
   m_PlayModeViewName: Device Simulator
   m_ShowGizmos: 0
   m_TargetDisplay: 0

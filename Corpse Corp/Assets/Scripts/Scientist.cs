@@ -83,8 +83,8 @@ public class Scientist : MonoBehaviour
             this.mainMethod.active = true;
             dmManager.money -= this.price;
             //transform.parent = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
-            GameObject.FindObjectOfType<UIManager>().AddToInventory(mainMethod);
-            GameObject.FindObjectOfType<UIManager>().AddScientistToInventory(this);
+            //GameObject.FindObjectOfType<UIManager>().AddToInventory(mainMethod);
+            //GameObject.FindObjectOfType<UIManager>().AddScientistToInventory(this);
             transform.GetChild(1).GetComponent<Button>().onClick.RemoveListener(ButtonClick);
             ReplaceButtonWithIcons(false);
             GameObject.FindObjectOfType<UIManager>().StartPrintDiscoveryCoroutine(1.5f, this.mainMethod);
