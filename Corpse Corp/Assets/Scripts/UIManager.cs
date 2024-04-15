@@ -457,7 +457,7 @@ public class UIManager : MonoBehaviour
             //Check to see if/why Scientist1 is busy, and scale its scale rect accordingly
             boostRect = dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>();
 
-            if (FindScientist(sciManager, dm.scientist1name).busy)
+            /*if (FindScientist(sciManager, dm.scientist1name).busy)
             {
                 //If it's boosting a Death Method
                 if (FindButtonAssociatedWithScientist(dm.scientist1name).busyForEcon)
@@ -474,14 +474,14 @@ public class UIManager : MonoBehaviour
                 boostRect.anchorMax = new Vector2(0.00000001f, boostRect.anchorMax.y);
                 boostRect.offsetMin = Vector2.zero;
                 boostRect.offsetMax = Vector2.zero;
-            }
+            }*/
 
             //Check to see if/why Scientist2 is busy (if it exists), and scale its scale rect accordingly
             if (dm.scientist2name != null && FindScientist(sciManager, dm.scientist2name).busy)
             {
                 boostRect = dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>();
 
-                //If it's boosting the Death Method
+                /*//If it's boosting the Death Method
                 if (FindButtonAssociatedWithScientist(dm.scientist2name).busyForEcon)
                 {
                     IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.boostTime, boostRect);
@@ -489,7 +489,7 @@ public class UIManager : MonoBehaviour
                 else //Otherwise, it's boosting for research
                 {
                     IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.researchTime, boostRect);
-                }
+                }*/
             }
             else if (dmP.transform.childCount > 4)//Otherwise, set scale to 0
             {
@@ -637,8 +637,8 @@ public class UIManager : MonoBehaviour
         dmManager.money -= deathMethod.boostCost;
 
         //set up the buttons accordingly
-        FindButtonAssociatedWithScientist(sci.name).lastResearchedOrBoostedMethod = deathMethod;
-        FindButtonAssociatedWithScientist(sci.name).busyForEcon = true;
+        /*FindButtonAssociatedWithScientist(sci.name).lastResearchedOrBoostedMethod = deathMethod;
+        FindButtonAssociatedWithScientist(sci.name).busyForEcon = true;*/
         slidersFilling.Add(sci.name, 0f);
 
         //Wait until the boost has concluded
@@ -669,10 +669,10 @@ public class UIManager : MonoBehaviour
         sci2.busy = true;
 
         //Set up the attributes for their EmployButtons
-        FindButtonAssociatedWithScientist(sci1.name).lastResearchedOrBoostedMethod = FindDeathMethod(dmManager, sci1.combinations[sci2.name]);
+        /*FindButtonAssociatedWithScientist(sci1.name).lastResearchedOrBoostedMethod = FindDeathMethod(dmManager, sci1.combinations[sci2.name]);
         FindButtonAssociatedWithScientist(sci2.name).lastResearchedOrBoostedMethod = FindDeathMethod(dmManager, sci1.combinations[sci2.name]);
         FindButtonAssociatedWithScientist(sci1.name).busyForEcon = false;
-        FindButtonAssociatedWithScientist(sci2.name).busyForEcon = false;
+        FindButtonAssociatedWithScientist(sci2.name).busyForEcon = false;*/
 
         //Add them to the sliders being filled
         slidersFilling.Add(sci1.name, 0f);
@@ -748,7 +748,7 @@ public class UIManager : MonoBehaviour
     }
 
     //Get the EmployButton associated with a scientist (we only need the lab version of the button)
-    private EmployButton FindButtonAssociatedWithScientist(string scientistName)
+    /*private EmployButton FindButtonAssociatedWithScientist(string scientistName)
     {
         foreach (EmployButton eb in employButtons)
         {
@@ -758,7 +758,7 @@ public class UIManager : MonoBehaviour
             }
         }
         return null;
-    }
+    }*/
 
     private void SortScientistsByCost()
     {

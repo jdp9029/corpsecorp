@@ -12,8 +12,8 @@ public class TabManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TabClicked(buttonTabs[1]); //0 =  = Clicker, 1 = Hire Scientists
-        selectedTab = 4; //just keep this lmao
+        TabClicked(buttonTabs[1]); //0 = Clicker, 1 = Hire Scientists, 2 = Combiner
+        selectedTab = 4; //3 = Clicker, 4 = Hire Scientists, 5 = Combiner
     }
 
     // Update is called once per frame

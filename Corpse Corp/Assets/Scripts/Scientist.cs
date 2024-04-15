@@ -27,6 +27,8 @@ public class Scientist : MonoBehaviour
 
     public bool busy;
 
+    [SerializeField] Transform purchasedParentObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,8 @@ public class Scientist : MonoBehaviour
         
         dmManager = GameObject.FindObjectOfType<DeathMethodManager>();
         busy = false;
+
+        purchasedParentObject = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
     }
 
     // Update is called once per frame
@@ -95,9 +99,15 @@ public class Scientist : MonoBehaviour
     public void ReplaceButtonWithIcons(bool isStart)
     {
         //first, destroy the button part of the object
-        GameObject.Destroy(transform.GetChild(1).gameObject);
+        //GameObject.Destroy(/*transform.GetChild(1).*/gameObject);
 
-        //next, replace them with icons
+        transform.parent = purchasedParentObject;
+        GetComponent<RectTransform>().anchorMin = new Vector2(-2, -2);
+        GetComponent<RectTransform>().anchorMax = new Vector2(-1, -1);
+        GetComponent<RectTransform>().offsetMin = Vector2.zero;
+        GetComponent<RectTransform>().offsetMax = Vector2.zero;
+
+        /*//next, replace them with icons
         labIcon = Instantiate(jobIcons, Vector3.zero, Quaternion.identity, transform);
         labIcon.GetComponent<EmployButton>().IsForEcon = false;
         labIcon.GetComponent<EmployButton>().scientist = this;
@@ -116,7 +126,7 @@ public class Scientist : MonoBehaviour
         {
             labIcon.transform.position = new Vector3(200 + transform.position.x, transform.position.y, 0f);
             econIcon.transform.position = new Vector3(400 + transform.position.x, transform.position.y, 0f);
-        }
+        }*/
 
     }
 }
