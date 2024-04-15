@@ -29,7 +29,7 @@ public class DeathMethod : MonoBehaviour
     public bool beingBoosted;
     public float researchTime; //how long it takes to research this death method
     public bool sci1Chosen = true;
-    public Scientist scientistBoostingThis;
+    //public Scientist scientistBoostingThis;
 
     //==== CONSTRUCTOR ====
     public DeathMethod(string name, string description, Sprite icon, float rateOfSale, float price, string scientist1, string scientist2)

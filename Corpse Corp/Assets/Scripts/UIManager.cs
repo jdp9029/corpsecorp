@@ -233,6 +233,16 @@ public class UIManager : MonoBehaviour
                 dmInst.transform.GetChild(0).GetComponent<TMP_Text>().text = activeDeathMethods[i].name; //DMName
                 dmInst.transform.GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = $"<b>${activeDeathMethods[i].price} / {activeDeathMethods[i].rateOfSale} seconds</b>"; //BaseLoadRect
 
+                DeathMethod thisDM = FindDeathMethod(dmManager, dmInst.transform.GetChild(0).GetComponent<TMP_Text>().text);
+                if (thisDM.scientist2name != null) //If there is a Scientist 2
+                {
+                    dmInst.transform.GetChild(3).GetChild(1).GetComponent<TMP_Text>().text = $"{thisDM.scientist1name} & {thisDM.scientist2name}";
+                }
+                else //If there's only Scientist 1
+                {
+                    dmInst.transform.GetChild(3).GetChild(1).GetComponent<TMP_Text>().text = $"{thisDM.scientist1name}";
+                }
+
                 activeDeathMethods[i].instantiated = true;
             }
         }
@@ -286,17 +296,8 @@ public class UIManager : MonoBehaviour
             //Update BaseRect Text
             dmP.transform.GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = $"<b>${Mathf.Round(dm.price)} / {Mathf.Round(dm.rateOfSale)} seconds</b>";
 
-            //Update Info Rects Text
-            dmP.transform.GetChild(2).Find("CostText").GetComponent<TMP_Text>().text = $"-${Mathf.Round(dm.boostCost)}";
-            dmP.transform.GetChild(2).Find("TimeText").GetComponent<TMP_Text>().text = $"{Mathf.Round(dm.boostTime)}s";
-            dmP.transform.GetChild(2).Find("PlusText").GetComponent<TMP_Text>().text = $"+${Mathf.Round(dm.boostValue)}";
-
             //Remove Listeners From Boost Button
             dmP.transform.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
-
-            //Set Up Scientist 1 Button
-            dmP.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = dm.scientist1name;
-            dmP.transform.GetChild(3).GetComponent<Button>().onClick.RemoveAllListeners();
 
             //Grey out the boost button if too expensive (and we are not actively upgrading it)
             if (dmManager.money < dm.boostCost && !dm.beingBoosted)
@@ -308,136 +309,25 @@ public class UIManager : MonoBehaviour
                 dmP.transform.GetChild(2).GetComponent<Image>().color = Color.white;
             }
 
-
+            //THIS SECTION BELOW NEEDS TO BE ALTERED SO THAT BOOSTING BUSIES UP BOTH SCIENTISTS ---
             //Check if Scientist 2 is Null
             if (dm.scientist2name != null) //If Not
             {
-                //Hook Up the Buttons
-                dmP.transform.GetChild(4).GetChild(0).GetComponent<TMP_Text>().text = dm.scientist2name;
-                dmP.transform.GetChild(4).GetComponent<Button>().onClick.RemoveAllListeners();
-                
-                //Gray Out Scientist 1 Button if Scientist is Busy
-                if (FindScientist(sciManager, dm.scientist1name).busy)
+                //Hook Up Boost Button, if we can afford it & Scientists aren't busy
+                if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy && !FindScientist(sciManager, dm.scientist2name).busy)
                 {
-                    dmP.transform.GetChild(3).GetComponent<Image>().color = Color.gray;
-                }
-
-                //If they're not busy, keep the scientist 1 button white
-                else
-                {
-                    dmP.transform.GetChild(3).GetComponent<Image>().color = Color.white;
-                }
-
-                //Gray Out Scientist 2 Button if Scientist is Busy
-                if (FindScientist(sciManager, dm.scientist2name).busy)
-                {
-                    dmP.transform.GetChild(4).GetComponent<Image>().color = Color.gray;
-                }
-
-                //If they're not busy, keep the scientist 2 button white
-                else
-                {
-                    dmP.transform.GetChild(4).GetComponent<Image>().color = Color.white;
-                }
-
-                if (!dm.sci1Chosen) //If Scientist 2 is Chosen, Scientist 1 Button is Smaller & Scientist 2 Button is Bigger
-                {
-                    //Hook Up Scientist Button
-                    dmP.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate { SwitchScientist(dm); });
-                    dmP.transform.GetChild(4).GetChild(0).GetComponent<TMP_Text>().text = $"{dm.scientist2name} (SELECTED)";
-                    dmP.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = dm.scientist1name;
-
-                    //SMALLER
-                    //Set Scientist 1 Button Rect Anchor Size
-                    RectTransform sci1rect = dmP.transform.GetChild(3).GetComponent<RectTransform>();
-                    sci1rect.anchorMin = new Vector2(0.05f, 0.06f);
-                    sci1rect.anchorMax = new Vector2(0.4f, 0.22f);
-
-                    //Set Scientist 1 Scale Rect Anchor Size
-                    RectTransform sci1ScaleRect = dmP.transform.GetChild(3).GetChild(1).GetComponent<RectTransform>();
-                    sci1ScaleRect.anchorMin = new Vector2(sci1ScaleRect.anchorMin.x, 0);
-                    sci1ScaleRect.anchorMax = new Vector2(sci1ScaleRect.anchorMax.x, 1);
-
-                    //BIGGER
-                    //Set Scientist 2 Button Rect Anchor Size
-                    RectTransform sci2rect = dmP.transform.GetChild(4).GetComponent<RectTransform>();
-                    sci2rect.anchorMin = new Vector2(0.45f, 0.05f);
-                    sci2rect.anchorMax = new Vector2(0.95f, 0.25f);
-
-                    //Set Scientist 2 Scale Rect Anchor Size
-                    RectTransform sci2ScaleRect = dmP.transform.GetChild(4).GetChild(1).GetComponent<RectTransform>();
-                    sci2ScaleRect.anchorMin = new Vector2(sci2ScaleRect.anchorMin.x, 0);
-                    sci2ScaleRect.anchorMax = new Vector2(sci2ScaleRect.anchorMax.x, 1);
-
-                    //Hook Up Boost Button, if we can afford it AND the Scientist isn't busy AND the DM isn't being boosted
-                    if (dmManager.money >= dm.boostCost && !FindScientist(sciManager, dm.scientist2name).busy && !dm.beingBoosted)
-                    {
-                        dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist2name), dm)); });
-                    }
-                }
-                else //If Scientist 1 is Chosen, Scientist 1 Button is Bigger & Scientist 2 Button is Smaller
-                {
-                    //Hook Up Scientist Button & Alter Button Sizes
-                    dmP.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(delegate { SwitchScientist(dm); });
-                    dmP.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = $"{dm.scientist1name} (SELECTED)";
-                    dmP.transform.GetChild(4).GetChild(0).GetComponent<TMP_Text>().text = dm.scientist2name;
-
-                    //SMALLER
-                    //Set Scientist 2 Button Rect Anchor Size
-                    RectTransform sci2rect = dmP.transform.GetChild(4).GetComponent<RectTransform>();
-                    sci2rect.anchorMin = new Vector2(0.6f, 0.06f);
-                    sci2rect.anchorMax = new Vector2(0.95f, 0.22f);
-
-                    //Set Scientist 2 Scale Rect Anchor Size
-                    RectTransform sci2ScaleRect = dmP.transform.GetChild(4).GetChild(1).GetComponent<RectTransform>();
-                    sci2ScaleRect.anchorMin = new Vector2(sci2ScaleRect.anchorMin.x, 0);
-                    sci2ScaleRect.anchorMax = new Vector2(sci2ScaleRect.anchorMax.x, 1);
-
-                    //BIGGER
-                    //Set Scientist 1 Button Rect Anchor Size
-                    RectTransform sci1rect = dmP.transform.GetChild(3).GetComponent<RectTransform>();
-                    sci1rect.anchorMin = new Vector2(0.05f, 0.05f);
-                    sci1rect.anchorMax = new Vector2(0.55f, 0.25f);
-
-                    //Set Scientist 1 Scale Rect Anchor Size
-                    RectTransform sci1ScaleRect = dmP.transform.GetChild(3).GetChild(1).GetComponent<RectTransform>();
-                    sci1ScaleRect.anchorMin = new Vector2(sci1ScaleRect.anchorMin.x, 0);
-                    sci1ScaleRect.anchorMax = new Vector2(sci1ScaleRect.anchorMax.x, 1);
-
-                    //Hook Up Boost Button, if we can afford it
-                    if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy)
-                    {
-                        dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist1name), dm)); });
-                    }
+                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist2name))); });
                 }
             }
             else //If this is a pure DM (no scientist 2 exists)
             {
-                dmP.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = $"{dm.scientist1name} (SELECTED)";
-                //Gray Out Scientist 1 Button if Scientist is Busy
-                if (FindScientist(sciManager, dm.scientist1name).busy)
-                {
-                    dmP.transform.GetChild(3).GetComponent<Image>().color = Color.gray;
-                }
-
-                //Otherwise, keep the Scientist 1 Button White
-                else
-                {
-                    dmP.transform.GetChild(3).GetComponent<Image>().color = Color.white;
-                }
-
-                //Hook Up the Boost Button if we can afford it
+                //Hook Up the Boost Button if we can afford it & Scientist isn't busy
                 if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy)
                 {
-                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindScientist(sciManager, dm.scientist1name), dm)); });
-                }
-
-                //If not destroyed, destroy Scientist 2 Button object
-                if (dmP.transform.childCount > 4)
-                {
-                    Destroy(dmP.transform.GetChild(4).gameObject);
+                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name))); });
                 }
             }
+            //---
 
             //Moves how much of the boost bar gets filled mid-upgrade
             boostRect = dmP.transform.GetChild(2).Find("ScalingLoadRect").GetComponent<RectTransform>();
@@ -477,11 +367,11 @@ public class UIManager : MonoBehaviour
             }*/
 
             //Check to see if/why Scientist2 is busy (if it exists), and scale its scale rect accordingly
-            if (dm.scientist2name != null && FindScientist(sciManager, dm.scientist2name).busy)
+            /*if (dm.scientist2name != null && FindScientist(sciManager, dm.scientist2name).busy)
             {
                 boostRect = dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>();
 
-                /*//If it's boosting the Death Method
+                //If it's boosting the Death Method
                 if (FindButtonAssociatedWithScientist(dm.scientist2name).busyForEcon)
                 {
                     IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.boostTime, boostRect);
@@ -489,7 +379,7 @@ public class UIManager : MonoBehaviour
                 else //Otherwise, it's boosting for research
                 {
                     IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.researchTime, boostRect);
-                }*/
+                }
             }
             else if (dmP.transform.childCount > 4)//Otherwise, set scale to 0
             {
@@ -497,7 +387,7 @@ public class UIManager : MonoBehaviour
                 boostRect.anchorMax = new Vector2(0.00000001f, boostRect.anchorMax.y);
                 boostRect.offsetMin = Vector2.zero;
                 boostRect.offsetMax = Vector2.zero;
-            }
+            }*/
         }
         #endregion
 
@@ -626,12 +516,16 @@ public class UIManager : MonoBehaviour
     }*/
 
     //Boost DM Price After A Certain Amount of Time (BoostCost)
-    public IEnumerator BoostDMEcon(Scientist sci, DeathMethod deathMethod)
+    public IEnumerator BoostDMEcon(DeathMethod deathMethod, Scientist sci1, Scientist sci2 = null)
     {       
         //make the scientist busy and set up the DM to being boosted
-        sci.busy = true;
+        sci1.busy = true;
+        if (sci2 != null)
+        {
+            sci2.busy = true;
+        }
         deathMethod.beingBoosted = true;
-        deathMethod.scientistBoostingThis = sci;
+        //deathMethod.scientistBoostingThis = sci;
 
         //pay the price for the boost
         dmManager.money -= deathMethod.boostCost;
@@ -639,7 +533,11 @@ public class UIManager : MonoBehaviour
         //set up the buttons accordingly
         /*FindButtonAssociatedWithScientist(sci.name).lastResearchedOrBoostedMethod = deathMethod;
         FindButtonAssociatedWithScientist(sci.name).busyForEcon = true;*/
-        slidersFilling.Add(sci.name, 0f);
+        slidersFilling.Add(sci1.name, 0f);
+        if (sci2 != null)
+        {
+            slidersFilling.Add(sci2.name, 0f);
+        }
 
         //Wait until the boost has concluded
         yield return new WaitForSeconds(deathMethod.boostTime);
@@ -651,14 +549,22 @@ public class UIManager : MonoBehaviour
         deathMethod.boostCost = deathMethod.price * 5;
         deathMethod.boostTime = deathMethod.rateOfSale * deathMethod.boostIncrement;
         deathMethod.beingBoosted = false;
-        deathMethod.scientistBoostingThis = null;
+        //deathMethod.scientistBoostingThis = null;
 
         //change all the appropriate values for the scientist
-        slidersFilling.Remove(sci.name);
-        sci.busy = false;
+        slidersFilling.Remove(sci1.name);
+        if (sci2 != null)
+        {
+            slidersFilling.Remove(sci2.name);
+        }
+        sci1.busy = false;
+        if (sci2 != null)
+        {
+            sci2.busy = false;
+        }
 
         //start the coroutine for completing the boost
-        StartCoroutine(PrintBoostCompleteMessage(1.5f,sci,deathMethod));
+        StartCoroutine(PrintBoostCompleteMessage(1.5f,sci1,deathMethod)); //This needs to be changed to both Scientists
     }
     
     //Coroutine that does the research between two scientists
@@ -731,7 +637,7 @@ public class UIManager : MonoBehaviour
     public void StartEconCoroutine(float waitTime, Scientist sci, DeathMethod dm)
     {
         StartCoroutine(EconStartBanner(waitTime, sci, dm));
-        StartCoroutine(BoostDMEcon(sci, dm));
+        StartCoroutine(BoostDMEcon(dm, sci));
     }
 
     //Start the coroutine for a research being made (both the banner and the actual research itself)
