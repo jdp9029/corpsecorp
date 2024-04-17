@@ -101,6 +101,7 @@ public class Scientist : MonoBehaviour
         //first, destroy the button part of the object
         //GameObject.Destroy(/*transform.GetChild(1).*/gameObject);
 
+        purchasedParentObject = GameObject.FindGameObjectWithTag("Bought Scientists").transform;
         transform.parent = purchasedParentObject;
         GetComponent<RectTransform>().anchorMin = new Vector2(-2, -2);
         GetComponent<RectTransform>().anchorMax = new Vector2(-1, -1);
