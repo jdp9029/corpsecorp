@@ -1497,6 +1497,7 @@ GameObject:
   - component: {fileID: 459724625}
   - component: {fileID: 459724627}
   - component: {fileID: 459724626}
+  - component: {fileID: 459724628}
   m_Layer: 0
   m_Name: SciBox2
   m_TagString: Untagged
@@ -1562,6 +1563,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459724624}
   m_CullTransparentMesh: 1
+--- !u!114 &459724628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459724624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527ac323dc34e44c8b55ab9b4127729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &463559145
 GameObject:
   m_ObjectHideFlags: 0
@@ -3812,6 +3825,7 @@ GameObject:
   - component: {fileID: 1509963528}
   - component: {fileID: 1509963530}
   - component: {fileID: 1509963529}
+  - component: {fileID: 1509963531}
   m_Layer: 0
   m_Name: SciBox1
   m_TagString: Untagged
