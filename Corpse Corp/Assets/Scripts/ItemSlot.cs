@@ -7,11 +7,11 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 {
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("OnDrop");
+        //Debug.Log("OnDrop");
         if (eventData.pointerDrag != null)
         {
-           eventData.pointerDrag.transform.SetParent(this.transform, false);
-           eventData.pointerDrag.GetComponent<RectTransform>().localPosition = Vector2.zero;
+            eventData.pointerDrag.transform.SetParent(this.transform, false);
+            eventData.pointerDrag.GetComponent<RectTransform>().localPosition = Vector2.zero;
         }
     }
 }
