@@ -3620,7 +3620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2972378375696288747, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.0005187988
       objectReference: {fileID: 0}
     - target: {fileID: 4597475321835386943, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3681,6 +3681,18 @@ PrefabInstance:
     - target: {fileID: 5870804446883788172, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_Name
       value: Combiner Tab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620400978812982385, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_VerticalFit
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620400978812982385, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_HorizontalFit
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7958293405152381270, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7958293405152381270, guid: 79a15d20a42a6c44b97a6487bc623c12, type: 3}
       propertyPath: m_ChildScaleWidth
@@ -3825,7 +3837,6 @@ GameObject:
   - component: {fileID: 1509963528}
   - component: {fileID: 1509963530}
   - component: {fileID: 1509963529}
-  - component: {fileID: 1509963531}
   m_Layer: 0
   m_Name: SciBox1
   m_TagString: Untagged
