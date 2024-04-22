@@ -11,7 +11,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     //the rect that the item came from, plus what number child it was
     private RectTransform draggableObjectsParent;
-    public int numInOrder;
+    int numInOrder;
 
     private void Awake()
     {
