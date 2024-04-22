@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject discoveryBanner;
     [SerializeField] GameObject discoveryParent;
 
+    DMSlot dmslot;
+
     #region Clicker (Fields)
     List<DeathMethod> activeDeathMethods;
     List<GameObject> dmPrefabList;
@@ -73,6 +75,8 @@ public class UIManager : MonoBehaviour
         #region Clicker (Start)
         activeDeathMethods = new List<DeathMethod>();
         dmPrefabList = new List<GameObject>();
+
+        dmslot = GameObject.Find("DMBox").GetComponent<DMSlot>();
         #endregion
 
         #region Hire Scientists (Start)
@@ -309,7 +313,6 @@ public class UIManager : MonoBehaviour
                 dmP.transform.GetChild(2).GetComponent<Image>().color = Color.white;
             }
 
-            //THIS SECTION BELOW NEEDS TO BE ALTERED SO THAT BOOSTING BUSIES UP BOTH SCIENTISTS ---
             //Check if Scientist 2 is Null
             if (dm.scientist2name != null) //If Not
             {
@@ -346,48 +349,6 @@ public class UIManager : MonoBehaviour
 
             //Check to see if/why Scientist1 is busy, and scale its scale rect accordingly
             boostRect = dmP.transform.GetChild(3).Find("ScalingLoadRect").GetComponent<RectTransform>();
-
-            /*if (FindScientist(sciManager, dm.scientist1name).busy)
-            {
-                //If it's boosting a Death Method
-                if (FindButtonAssociatedWithScientist(dm.scientist1name).busyForEcon)
-                {
-                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist1name).lastResearchedOrBoostedMethod.boostTime, boostRect);
-                }
-                else //Otherwise, it's boosting for research
-                {
-                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist1name).lastResearchedOrBoostedMethod.researchTime, boostRect);
-                }
-            }
-            else //Otherwise, set scale to 0
-            {
-                boostRect.anchorMax = new Vector2(0.00000001f, boostRect.anchorMax.y);
-                boostRect.offsetMin = Vector2.zero;
-                boostRect.offsetMax = Vector2.zero;
-            }*/
-
-            //Check to see if/why Scientist2 is busy (if it exists), and scale its scale rect accordingly
-            /*if (dm.scientist2name != null && FindScientist(sciManager, dm.scientist2name).busy)
-            {
-                boostRect = dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>();
-
-                //If it's boosting the Death Method
-                if (FindButtonAssociatedWithScientist(dm.scientist2name).busyForEcon)
-                {
-                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.boostTime, boostRect);
-                }
-                else //Otherwise, it's boosting for research
-                {
-                    IncrementAnchor(FindButtonAssociatedWithScientist(dm.scientist2name).lastResearchedOrBoostedMethod.researchTime, boostRect);
-                }
-            }
-            else if (dmP.transform.childCount > 4)//Otherwise, set scale to 0
-            {
-                boostRect = dmP.transform.GetChild(4).Find("ScalingLoadRect").GetComponent<RectTransform>();
-                boostRect.anchorMax = new Vector2(0.00000001f, boostRect.anchorMax.y);
-                boostRect.offsetMin = Vector2.zero;
-                boostRect.offsetMax = Vector2.zero;
-            }*/
         }
         #endregion
 
