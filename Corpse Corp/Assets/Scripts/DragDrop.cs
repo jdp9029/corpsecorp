@@ -48,17 +48,22 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         //if we have not been dragged to an item slot, just return to the draggable objects parent
         if(transform.parent.GetComponent<ItemSlot>() == null)
         {
-            transform.SetParent(draggableObjectsParent, false);
-
-            for (int i = 0; i < draggableObjectsParent.childCount - 1 - numInOrder; i++)
-            {
-                draggableObjectsParent.GetChild(numInOrder).SetAsLastSibling();
-            }
+            ResetPosition();
         }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         //Debug.Log("OnPointerDown");
+    }
+
+    public void ResetPosition() //Resets a Scientist back to its position in the scrollview
+    {
+        transform.SetParent(draggableObjectsParent, false);
+
+        for (int i = 0; i < draggableObjectsParent.childCount - 1 - numInOrder; i++)
+        {
+            draggableObjectsParent.GetChild(numInOrder).SetAsLastSibling();
+        }
     }
 }
