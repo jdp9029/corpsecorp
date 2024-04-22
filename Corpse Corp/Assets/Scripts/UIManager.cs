@@ -319,7 +319,8 @@ public class UIManager : MonoBehaviour
                 //Hook Up Boost Button, if we can afford it & Scientists aren't busy
                 if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy && !FindScientist(sciManager, dm.scientist2name).busy)
                 {
-                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist2name))); });
+                    //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist2name))); });
+                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartEconCoroutine(dm.boostTime, FindScientist(sciManager, dm.scientist1name), dm, FindScientist(sciManager, dm.scientist2name)); });
                 }
             }
             else //If this is a pure DM (no scientist 2 exists)
@@ -327,7 +328,8 @@ public class UIManager : MonoBehaviour
                 //Hook Up the Boost Button if we can afford it & Scientist isn't busy
                 if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy)
                 {
-                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name))); });
+                    //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name))); });
+                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartEconCoroutine(dm.boostTime, FindScientist(sciManager, dm.scientist1name), dm, FindScientist(sciManager, dm.scientist2name)); });
                 }
             }
             //---
@@ -449,10 +451,16 @@ public class UIManager : MonoBehaviour
     }
 
     //Coroutine that prints a congrats message for waitTime seconds
-    public IEnumerator PrintBoostCompleteMessage(float waitTime, Scientist sci, DeathMethod dm)
+    public IEnumerator PrintBoostCompleteMessage(float waitTime, Scientist sci1, DeathMethod dm, Scientist sci2 = null)
     {
         GameObject discoveryInst = Instantiate(discoveryBanner, Vector3.zero, Quaternion.identity, discoveryParent.transform);
-        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci.name} has successfully boosted {dm.name}";
+        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci1.name} has successfully boosted {dm.name}";
+
+        if(sci2 != null)
+        {
+            discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci1.name} and ${sci2.name} have successfully boosted {dm.name}";
+        }
+
         discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
         discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
         discoveryInst.GetComponent<RectTransform>().offsetMin = new Vector2(0f, 0f);
@@ -574,10 +582,16 @@ public class UIManager : MonoBehaviour
     }
 
     //Coroutine that prints a econ boost start message for waitTime seconds
-    public IEnumerator EconStartBanner(float waitTime, Scientist sci, DeathMethod dm)
+    public IEnumerator EconStartBanner(float waitTime, Scientist sci1, DeathMethod dm, Scientist sci2 = null)
     {
         GameObject discoveryInst = Instantiate(discoveryBanner, Vector3.zero, Quaternion.identity, discoveryParent.transform);
-        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci.name} is boosting profits for {dm.name}";
+        discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci1.name} is boosting profits for {dm.name}";
+
+        if (sci2 != null)
+        {
+            discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci1.name} and ${sci2.name} are boosting profits for {dm.name}";
+        }
+
         discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
         discoveryInst.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
         discoveryInst.GetComponent<RectTransform>().offsetMin = new Vector2(0f, 0f);
@@ -595,10 +609,10 @@ public class UIManager : MonoBehaviour
     }
 
     //Start the coroutine for an econ being made (both the banner and the actual econ itself)
-    public void StartEconCoroutine(float waitTime, Scientist sci, DeathMethod dm)
+    public void StartEconCoroutine(float waitTime, Scientist sci1, DeathMethod dm, Scientist sci2 = null)
     {
-        StartCoroutine(EconStartBanner(waitTime, sci, dm));
-        StartCoroutine(BoostDMEcon(dm, sci));
+        StartCoroutine(EconStartBanner(waitTime, sci1, dm, sci2));
+        StartCoroutine(BoostDMEcon(dm, sci1, sci2));
     }
 
     //Start the coroutine for a research being made (both the banner and the actual research itself)
@@ -608,11 +622,11 @@ public class UIManager : MonoBehaviour
         StartCoroutine(StartResearch(sci1,sci2));
     }
 
-    //Switch which scientist is chosen on the DMPanel
+    /*//Switch which scientist is chosen on the DMPanel
     public void SwitchScientist(DeathMethod dm)
     {
         dm.sci1Chosen = !dm.sci1Chosen;
-    }
+    }*/
 
     //Get the EmployButton associated with a scientist (we only need the lab version of the button)
     /*private EmployButton FindButtonAssociatedWithScientist(string scientistName)
