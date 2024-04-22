@@ -9,6 +9,7 @@ public class DMSlot : MonoBehaviour
     [SerializeField] RectTransform SciBox2;
 
     ScientistManager scientistManager;
+    DeathMethodManager deathMethodManager;
     UIManager uiManager;
 
     [SerializeField] GameObject displayObject;
@@ -17,6 +18,7 @@ public class DMSlot : MonoBehaviour
     void Start()
     {
         scientistManager = FindObjectOfType<ScientistManager>();
+        deathMethodManager = FindObjectOfType<DeathMethodManager>();
         uiManager = FindObjectOfType<UIManager>();
     }
 
@@ -24,7 +26,7 @@ public class DMSlot : MonoBehaviour
     void Update()
     {
         //if neither box is full, this box should also be not full
-        if(SciBox1.childCount == 0 || SciBox2.childCount == 0)
+        if(SciBox1.childCount == 0 && SciBox2.childCount == 0)
         {
             for(int i = 0; i < transform.childCount; i++)
             {
@@ -35,13 +37,22 @@ public class DMSlot : MonoBehaviour
         //if both scientist box's are full, we need to figure out what to put in this box
         else
         {
-            Scientist sci1 = uiManager.FindScientist(scientistManager, SciBox1.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text.Trim());
-            Scientist sci2 = uiManager.FindScientist(scientistManager, SciBox2.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text.Trim());
+            //Declare & Set Scientists
+            Scientist sci1 = null;
+            Scientist sci2 = null;
+            if (SciBox1.childCount > 0)
+            {
+                sci1 = uiManager.FindScientist(scientistManager, SciBox1.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text.Trim());
+            }
+            if (SciBox2.childCount > 0)
+            {
+                sci2 = uiManager.FindScientist(scientistManager, SciBox2.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text.Trim());
+            }
 
             //first, can these two scientists be matched?
 
             //if not, display there are no combo's
-            if(!sci1.combinations.ContainsKey(sci2.name))
+            if(sci1 != null && sci2 != null && !sci1.combinations.ContainsKey(sci2.name))
             {
                 //instantiate the object
                 GameObject obj = Instantiate(displayObject, transform);
@@ -68,12 +79,28 @@ public class DMSlot : MonoBehaviour
                 GameObject obj = Instantiate(displayObject, transform);
                 obj.GetComponent<DragDrop>().enabled = false;
 
-                //Write DM Name
-                obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci1.combinations[sci2.name];
+
+                if (sci1 != null && sci2 == null) //If only box 1 is filled, fill with Sci1 main method
+                {
+                    obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"BOOST {sci1.mainMethod.name}";
+                }
+                else if (sci1 == null && sci2 != null) //If only box 2 is filled, fill with Sci2 main method
+                {
+                    obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"BOOST {sci2.mainMethod.name}";
+                }
+                else //If both boxes are filled, fill with the combo method
+                {
+                    if (uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).active) //If the death method has been discovered, ask to boost
+                    {
+                        obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"BOOST {sci1.combinations[sci2.name]}";
+                    }
+                    else //If the death method hasn't been discovered, ask to research
+                    {
+                        obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"RESEARCH {sci1.combinations[sci2.name]}";
+                    }
+                }
             }    
-
         }
-
     }
 
     //==== FUNCTIONS ====
@@ -98,7 +125,17 @@ public class DMSlot : MonoBehaviour
             //If the name matches Scientist1, send the asset to the item slot
             if (invAssetName == sci1.name)
             {
-                //Get Asset (same really long line of code above except with end chopped off a bit) and set it to be the child of the item slot & set position accordingly
+                //Get Asset and Set Parent & Position
+                RectTransform invRect = GameObject.Find("Combiner Tab").transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetComponent<RectTransform>();
+                invRect.SetParent(SciBox1, false);
+                invRect.localPosition = Vector2.zero;
+            }
+            else if (invAssetName == sci2.name)
+            {
+                //Get Asset and Set Parent & Position
+                RectTransform invRect = GameObject.Find("Combiner Tab").transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetComponent<RectTransform>();
+                invRect.SetParent(SciBox2, false);
+                invRect.localPosition = Vector2.zero;
             }
         }
 

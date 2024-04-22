@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject discoveryParent;
 
     DMSlot dmslot;
+    TabManager tabManager;
 
     #region Clicker (Fields)
     List<DeathMethod> activeDeathMethods;
@@ -77,6 +78,7 @@ public class UIManager : MonoBehaviour
         dmPrefabList = new List<GameObject>();
 
         dmslot = GameObject.Find("DMBox").GetComponent<DMSlot>();
+        tabManager = FindObjectOfType<TabManager>();
         #endregion
 
         #region Hire Scientists (Start)
@@ -320,7 +322,8 @@ public class UIManager : MonoBehaviour
                 if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy && !FindScientist(sciManager, dm.scientist2name).busy)
                 {
                     //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist2name))); });
-                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartEconCoroutine(dm.boostTime, FindScientist(sciManager, dm.scientist1name), dm, FindScientist(sciManager, dm.scientist2name)); });
+                    //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartEconCoroutine(dm.boostTime, FindScientist(sciManager, dm.scientist1name), dm, FindScientist(sciManager, dm.scientist2name)); });
+                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { dmslot.FillBoxes(FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist2name)); });
                 }
             }
             else //If this is a pure DM (no scientist 2 exists)
@@ -329,7 +332,8 @@ public class UIManager : MonoBehaviour
                 if (dmManager.money > dm.boostCost && !FindScientist(sciManager, dm.scientist1name).busy)
                 {
                     //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name))); });
-                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartEconCoroutine(dm.boostTime, FindScientist(sciManager, dm.scientist1name), dm, FindScientist(sciManager, dm.scientist2name)); });
+                    //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartEconCoroutine(dm.boostTime, FindScientist(sciManager, dm.scientist1name), dm, FindScientist(sciManager, dm.scientist2name)); });
+                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { dmslot.FillBoxes(FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist1name)); });
                 }
             }
             //---
