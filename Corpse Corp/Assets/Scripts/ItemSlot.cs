@@ -8,7 +8,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         //Debug.Log("OnDrop");
-        if (eventData.pointerDrag != null)
+        if (eventData.pointerDrag != null && transform.childCount == 0)
         {
             eventData.pointerDrag.transform.SetParent(this.transform, false);
             eventData.pointerDrag.GetComponent<RectTransform>().localPosition = Vector2.zero;

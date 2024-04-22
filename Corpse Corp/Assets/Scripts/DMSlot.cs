@@ -23,7 +23,7 @@ public class DMSlot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if neither box is full, this box should also be full
+        //if neither box is full, this box should also be not full
         if(SciBox1.childCount == 0 || SciBox2.childCount == 0)
         {
             for(int i = 0; i < transform.childCount; i++)
@@ -66,11 +66,17 @@ public class DMSlot : MonoBehaviour
                 //instantiate the object
                 GameObject obj = Instantiate(displayObject, transform);
 
-                //write "no combo"
+                //Write DM Name
                 obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci1.combinations[sci2.name];
             }    
 
         }
+
+    }
+
+    //==== FUNCTIONS ====
+    public void FillBoxes(Scientist sci1, Scientist sci2, DeathMethod dm)
+    {
 
     }
 }
