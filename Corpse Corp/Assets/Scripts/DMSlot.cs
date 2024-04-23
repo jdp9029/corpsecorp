@@ -14,6 +14,12 @@ public class DMSlot : MonoBehaviour
 
     [SerializeField] GameObject displayObject;
 
+    [SerializeField] GameObject dropdownPanel;
+
+    [SerializeField] TextMeshProUGUI dropdownText;
+
+    bool activeDropdown = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,16 +31,18 @@ public class DMSlot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if neither box is full, this box should also be not full
+        //if both boxes are empty, this box should be empty 
         if(SciBox1.childCount == 0 && SciBox2.childCount == 0)
         {
             for(int i = 0; i < transform.childCount; i++)
             {
                 Destroy(transform.GetChild(i).gameObject);
             }
+
+            activeDropdown = false;
         }
         
-        //if both scientist box's are full, we need to figure out what to put in this box
+        //if one or both boxes are full, this box should be full
         else
         {
             //Declare & Set Scientists
@@ -49,9 +57,7 @@ public class DMSlot : MonoBehaviour
                 sci2 = uiManager.FindScientist(scientistManager, SciBox2.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text.Trim());
             }
 
-            //first, can these two scientists be matched?
-
-            //if not, display there are no combo's
+            //if there are TWO scientists, but they CANNOT be matched, display there are no combo's
             if(sci1 != null && sci2 != null && !sci1.combinations.ContainsKey(sci2.name))
             {
                 //instantiate the object
@@ -70,9 +76,11 @@ public class DMSlot : MonoBehaviour
 
                 //write "no combo"
                 obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "No Combo";
+
+                activeDropdown = false;
             }
 
-            //if there is a match, display the match
+            //if there is a match or if there is not two scientists:
             else
             {
                 //instantiate the object
@@ -82,25 +90,33 @@ public class DMSlot : MonoBehaviour
 
                 if (sci1 != null && sci2 == null) //If only box 1 is filled, fill with Sci1 main method
                 {
-                    obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"BOOST {sci1.mainMethod.name}";
+                    obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci1.mainMethod.name;
+                    dropdownText.text = $"BOOST {sci1.mainMethod.name}";
                 }
                 else if (sci1 == null && sci2 != null) //If only box 2 is filled, fill with Sci2 main method
                 {
-                    obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"BOOST {sci2.mainMethod.name}";
+                    obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci2.mainMethod.name;
+                    dropdownText.text = $"BOOST {sci2.mainMethod.name}";
                 }
                 else //If both boxes are filled, fill with the combo method
                 {
                     if (uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).active) //If the death method has been discovered, ask to boost
                     {
-                        obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"BOOST {sci1.combinations[sci2.name]}";
+                        obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci1.combinations[sci2.name];
+                        dropdownText.text = $"BOOST {sci1.combinations[sci2.name]}";
                     }
                     else //If the death method hasn't been discovered, ask to research
                     {
-                        obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"RESEARCH {sci1.combinations[sci2.name]}";
+                        obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci1.combinations[sci2.name];
+                        dropdownText.text = $"RESEARCH {sci1.combinations[sci2.name]}";
                     }
                 }
+
+                activeDropdown = true;
             }    
         }
+
+        PositionDropdown();
     }
 
     //==== FUNCTIONS ====
@@ -146,5 +162,36 @@ public class DMSlot : MonoBehaviour
             Set it as the child of SciBox1 or SciBox2
             Make sure position gets swapped to the ItemSlot
          */
+    }
+
+    private void PositionDropdown()
+    {
+        RectTransform rectTransform = dropdownPanel.GetComponent<RectTransform>();
+        Debug.Log(rectTransform.rect.height + ", " + rectTransform.parent.GetComponent<RectTransform>().rect.height);
+
+        if(activeDropdown)
+        {
+            if (rectTransform.localPosition.y > -rectTransform.rect.height)
+            {
+                rectTransform.localPosition = new Vector2(0, rectTransform.localPosition.y - (rectTransform.rect.height * Time.deltaTime));
+            }
+
+            if(rectTransform.localPosition.y < - rectTransform.rect.height)
+            {
+                rectTransform.localPosition = new Vector2(0, -rectTransform.rect.height);
+            }
+        }
+        else
+        {
+            if (rectTransform.localPosition.y < 0)
+            {
+                rectTransform.localPosition = new Vector2(0, rectTransform.localPosition.y + (rectTransform.rect.height * Time.deltaTime));
+            }
+
+            if(rectTransform.localPosition.y > 0)
+            {
+                rectTransform.localPosition = Vector2.zero;
+            }
+        }
     }
 }
