@@ -38,6 +38,8 @@ public class UIManager : MonoBehaviour
     public List<EmployButton> employButtons;
     #endregion
 
+
+
     //==== START ====
     void Start()
     {
@@ -387,6 +389,31 @@ public class UIManager : MonoBehaviour
             employButtons = GameObject.FindObjectsOfType<EmployButton>().ToList();
         }
         #endregion
+
+        //Put this in its own region probably but let's see if we can update whether or not the button on the matching screen is active from here
+        dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.RemoveAllListeners();
+        if (dmslot.activeDropdown) //If the dropdown is active...
+        {
+            if (dmslot.sci1 != null && dmslot.sci2 == null) //If only Sci1 is filled, boost Sci1 main method
+            {
+                dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dmslot.sci1.mainMethod, dmslot.sci1)); });
+            }
+            else if (dmslot.sci1 == null && dmslot.sci2 != null) //If only Sci2 is filled, boost Sci2 main method
+            {
+                dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dmslot.sci2.mainMethod, dmslot.sci2)); });
+            }
+            else //If both are filled...
+            {
+                if (FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]).active) //If the DM has been discovered, boost it
+                {
+                    dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]), dmslot.sci1, dmslot.sci2)); });
+                }
+                else //If it hasn't been discovered, research it
+                {
+                    dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(StartResearch(dmslot.sci1, dmslot.sci2)); });
+                }
+            }
+        }
 
         statBar.text = $"<i>MONEY: ${Mathf.Round(dmManager.money)} ; ${Mathf.Round(dmManager.moneyPerSecond)} / s</i>";
     }
