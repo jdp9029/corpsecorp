@@ -167,7 +167,6 @@ public class DMSlot : MonoBehaviour
     private void PositionDropdown()
     {
         RectTransform rectTransform = dropdownPanel.GetComponent<RectTransform>();
-        Debug.Log(rectTransform.rect.height + ", " + rectTransform.parent.GetComponent<RectTransform>().rect.height);
 
         if(activeDropdown)
         {
