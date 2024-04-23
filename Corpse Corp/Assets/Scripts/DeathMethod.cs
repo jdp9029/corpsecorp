@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeathMethod : MonoBehaviour
 {
@@ -63,13 +64,14 @@ public class DeathMethod : MonoBehaviour
         beingBoosted = false;
     }
     //==== CONSTRUCTOR WITHOUT ICON OR DESCRIPTION ====
-    public DeathMethod(string name, string scientist1, string scientist2, float price, float rateOfSale)
+    public DeathMethod(string name, string scientist1, string scientist2, float price, float rateOfSale, Sprite icon = null)
     {
         this.name = name;
         this.rateOfSale = rateOfSale;
         this.price = price;
         this.scientist1name = scientist1;
         this.scientist2name = scientist2;
+        this.Icon = icon;
 
         if (name == "Soft Pillow" || name == "Pencil")
         {

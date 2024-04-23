@@ -3588,7 +3588,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 994b7d35b5e336e4d94c4d4fcced72c7, type: 3}
   - {fileID: 21300000, guid: ed4dff1f82dfbbd488fa92ebe6b540c7, type: 3}
   - {fileID: 21300000, guid: f42bb86afc503b7459e96eaed354a2a6, type: 3}
-  pureIcons: []
+  pureIcons:
+  - {fileID: 21300000, guid: 732b4c9c74602dd4a887995394d5baf9, type: 3}
+  - {fileID: 21300000, guid: 8c803be68f55ff149ba5f860f4950ea0, type: 3}
+  - {fileID: 21300000, guid: 44c17a7701b1acd4dbda8c2b08a68065, type: 3}
   unpureIcons: []
 --- !u!4 &1240511951
 Transform:

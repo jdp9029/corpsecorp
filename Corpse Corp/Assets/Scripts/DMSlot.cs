@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DMSlot : MonoBehaviour
 {
@@ -92,11 +93,21 @@ public class DMSlot : MonoBehaviour
                 {
                     obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci1.mainMethod.name;
                     dropdownText.text = $"BOOST {sci1.mainMethod.name}";
+
+                    if(sci1.mainMethod.Icon != null)
+                    {
+                        obj.transform.GetChild(1).GetComponent<Image>().sprite = sci1.mainMethod.Icon;
+                    }
                 }
                 else if (sci1 == null && sci2 != null) //If only box 2 is filled, fill with Sci2 main method
                 {
                     obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci2.mainMethod.name;
                     dropdownText.text = $"BOOST {sci2.mainMethod.name}";
+
+                    if(sci2.mainMethod.Icon != null)
+                    {
+                        obj.transform.GetChild(1).GetComponent<Image>().sprite = sci2.mainMethod.Icon;
+                    }
                 }
                 else //If both boxes are filled, fill with the combo method
                 {
@@ -104,11 +115,21 @@ public class DMSlot : MonoBehaviour
                     {
                         obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci1.combinations[sci2.name];
                         dropdownText.text = $"BOOST {sci1.combinations[sci2.name]}";
+
+                        if(uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon != null)
+                        {
+                            obj.transform.GetChild(1).GetComponent<Image>().sprite = uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon;
+                        }
                     }
                     else //If the death method hasn't been discovered, ask to research
                     {
                         obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci1.combinations[sci2.name];
                         dropdownText.text = $"RESEARCH {sci1.combinations[sci2.name]}";
+
+                        if(uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon != null)
+                        {
+                            obj.transform.GetChild(1).GetComponent<Image>().sprite = uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon;
+                        }
                     }
                 }
 

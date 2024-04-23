@@ -29,9 +29,9 @@ public class ScientistManager : MonoBehaviour
         #region scientists initialized and combo'd
         scientists = new Scientist[]
         {
-            CreateScientist("HS Dropout", 1, "Soft Pillow", 0),
-            CreateScientist("HS Graduate", 1, "Pencil", 1),
-            CreateScientist("College Student", 1, "Stress", 2),
+            CreateScientist("HS Dropout", 1, "Soft Pillow", 0, pureIcons[0]),
+            CreateScientist("HS Graduate", 1, "Pencil", 1, pureIcons[1]),
+            CreateScientist("College Student", 1, "Stress", 2, pureIcons[2]),
             CreateScientist("Veterinarian", 2, "Rabies", 3),
             CreateScientist("Chef", 2, "Knife", 4),
             CreateScientist("Barber", 2, "Razor", 5),
@@ -257,7 +257,7 @@ public class ScientistManager : MonoBehaviour
     }
 
     //Essentially acts as the new scientist constructor
-    private Scientist CreateScientist(string name, int tier, string deathMethodName, int numInOrder)
+    private Scientist CreateScientist(string name, int tier, string deathMethodName, int numInOrder, Sprite icon = null)
     {
         GameObject instantiation = Instantiate(scientistForHirePrefab, Vector3.zero, Quaternion.identity, tab4content);
         Scientist scientist = instantiation.GetComponent<Scientist>();
@@ -270,76 +270,76 @@ public class ScientistManager : MonoBehaviour
         switch (deathMethodName)
         {
             case "Soft Pillow":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 2, 2);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 2, 2, icon);
                 break;
             case "Pencil":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 2, 2);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 2, 2, icon);
                 break;
             case "Stress":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 2, 1);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 2, 1, icon);
                 break;
             case "Rabies":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 30, 6);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 30, 6, icon);
                 break;
             case "Knife":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 15, 3);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 15, 3, icon);
                 break;
             case "Razor":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 10, 2);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 10, 2, icon);
                 break;
             case "Hammer":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 10, 2);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 10, 2, icon);
                 break;
             case "Wrench":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 10, 2);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 10, 2, icon);
                 break;
             case "War":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 50, 8);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 50, 8, icon);
                 break;
             case "Assassination":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 60, 10);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 60, 10, icon);
                 break;
             case "Infection":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 200, 9);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 200, 9, icon);
                 break;
             case "Piranhas":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 45, 2);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 45, 2, icon);
                 break;
             case "Building Collapse":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 90, 3);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 90, 3, icon);
                 break;
             case "Venus Flytrap":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 26, 1);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 26, 1, icon);
                 break;
             case "Black Hole":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 400, 15);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 400, 15, icon);
                 break;
             case "Storm":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 80, 3);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 80, 3, icon);
                 break;
             case "Earthquake":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 150, 7);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 150, 7, icon);
                 break;
             case "Influenza":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 75, 1);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 75, 1, icon);
                 break;
             case "Fusion Reaction":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 900, 12);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 900, 12, icon);
                 break;
             case "Missile":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 550, 7);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 550, 7, icon);
                 break;
             case "Fall Damage":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 135, 2);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 135, 2, icon);
                 break;
             case "Radiation":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 76, 1);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 76, 1, icon);
                 break;
             case "Acid":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 150, 2);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 150, 2, icon);
                 break;
             case "Defibrillator":
-                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 225, 3);
+                scientist.mainMethod = new DeathMethod(deathMethodName, name, null, 225, 3, icon);
                 break;
         }
 
