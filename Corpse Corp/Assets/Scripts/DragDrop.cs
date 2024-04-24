@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,6 +9,9 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     private Canvas canvas;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
+    private UIManager uiManager;
+    private ScientistManager sciManager;
+    [SerializeField] RectTransform busyScientistParent;
 
     //the rect that the item came from, plus what number child it was
     private RectTransform draggableObjectsParent;
@@ -18,9 +22,32 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         rectTransform = GetComponent<RectTransform>();
         canvas = GameObject.Find("Bottom Bar").GetComponent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
+        uiManager = FindObjectOfType<UIManager>();
+        sciManager = FindObjectOfType<ScientistManager>();
+        busyScientistParent = GameObject.Find("Busy Scientist Parent").GetComponent<RectTransform>();
 
         draggableObjectsParent = transform.parent.GetComponent<RectTransform>();
         numInOrder = draggableObjectsParent.childCount - 1;
+    }
+
+    void Update()
+    {
+        //if we are dealing with a scientist
+        if(transform.childCount == 2)
+        {
+            //if we are busy, take this scientist away
+            if (uiManager.FindScientist(sciManager, transform.GetChild(0).GetComponent<TextMeshProUGUI>().text).busy)
+            {
+                transform.parent = busyScientistParent;
+                transform.localPosition = Vector2.zero;
+            }
+
+            //if we become unbusy, bring this scientist back
+            else if(transform.parent == busyScientistParent)
+            {
+                ResetPosition();
+            }
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)

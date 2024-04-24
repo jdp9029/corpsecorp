@@ -57,4 +57,9 @@ public class TabManager : MonoBehaviour
             }
         }
     }
+
+    public void TabClicked(int tabIndex)
+    {
+        TabClicked(buttonTabs[tabIndex]);
+    }
 }

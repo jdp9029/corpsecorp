@@ -22,6 +22,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject discoveryParent;
 
     DMSlot dmslot;
+
+    ItemSlot sciBox1;
+    ItemSlot sciBox2;
+
     TabManager tabManager;
 
     #region Clicker (Fields)
@@ -79,6 +83,8 @@ public class UIManager : MonoBehaviour
         activeDeathMethods = new List<DeathMethod>();
         dmPrefabList = new List<GameObject>();
 
+        sciBox1 = GameObject.Find("SciBox1").GetComponent<ItemSlot>();
+        sciBox2 = GameObject.Find("SciBox2").GetComponent<ItemSlot>();
         dmslot = GameObject.Find("DMBox").GetComponent<DMSlot>();
         tabManager = FindObjectOfType<TabManager>();
         #endregion
@@ -325,7 +331,11 @@ public class UIManager : MonoBehaviour
                 {
                     //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist2name))); });
                     //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartEconCoroutine(dm.boostTime, FindScientist(sciManager, dm.scientist1name), dm, FindScientist(sciManager, dm.scientist2name)); });
-                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { dmslot.FillBoxes(FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist2name)); });
+                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate
+                    {
+                        dmslot.FillBoxes(FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist2name));
+                        FindObjectOfType<TabManager>().TabClicked(2);
+                    });
                 }
             }
             else //If this is a pure DM (no scientist 2 exists)
@@ -335,7 +345,11 @@ public class UIManager : MonoBehaviour
                 {
                     //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name))); });
                     //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartEconCoroutine(dm.boostTime, FindScientist(sciManager, dm.scientist1name), dm, FindScientist(sciManager, dm.scientist2name)); });
-                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { dmslot.FillBoxes(FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist1name)); });
+                    dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate
+                    {
+                        dmslot.FillBoxes(FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist1name));
+                        FindObjectOfType<TabManager>().TabClicked(2);
+                    });
                 }
             }
             //---
@@ -396,21 +410,45 @@ public class UIManager : MonoBehaviour
         {
             if (dmslot.sci1 != null && dmslot.sci2 == null) //If only Sci1 is filled, boost Sci1 main method
             {
-                dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dmslot.sci1.mainMethod, dmslot.sci1)); });
+                //dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dmslot.sci1.mainMethod, dmslot.sci1)); });
+                dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
+                {
+                    StartEconCoroutine(dmslot.sci1.mainMethod.boostTime, dmslot.sci1, dmslot.sci1.mainMethod);
+                    sciBox1.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
+                });
             }
             else if (dmslot.sci1 == null && dmslot.sci2 != null) //If only Sci2 is filled, boost Sci2 main method
             {
-                dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dmslot.sci2.mainMethod, dmslot.sci2)); });
+                //dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dmslot.sci2.mainMethod, dmslot.sci2)); });
+                dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
+                {
+                    StartEconCoroutine(dmslot.sci2.mainMethod.boostTime, dmslot.sci2, dmslot.sci2.mainMethod);
+                    sciBox2.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
+                });
             }
             else //If both are filled...
             {
                 if (FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]).active) //If the DM has been discovered, boost it
                 {
-                    dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]), dmslot.sci1, dmslot.sci2)); });
+                    //dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]), dmslot.sci1, dmslot.sci2)); });
+                    dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
+                    {
+                        DeathMethod dmCombod = FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]);
+                        StartEconCoroutine(dmCombod.boostTime, dmslot.sci1, dmCombod, dmslot.sci2);
+                        sciBox1.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
+                        sciBox2.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
+                    });
                 }
                 else //If it hasn't been discovered, research it
                 {
-                    dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(StartResearch(dmslot.sci1, dmslot.sci2)); });
+                    //dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(StartResearch(dmslot.sci1, dmslot.sci2)); });
+                    dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
+                    {
+                        DeathMethod dmCombod = FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]);
+                        StartResearchCoroutine(dmCombod.researchTime, dmslot.sci1, dmslot.sci2);
+                        sciBox1.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
+                        sciBox2.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
+                    });
                 }
             }
         }

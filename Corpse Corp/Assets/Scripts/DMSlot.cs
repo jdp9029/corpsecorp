@@ -67,6 +67,7 @@ public class DMSlot : MonoBehaviour
             if(sci1 != null && sci2 != null && !sci1.combinations.ContainsKey(sci2.name))
             {
                 //instantiate the object
+
                 GameObject obj = Instantiate(displayObject, transform);
                 obj.GetComponent<DragDrop>().enabled = false;
                 
@@ -95,13 +96,18 @@ public class DMSlot : MonoBehaviour
 
                 if (sci1 != null && sci2 == null) //If only box 1 is filled, fill with Sci1 main method
                 {
-                    obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci1.mainMethod.name;
                     dropdownText.text = $"BOOST {sci1.mainMethod.name}";
 
                     if(sci1.mainMethod.Icon != null)
                     {
                         obj.transform.GetChild(1).GetComponent<Image>().sprite = sci1.mainMethod.Icon;
                     }
+
+                    obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMin = Vector2.zero;
+                    obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMax = Vector2.one;
+                    obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
+                    obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
+                    Destroy(obj.transform.GetChild(0).gameObject);
 
                     //if (activeDropdown) //If the dropdown is active, activate the button
                     //{
@@ -110,13 +116,18 @@ public class DMSlot : MonoBehaviour
                 }
                 else if (sci1 == null && sci2 != null) //If only box 2 is filled, fill with Sci2 main method
                 {
-                    obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci2.mainMethod.name;
                     dropdownText.text = $"BOOST {sci2.mainMethod.name}";
 
                     if(sci2.mainMethod.Icon != null)
                     {
                         obj.transform.GetChild(1).GetComponent<Image>().sprite = sci2.mainMethod.Icon;
                     }
+
+                    obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMin = Vector2.zero;
+                    obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMax = Vector2.one;
+                    obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
+                    obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
+                    Destroy(obj.transform.GetChild(0).gameObject);
 
                     //if (activeDropdown) //If the dropdown is active, activate the button
                     //{
@@ -127,13 +138,18 @@ public class DMSlot : MonoBehaviour
                 {
                     if (uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).active) //If the death method has been discovered, ask to boost
                     {
-                        obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci1.combinations[sci2.name];
                         dropdownText.text = $"BOOST {sci1.combinations[sci2.name]}";
 
                         if(uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon != null)
                         {
                             obj.transform.GetChild(1).GetComponent<Image>().sprite = uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon;
                         }
+
+                        obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMin = Vector2.zero;
+                        obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMax = Vector2.one;
+                        obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
+                        obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
+                        Destroy(obj.transform.GetChild(0).gameObject);
 
                         //if (activeDropdown) //If the dropdown is active, activate the button
                         //{
@@ -142,13 +158,18 @@ public class DMSlot : MonoBehaviour
                     }
                     else //If the death method hasn't been discovered, ask to research
                     {
-                        obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sci1.combinations[sci2.name];
                         dropdownText.text = $"RESEARCH {sci1.combinations[sci2.name]}";
 
                         if(uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon != null)
                         {
                             obj.transform.GetChild(1).GetComponent<Image>().sprite = uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon;
                         }
+
+                        obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMin = Vector2.zero;
+                        obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMax = Vector2.one;
+                        obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
+                        obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
+                        Destroy(obj.transform.GetChild(0).gameObject);
 
                         //if (activeDropdown) //If the dropdown is active, activate the button
                         //{
@@ -162,6 +183,12 @@ public class DMSlot : MonoBehaviour
         }
 
         PositionDropdown();
+
+        //we only need one child
+        for(int i = 0; i < transform.childCount - 1; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
     }
 
     //==== FUNCTIONS ====
@@ -209,7 +236,7 @@ public class DMSlot : MonoBehaviour
         {
             if (rectTransform.localPosition.y > -rectTransform.rect.height)
             {
-                rectTransform.localPosition = new Vector2(0, rectTransform.localPosition.y - (rectTransform.rect.height * Time.deltaTime));
+                rectTransform.localPosition = new Vector2(0, rectTransform.localPosition.y - (rectTransform.rect.height * Time.deltaTime * 2));
             }
 
             if(rectTransform.localPosition.y < - rectTransform.rect.height)
@@ -221,7 +248,7 @@ public class DMSlot : MonoBehaviour
         {
             if (rectTransform.localPosition.y < 0)
             {
-                rectTransform.localPosition = new Vector2(0, rectTransform.localPosition.y + (rectTransform.rect.height * Time.deltaTime));
+                rectTransform.localPosition = new Vector2(0, rectTransform.localPosition.y + (rectTransform.rect.height * Time.deltaTime * 2));
             }
 
             if(rectTransform.localPosition.y > 0)
