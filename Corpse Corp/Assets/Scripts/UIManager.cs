@@ -313,16 +313,6 @@ public class UIManager : MonoBehaviour
             //Remove Listeners From Boost Button
             dmP.transform.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
 
-            //Grey out the boost button if too expensive (and we are not actively upgrading it)
-            if (dmManager.money < dm.boostCost && !dm.beingBoosted)
-            {
-                dmP.transform.GetChild(2).GetComponent<Image>().color = Color.gray;
-            }
-            else
-            {
-                dmP.transform.GetChild(2).GetComponent<Image>().color = Color.white;
-            }
-
             //Check if Scientist 2 is Null
             if (dm.scientist2name != null) //If Not
             {
@@ -331,11 +321,16 @@ public class UIManager : MonoBehaviour
                 {
                     //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist2name))); });
                     //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartEconCoroutine(dm.boostTime, FindScientist(sciManager, dm.scientist1name), dm, FindScientist(sciManager, dm.scientist2name)); });
+                    dmP.transform.GetChild(2).GetComponent<Image>().color = Color.white;
                     dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate
                     {
                         dmslot.FillBoxes(FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist2name));
                         FindObjectOfType<TabManager>().TabClicked(2);
                     });
+                }
+                else //Change button color to gray if you can't boost
+                {
+                    dmP.transform.GetChild(2).GetComponent<Image>().color = Color.gray;
                 }
             }
             else //If this is a pure DM (no scientist 2 exists)
@@ -345,11 +340,16 @@ public class UIManager : MonoBehaviour
                 {
                     //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dm, FindScientist(sciManager, dm.scientist1name))); });
                     //dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate { StartEconCoroutine(dm.boostTime, FindScientist(sciManager, dm.scientist1name), dm, FindScientist(sciManager, dm.scientist2name)); });
+                    dmP.transform.GetChild(2).GetComponent<Image>().color = Color.white;
                     dmP.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate
                     {
                         dmslot.FillBoxes(FindScientist(sciManager, dm.scientist1name), FindScientist(sciManager, dm.scientist1name));
                         FindObjectOfType<TabManager>().TabClicked(2);
                     });
+                }
+                else //Change button color to gray if you can't boost
+                {
+                    dmP.transform.GetChild(2).GetComponent<Image>().color = Color.gray;
                 }
             }
             //---
