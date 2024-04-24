@@ -47,13 +47,15 @@ public class TabManager : MonoBehaviour
             //enlarge the size of the selected tab so we have an idea of what we are doing here
             if(tabClicked == tab)
             {
-                tab.transform.GetChild(0).localScale = new Vector3(1, 1.2f, 1);
+                //tab.transform.GetChild(0).localScale = new Vector3(1, 1.2f, 1);
                 selectedTab = tab.tabNum;
-                GameObject.FindObjectOfType<TutorialButton>().SwitchToTab(tab.tabNum == 3);
+                tab.transform.GetChild(0).GetComponent<Image>().color = new Color32(221, 121, 115, 255);
+                //GameObject.FindObjectOfType<TutorialButton>().SwitchToTab(tab.tabNum == 3);
             }
             else
             {
-                tab.transform.GetChild(0).localScale = Vector3.one;
+                //tab.transform.GetChild(0).localScale = Vector3.one;
+                tab.transform.GetChild(0).GetComponent<Image>().color = Color.white;
             }
         }
     }
