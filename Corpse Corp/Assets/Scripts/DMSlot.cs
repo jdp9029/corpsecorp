@@ -108,11 +108,6 @@ public class DMSlot : MonoBehaviour
                     obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
                     obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
                     Destroy(obj.transform.GetChild(0).gameObject);
-
-                    //if (activeDropdown) //If the dropdown is active, activate the button
-                    //{
-                    //    dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(uiManager.BoostDMEcon(sci1.mainMethod, sci1)); });
-                    //}
                 }
                 else if (sci1 == null && sci2 != null) //If only box 2 is filled, fill with Sci2 main method
                 {
@@ -128,11 +123,6 @@ public class DMSlot : MonoBehaviour
                     obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
                     obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
                     Destroy(obj.transform.GetChild(0).gameObject);
-
-                    //if (activeDropdown) //If the dropdown is active, activate the button
-                    //{
-                    //    dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(uiManager.BoostDMEcon(sci2.mainMethod, sci2)); });
-                    //}
                 }
                 else //If both boxes are filled, fill with the combo method
                 {
@@ -150,11 +140,6 @@ public class DMSlot : MonoBehaviour
                         obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
                         obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
                         Destroy(obj.transform.GetChild(0).gameObject);
-
-                        //if (activeDropdown) //If the dropdown is active, activate the button
-                        //{
-                        //    dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(uiManager.BoostDMEcon(uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]), sci1, sci2)); });
-                        //}
                     }
                     else //If the death method hasn't been discovered, ask to research
                     {
@@ -170,11 +155,6 @@ public class DMSlot : MonoBehaviour
                         obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
                         obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
                         Destroy(obj.transform.GetChild(0).gameObject);
-
-                        //if (activeDropdown) //If the dropdown is active, activate the button
-                        //{
-                        //    dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(uiManager.StartResearch(sci1, sci2)); });
-                        //}
                     }
                 }
 
