@@ -413,7 +413,7 @@ public class UIManager : MonoBehaviour
                 //dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dmslot.sci1.mainMethod, dmslot.sci1)); });
                 dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
                 {
-                    StartEconCoroutine(dmslot.sci1.mainMethod.boostTime, dmslot.sci1, dmslot.sci1.mainMethod);
+                    StartEconCoroutine(1.5f, dmslot.sci1, dmslot.sci1.mainMethod);
                     sciBox1.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
                 });
             }
@@ -422,7 +422,7 @@ public class UIManager : MonoBehaviour
                 //dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dmslot.sci2.mainMethod, dmslot.sci2)); });
                 dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
                 {
-                    StartEconCoroutine(dmslot.sci2.mainMethod.boostTime, dmslot.sci2, dmslot.sci2.mainMethod);
+                    StartEconCoroutine(1.5f, dmslot.sci2, dmslot.sci2.mainMethod);
                     sciBox2.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
                 });
             }
@@ -434,7 +434,7 @@ public class UIManager : MonoBehaviour
                     dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
                     {
                         DeathMethod dmCombod = FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]);
-                        StartEconCoroutine(dmCombod.boostTime, dmslot.sci1, dmCombod, dmslot.sci2);
+                        StartEconCoroutine(1.5f, dmslot.sci1, dmCombod, dmslot.sci2);
                         sciBox1.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
                         sciBox2.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
                     });
@@ -445,7 +445,7 @@ public class UIManager : MonoBehaviour
                     dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
                     {
                         DeathMethod dmCombod = FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]);
-                        StartResearchCoroutine(dmCombod.researchTime, dmslot.sci1, dmslot.sci2);
+                        StartResearchCoroutine(1.5f, dmslot.sci1, dmslot.sci2);
                         sciBox1.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
                         sciBox2.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
                     });
