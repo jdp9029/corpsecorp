@@ -24,6 +24,8 @@ public class DMSlot : MonoBehaviour
     public Scientist sci1;
     public Scientist sci2;
 
+    [SerializeField] Sprite noComboSprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,26 +65,14 @@ public class DMSlot : MonoBehaviour
                 sci2 = uiManager.FindScientist(scientistManager, SciBox2.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text.Trim());
             }
 
+            //instantiate the object
+            GameObject obj = Instantiate(displayObject, transform);
+            obj.GetComponent<DragDrop>().enabled = false;
+
             //if there are TWO scientists, but they CANNOT be matched, display there are no combo's
-            if(sci1 != null && sci2 != null && !sci1.combinations.ContainsKey(sci2.name))
+            if (sci1 != null && sci2 != null && !sci1.combinations.ContainsKey(sci2.name))
             {
-                //instantiate the object
-
-                GameObject obj = Instantiate(displayObject, transform);
-                obj.GetComponent<DragDrop>().enabled = false;
-                
-                //destroy the img
-                Destroy(obj.transform.GetChild(1).gameObject);
-
-                //center the text
-                obj.transform.GetChild(0).GetComponent<RectTransform>().anchorMin = Vector2.zero;
-                obj.transform.GetChild(0).GetComponent<RectTransform>().anchorMax = Vector2.one;
-                obj.transform.GetChild(0).GetComponent<RectTransform>().offsetMin = Vector2.zero;
-                obj.transform.GetChild(0).GetComponent<RectTransform>().offsetMax = Vector2.zero;
-                obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().verticalAlignment = VerticalAlignmentOptions.Middle;
-
-                //write "no combo"
-                obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "No Combo";
+                obj.transform.GetChild(0).GetComponent<Image>().sprite = noComboSprite;
 
                 activeDropdown = false;
             }
@@ -90,24 +80,14 @@ public class DMSlot : MonoBehaviour
             //if there is a match or if there is not two scientists:
             else
             {
-                //instantiate the object
-                GameObject obj = Instantiate(displayObject, transform);
-                obj.GetComponent<DragDrop>().enabled = false;
-
                 if (sci1 != null && sci2 == null) //If only box 1 is filled, fill with Sci1 main method
                 {
                     dropdownText.text = $"BOOST {sci1.mainMethod.name}";
 
                     if(sci1.mainMethod.Icon != null)
                     {
-                        obj.transform.GetChild(1).GetComponent<Image>().sprite = sci1.mainMethod.Icon;
+                        obj.transform.GetChild(0).GetComponent<Image>().sprite = sci1.mainMethod.Icon;
                     }
-
-                    obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMin = Vector2.zero;
-                    obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMax = Vector2.one;
-                    obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
-                    obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
-                    Destroy(obj.transform.GetChild(0).gameObject);
                 }
                 else if (sci1 == null && sci2 != null) //If only box 2 is filled, fill with Sci2 main method
                 {
@@ -115,14 +95,8 @@ public class DMSlot : MonoBehaviour
 
                     if(sci2.mainMethod.Icon != null)
                     {
-                        obj.transform.GetChild(1).GetComponent<Image>().sprite = sci2.mainMethod.Icon;
+                        obj.transform.GetChild(0).GetComponent<Image>().sprite = sci2.mainMethod.Icon;
                     }
-
-                    obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMin = Vector2.zero;
-                    obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMax = Vector2.one;
-                    obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
-                    obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
-                    Destroy(obj.transform.GetChild(0).gameObject);
                 }
                 else //If both boxes are filled, fill with the combo method
                 {
@@ -132,14 +106,8 @@ public class DMSlot : MonoBehaviour
 
                         if(uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon != null)
                         {
-                            obj.transform.GetChild(1).GetComponent<Image>().sprite = uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon;
+                            obj.transform.GetChild(0).GetComponent<Image>().sprite = uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon;
                         }
-
-                        obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMin = Vector2.zero;
-                        obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMax = Vector2.one;
-                        obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
-                        obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
-                        Destroy(obj.transform.GetChild(0).gameObject);
                     }
                     else //If the death method hasn't been discovered, ask to research
                     {
@@ -147,14 +115,8 @@ public class DMSlot : MonoBehaviour
 
                         if(uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon != null)
                         {
-                            obj.transform.GetChild(1).GetComponent<Image>().sprite = uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon;
+                            obj.transform.GetChild(0).GetComponent<Image>().sprite = uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon;
                         }
-
-                        obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMin = Vector2.zero;
-                        obj.transform.GetChild(1).GetComponent<RectTransform>().anchorMax = Vector2.one;
-                        obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMin = Vector2.zero;
-                        obj.transform.GetChild(1).GetComponent<RectTransform>().offsetMax = Vector2.zero;
-                        Destroy(obj.transform.GetChild(0).gameObject);
                     }
                 }
 

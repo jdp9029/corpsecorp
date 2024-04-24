@@ -2367,12 +2367,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SciBox1: {fileID: 1509963528}
   SciBox2: {fileID: 459724625}
-  displayObject: {fileID: 426447940382314921, guid: 7f4656e6a2431dd458285d807bca74c9, type: 3}
+  displayObject: {fileID: 426447940382314921, guid: b33d6122e9bff524b8f7aa0d24eb8846, type: 3}
   dropdownPanel: {fileID: 352170613}
   dropdownText: {fileID: 132361507}
   activeDropdown: 0
   sci1: {fileID: 0}
   sci2: {fileID: 0}
+  noComboSprite: {fileID: 21300000, guid: 9eb6524d8157ae44f882a8e210ada802, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
