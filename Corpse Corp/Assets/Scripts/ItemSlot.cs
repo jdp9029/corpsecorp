@@ -10,6 +10,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         //Debug.Log("OnDrop");
         if (eventData.pointerDrag != null)
         {
+            if(eventData.pointerDrag.GetComponent<DragDrop>() == null) { return; }
+
             if(transform.childCount == 1)
             {
                 transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
