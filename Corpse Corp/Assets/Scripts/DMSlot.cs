@@ -174,6 +174,10 @@ public class DMSlot : MonoBehaviour
     //==== FUNCTIONS ====
     public void FillBoxes(Scientist sci1, Scientist sci2)
     {
+        //Get reference variables
+        RectTransform sciRect1 = null;
+        RectTransform sciRect2 = null;
+        
         //If either box is filled, clear it
         if (SciBox1.childCount != 0)
         {
@@ -194,17 +198,27 @@ public class DMSlot : MonoBehaviour
             if (invAssetName == sci1.name)
             {
                 //Get Asset and Set Parent & Position
-                RectTransform invRect = GameObject.Find("Combiner Tab").transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetComponent<RectTransform>();
-                invRect.SetParent(SciBox1, false);
-                invRect.localPosition = Vector2.zero;
+                sciRect1 = GameObject.Find("Combiner Tab").transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetComponent<RectTransform>();
+                //sciRect1.SetParent(SciBox1, false);
+                //sciRect1.localPosition = Vector2.zero;
             }
             else if (invAssetName == sci2.name)
             {
                 //Get Asset and Set Parent & Position
-                RectTransform invRect = GameObject.Find("Combiner Tab").transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetComponent<RectTransform>();
-                invRect.SetParent(SciBox2, false);
-                invRect.localPosition = Vector2.zero;
+                sciRect2 = GameObject.Find("Combiner Tab").transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetComponent<RectTransform>();
+                //sciRect2.SetParent(SciBox2, false);
+                //sciRect2.localPosition = Vector2.zero;
             }
+        }
+
+        //Set found scientists to their boxes
+        sciRect1.SetParent(SciBox1, false);
+        sciRect1.localPosition = Vector2.zero;
+
+        if (sciRect2 != null)
+        {
+            sciRect2.SetParent(SciBox2, false);
+            sciRect2.localPosition = Vector2.zero;
         }
     }
 

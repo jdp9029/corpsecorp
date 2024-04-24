@@ -658,7 +658,7 @@ public class UIManager : MonoBehaviour
 
         if (sci2 != null)
         {
-            discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci1.name} and ${sci2.name} are boosting profits for {dm.name}";
+            discoveryInst.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{sci1.name} and {sci2.name} are boosting profits for {dm.name}";
         }
 
         discoveryInst.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
