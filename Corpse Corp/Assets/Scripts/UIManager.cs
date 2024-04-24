@@ -261,7 +261,7 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        //Sort Death Method Prefabs By Price
+        /*//Sort Death Method Prefabs By Price
         for (int i = 0; i < dmPrefabList.Count - 1; i++)
         {
             for (int j = 0; j < dmPrefabList.Count - i - 1; j++)
@@ -287,7 +287,7 @@ public class UIManager : MonoBehaviour
                     dmPrefabList[j + 1] = tempDMPrefab;
                 }
             }
-        }
+        }*/
 
         //Within Each Death Method Prefab...
         foreach(GameObject dmP in dmPrefabList)
