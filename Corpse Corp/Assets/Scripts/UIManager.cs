@@ -408,8 +408,9 @@ public class UIManager : MonoBehaviour
         dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.RemoveAllListeners();
         if (dmslot.activeDropdown) //If the dropdown is active...
         {
-            if (dmslot.sci1 != null && dmslot.sci2 == null) //If only Sci1 is filled, boost Sci1 main method
+            if (dmslot.sci1 != null && dmslot.sci2 == null && dmManager.money >= dmslot.sci1.mainMethod.boostCost)
             {
+                //If only Sci1 is filled, boost Sci1 main method
                 //dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dmslot.sci1.mainMethod, dmslot.sci1)); });
                 dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
                 {
@@ -417,8 +418,9 @@ public class UIManager : MonoBehaviour
                     sciBox1.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
                 });
             }
-            else if (dmslot.sci1 == null && dmslot.sci2 != null) //If only Sci2 is filled, boost Sci2 main method
+            else if (dmslot.sci1 == null && dmslot.sci2 != null && dmManager.money >= dmslot.sci2.mainMethod.boostCost)
             {
+                //If only Sci2 is filled, boost Sci2 main method
                 //dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(dmslot.sci2.mainMethod, dmslot.sci2)); });
                 dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
                 {
@@ -426,9 +428,11 @@ public class UIManager : MonoBehaviour
                     sciBox2.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
                 });
             }
-            else //If both are filled...
-            {
-                if (FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]).active) //If the DM has been discovered, boost it
+            //If both are filled...
+            else if(dmslot.sci1 != null && dmslot.sci2 != null)
+            {   
+                //If the DM has been discovered, boost it
+                if (FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]).active && dmManager.money >= FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]).boostCost)
                 {
                     //dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(BoostDMEcon(FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]), dmslot.sci1, dmslot.sci2)); });
                     dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
@@ -439,8 +443,9 @@ public class UIManager : MonoBehaviour
                         sciBox2.transform.GetChild(0).GetComponent<DragDrop>().ResetPosition();
                     });
                 }
-                else //If it hasn't been discovered, research it
+                else if(!FindDeathMethod(dmManager, dmslot.sci1.combinations[dmslot.sci2.name]).active)
                 {
+                    //If it hasn't been discovered, research it
                     //dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(StartResearch(dmslot.sci1, dmslot.sci2)); });
                     dmslot.dropdownPanel.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate
                     {

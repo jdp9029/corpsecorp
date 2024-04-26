@@ -82,18 +82,33 @@ public class DMSlot : MonoBehaviour
             {
                 if (sci1 != null && sci2 == null) //If only box 1 is filled, fill with Sci1 main method
                 {
-                    dropdownText.text = $"BOOST {sci1.mainMethod.name}";
+                    if(deathMethodManager.money >= sci1.mainMethod.boostCost)
+                    {
+                        dropdownText.text = $"BOOST {sci1.mainMethod.name} FOR ${sci1.mainMethod.boostCost}";
+                    }
+                    else
+                    {
+                        dropdownText.text = $"BOOSTING {sci1.mainMethod.name} TOO EXPENSIVE";
+                    }
 
-                    if(sci1.mainMethod.Icon != null)
+                    if (sci1.mainMethod.Icon != null)
                     {
                         obj.transform.GetChild(0).GetComponent<Image>().sprite = sci1.mainMethod.Icon;
                     }
                 }
                 else if (sci1 == null && sci2 != null) //If only box 2 is filled, fill with Sci2 main method
                 {
-                    dropdownText.text = $"BOOST {sci2.mainMethod.name}";
+                    if(deathMethodManager.money >= sci2.mainMethod.boostCost)
+                    {
+                        dropdownText.text = $"BOOST {sci2.mainMethod.name} FOR ${sci2.mainMethod.boostCost}";
+                    }
+                    else
+                    {
+                        dropdownText.text = $"BOOSTING {sci2.mainMethod.name} TOO EXPENSIVE";
+                    }
 
-                    if(sci2.mainMethod.Icon != null)
+
+                    if (sci2.mainMethod.Icon != null)
                     {
                         obj.transform.GetChild(0).GetComponent<Image>().sprite = sci2.mainMethod.Icon;
                     }
@@ -102,7 +117,15 @@ public class DMSlot : MonoBehaviour
                 {
                     if (uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).active) //If the death method has been discovered, ask to boost
                     {
-                        dropdownText.text = $"BOOST {sci1.combinations[sci2.name]}";
+                        if (deathMethodManager.money >= uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).boostCost)
+                        {
+                            float cost = uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).boostCost;
+                            dropdownText.text = $"BOOST {sci1.combinations[sci2.name]} FOR ${cost}";
+                        }
+                        else
+                        {
+                            dropdownText.text = $"BOOSTING {sci1.combinations[sci2.name]} TOO EXPENSIVE";
+                        }
 
                         if(uiManager.FindDeathMethod(deathMethodManager, sci1.combinations[sci2.name]).Icon != null)
                         {
